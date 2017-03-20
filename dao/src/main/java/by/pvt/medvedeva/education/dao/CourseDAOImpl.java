@@ -16,12 +16,12 @@ public class CourseDAOImpl implements CourseDAO {
 	private final String COLUMN_NAME_COURSE = "course_name";
 	private final String COLUMN_NAME_DURATION = "duration";
 	private final String COLUMN_NAME_AUDITORIUM = "auditorium";
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
 
 	@Override
 	public ArrayList<Course> getAllCoursesInfo() {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
 		ArrayList<Course> allCourses = new ArrayList<>();
 		try {
 			ConnectionPool pool = new ConnectionPool();
@@ -58,12 +58,10 @@ public class CourseDAOImpl implements CourseDAO {
 
 	@Override
 	public void addCourse(final Course course) {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-		try {
+				try {
 			ConnectionPool pool = new ConnectionPool();
-			conn = pool.getConnect();
-			preparedStatement = conn.prepareStatement(SQL_QUERY_ADD_COURSE);
+                    connection = pool.getConnect();
+			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_COURSE);
 			preparedStatement.setString(1, course.getName());
 			preparedStatement.setInt(2, course.getDuration());
 			preparedStatement.setInt(3, course.getAuditorium());
@@ -77,8 +75,8 @@ public class CourseDAOImpl implements CourseDAO {
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
-				if (conn != null) {
-					conn.close();
+				if (connection != null) {
+                    connection.close();
 				}
 			} catch (SQLException e) {
 
