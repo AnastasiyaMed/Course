@@ -10,6 +10,7 @@ import by.pvt.medvedeva.education.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * @author Anastasiya Medvedeva
@@ -26,7 +27,11 @@ public class SetStudentRoleCommand implements ActionCommand {
 		String login = (String) session.getAttribute(PARAM_NAME_LOGIN);
 		StudentService studentService = new StudentService();
 		UserService userService = new UserService();
-		studentService.addStudent(studentService.initStudent(userService.getUser(login)));
+		try {
+			studentService.addStudent(studentService.initStudent(userService.getUser(login)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		request.setAttribute("user", login);
 		session.setAttribute("userType", ClientType.STUDENT);
 

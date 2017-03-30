@@ -8,7 +8,6 @@ import by.pvt.medvedeva.education.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.SQLException;
 
 public class LoginCommand implements ActionCommand {
 	private static final String PARAM_NAME_LOGIN = "login";
@@ -25,8 +24,7 @@ public class LoginCommand implements ActionCommand {
 		// извлечение из запроса логина и пароля
 		String login = request.getParameter(PARAM_NAME_LOGIN);
 		String pass = request.getParameter(PARAM_NAME_PASSWORD);
-		try {
-			if (!userService.checkLogin(login)) {
+					if (!userService.checkLogin(login)) {
 				// проверка логина и пароля
 				if ((LoginLogic.checkUserRole(login) == ADMIN_ROLE) && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
 					HttpSession session = request.getSession(true);
@@ -61,10 +59,7 @@ public class LoginCommand implements ActionCommand {
 				request.getSession().setAttribute("userType", ClientType.GUEST);
 				page = ConfigurationManager.getProperty("path.page.login");
 			}
-		} catch (SQLException e) {
 
-			e.printStackTrace();
-		}
 
 		return page;
 	}

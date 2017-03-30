@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 
 public class UserDAOImpl implements UserDAO {
@@ -16,12 +17,13 @@ public class UserDAOImpl implements UserDAO {
 	public static final String SQL_QUERY_CHECK_LOGIN = "SELECT login  FROM user WHERE user.login = ?";
 
 	@Override
-	public void addUser(User user) {
+	public void addUser(User user)  {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		try {
 			ConnectionPool pool = new ConnectionPool();
-			conn = pool.getConnect();
+			Properties properties = pool.getConnectProperties();
+			conn = pool.getConnect(properties);
 			preparedStatement = conn.prepareStatement(SQL_QUERY_ADD_USER);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getSurname());
@@ -29,8 +31,9 @@ public class UserDAOImpl implements UserDAO {
 			preparedStatement.setString(4, user.getPassword());
 			preparedStatement.setInt(5, user.getRole());
 			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
 
+		}
+			catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -41,30 +44,29 @@ public class UserDAOImpl implements UserDAO {
 					conn.close();
 				}
 			} catch (SQLException e) {
-
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	@Override
-	public User getUserByLogin(final String login) {
+	public User getUserByLogin(final String login)  {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		User user = null;
 		try {
 			ConnectionPool pool = new ConnectionPool();
-			conn = pool.getConnect();
+			Properties properties = pool.getConnectProperties();
+			conn = pool.getConnect(properties);
 			preparedStatement = conn.prepareStatement(SQL_QUERY_GET_USER);
 			preparedStatement.setString(1, login);
 			resultSet = preparedStatement.executeQuery();
 			user = initUser(resultSet);
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-		} finally {
+			}
+		finally {
 			try {
 				if (resultSet != null) {
 					resultSet.close();
@@ -76,15 +78,15 @@ public class UserDAOImpl implements UserDAO {
 					conn.close();
 				}
 			} catch (SQLException e) {
-
 				e.printStackTrace();
 			}
 		}
 		return user;
 	}
 
-	private User initUser(ResultSet resultSet) throws SQLException {
+	private User initUser(ResultSet resultSet)  {
 		User user = new User();
+		try {
 		while (resultSet.next()) {
 			user.setIdUser(resultSet.getInt(1));
 			user.setName(resultSet.getString(2));
@@ -92,14 +94,20 @@ public class UserDAOImpl implements UserDAO {
 			user.setLogin(resultSet.getString(4));
 			user.setPassword(resultSet.getString(5));
 			user.setRole(resultSet.getInt(6));
-		}
-		return user;
+			} }
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+				return user;
 	}
+
+
 
 	@Override
 	public boolean CheckLogin(String login) throws SQLException {
 		ConnectionPool pool = new ConnectionPool();
-		Connection connection = pool.getConnect();
+		Properties properties = pool.getConnectProperties();
+		Connection connection = pool.getConnect(properties);
 		PreparedStatement ps = null;
 		String query = SQL_QUERY_CHECK_LOGIN;
 		ps = connection.prepareStatement(query);
@@ -112,5 +120,4 @@ public class UserDAOImpl implements UserDAO {
 			connection.close();
 		return true;
 	}
-
 }

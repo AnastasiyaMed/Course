@@ -10,6 +10,7 @@ import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.entity.User;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class UserService {
 		userDAO = new UserDAOImpl();
 	}
 
-	public User getUser(String enterLogin) {
+	public User getUser(String enterLogin) throws IOException {
 		return userDAO.getUserByLogin(enterLogin);
 	}
 
@@ -34,20 +35,27 @@ public class UserService {
 		courseDAO.addCourse(course);
 	}
 
-	public void addUser(User user) {
-		userDAO.addUser(user);
+	public void addUser(User user)  {
+
+			userDAO.addUser(user);
 	}
 
-	public List<Course> getAllCoursesInfo() throws SQLException {
+	public List<Course> getAllCoursesInfo() {
 		CourseDAO courseDAO = new CourseDAOImpl();
 
 		return courseDAO.getAllCoursesInfo();
 	}
 
-	public boolean checkLogin(String login) throws SQLException {
-		return userDAO.CheckLogin(login);
-
+	public boolean checkLogin(String login)  {
+		boolean resultCheckLogin = true;
+		try {
+			resultCheckLogin = userDAO.CheckLogin(login);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultCheckLogin;
 	}
+
 
 	public User setUserByRole(User user, int userRole) {
 		User userByRole = null;
@@ -62,8 +70,6 @@ public class UserService {
 		}
 		if (userRole == 3) {
 			userByRole = user;
-		} else {
-
 		}
 		return userByRole;
 	}

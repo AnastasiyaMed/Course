@@ -5,7 +5,6 @@ import by.pvt.medvedeva.education.resource.ConfigurationManager;
 import by.pvt.medvedeva.education.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 import java.util.List;
 
 public class GetCoursesListCommand implements ActionCommand {
@@ -16,17 +15,14 @@ public class GetCoursesListCommand implements ActionCommand {
 		UserService userService = new UserService();
 		List<Course> list;
 
-		try {
+
 			list = userService.getAllCoursesInfo();
 			int listSize = list.size();
 			request.setAttribute("list", list);
 			request.setAttribute("listSize", listSize);
 			page = ConfigurationManager.getProperty("path.page.allcourses");
 
-		} catch (SQLException e) {
-			e.printStackTrace();
 
-		}
 
 		return page;
 	}

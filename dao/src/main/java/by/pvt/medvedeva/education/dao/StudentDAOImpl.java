@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 
 /**
@@ -29,7 +30,8 @@ public class StudentDAOImpl implements StudentDAO {
 		Student student = new Student();
 		try {
 			ConnectionPool pool = new ConnectionPool();
-			connection = pool.getConnect();
+			Properties properties = pool.getConnectProperties();
+			connection = pool.getConnect(properties);
 			int idUser = user.getIdUser();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_STUDENT);
 			preparedStatement.setInt(1, idUser);
@@ -50,7 +52,7 @@ public class StudentDAOImpl implements StudentDAO {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-		} finally {
+		}  finally {
 			try {
 				if (resultSet != null) {
 					resultSet.close();
@@ -62,7 +64,6 @@ public class StudentDAOImpl implements StudentDAO {
 					connection.close();
 				}
 			} catch (SQLException e) {
-
 				e.printStackTrace();
 			}
 		}
@@ -72,18 +73,21 @@ public class StudentDAOImpl implements StudentDAO {
 
 
 	@Override
-	public void addStudent(Student student) {
+	public void addStudent(Student student)  {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		try {
-						ConnectionPool pool = new ConnectionPool();
-			conn = pool.getConnect();
+			ConnectionPool pool = new ConnectionPool();
+			Properties properties = null;
+			properties = pool.getConnectProperties();
+			conn = pool.getConnect(properties);
+
 			preparedStatement = conn.prepareStatement(SQL_QUERY_ADD_STUDENT);
 			preparedStatement.setInt(1, student.getLevel());
 			preparedStatement.setDouble(2, student.getAverage());
 			preparedStatement.setString(3, student.getStudentIdCard());
 			preparedStatement.setInt(4, student.getIdUser());
-					preparedStatement.executeUpdate();
+			preparedStatement.executeUpdate();
 			if (preparedStatement != null) {
 				preparedStatement.close();
 			}
@@ -102,7 +106,6 @@ public class StudentDAOImpl implements StudentDAO {
 					conn.close();
 				}
 			} catch (SQLException e) {
-
 				e.printStackTrace();
 			}
 		}

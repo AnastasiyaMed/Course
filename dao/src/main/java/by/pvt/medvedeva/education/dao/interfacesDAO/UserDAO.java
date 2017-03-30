@@ -1,8 +1,8 @@
 package by.pvt.medvedeva.education.dao.interfacesDAO;
 
-import java.sql.SQLException;
-
 import by.pvt.medvedeva.education.entity.User;
+
+import java.sql.SQLException;
 
 public interface UserDAO {
 
