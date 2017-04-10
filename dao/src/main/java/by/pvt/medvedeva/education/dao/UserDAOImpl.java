@@ -105,6 +105,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public boolean CheckLogin(String login) throws SQLException {
+		boolean checkedLogin = true;
 		ConnectionPool pool = new ConnectionPool();
 		Properties properties = pool.getConnectProperties();
 		Connection connection = pool.getConnect(properties);
@@ -115,9 +116,11 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet result = ps.executeQuery();
 		if (result.next()) {
 			connection.close();
-			return false;
-		} else
-			connection.close();
-		return true;
+			checkedLogin = false;
+		} else {
+			checkedLogin = false;
+			connection.close();}
+		return checkedLogin;
 	}
+
 }

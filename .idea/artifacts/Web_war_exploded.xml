@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="web:war exploded">
-    <output-path>$PROJECT_DIR$/Web/target/Web</output-path>
+  <artifact type="exploded-war" name="Web:war exploded">
+    <output-path>$PROJECT_DIR$/Web/target/Course</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="web" />
+          <element id="module-output" name="Web" />
         </element>
         <element id="directory" name="lib">
           <element id="archive" name="services-1.0.2.jar">
@@ -129,7 +129,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/Web/target/Web/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/Web/target/Course/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="Web/web/Web" />
     </root>

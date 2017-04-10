@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import by.pvt.medvedeva.education.command.ActionCommand;
 import by.pvt.medvedeva.education.command.EmptyCommand;
 import by.pvt.medvedeva.education.command.client.CommandEnum;
-import by.pvt.medvedeva.education.resource.MessageManager;
+import by.pvt.medvedeva.education.filter.MessageManager;
 
 public class ActionFactory {
   public ActionCommand defineCommand(HttpServletRequest request) {

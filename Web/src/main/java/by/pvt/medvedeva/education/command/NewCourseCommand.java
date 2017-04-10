@@ -5,7 +5,7 @@ package by.pvt.medvedeva.education.command;
 
 import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
-import by.pvt.medvedeva.education.resource.MessageManager;
+import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

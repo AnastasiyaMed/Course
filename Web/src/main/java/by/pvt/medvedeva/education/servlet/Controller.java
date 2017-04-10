@@ -3,7 +3,7 @@ package by.pvt.medvedeva.education.servlet;
 import by.pvt.medvedeva.education.command.ActionCommand;
 import by.pvt.medvedeva.education.command.factory.ActionFactory;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
-import by.pvt.medvedeva.education.resource.MessageManager;
+import by.pvt.medvedeva.education.filter.MessageManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

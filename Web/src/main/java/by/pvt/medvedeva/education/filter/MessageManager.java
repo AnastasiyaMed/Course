@@ -1,4 +1,4 @@
-package by.pvt.medvedeva.education.resource;
+package by.pvt.medvedeva.education.filter;
 
         import java.util.ResourceBundle;
 
