@@ -1,7 +1,7 @@
 
 package by.pvt.medvedeva.education.entity;
 
-public class User {
+public class User extends Entity {
 	int idUser;
 	String name;
 	String surname;

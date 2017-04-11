@@ -41,7 +41,7 @@ public class RegistrCommand implements ActionCommand {
 			return page = ConfigurationManager.getProperty("path.page.registr");
 		}
 
-		if (!userService.checkLogin(user.getLogin())) {
+		if (userService.checkLogin(user.getLogin())) {
 			request.setAttribute("errorRegistrUserMessage", MessageManager.getProperty("message.register.user.error"));
 			request.setAttribute("userType", ClientType.GUEST);
 			return page = ConfigurationManager.getProperty("path.page.registr");

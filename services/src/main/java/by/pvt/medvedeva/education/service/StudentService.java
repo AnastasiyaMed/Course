@@ -8,8 +8,6 @@ import by.pvt.medvedeva.education.dao.interfacesDAO.StudentDAO;
 import by.pvt.medvedeva.education.entity.Student;
 import by.pvt.medvedeva.education.entity.User;
 
-import java.io.IOException;
-
 
 /**
  * @author Anastasiya Medvedeva
@@ -23,19 +21,15 @@ public class StudentService {
 	}
 
 	public Student initStudent(User user) {
-		return studentDAO.initStudent(user);
+		return (Student) studentDAO.initStudent(user);
 	}
 
 	public void addStudent(Student student) {
-		try {
-			studentDAO.addStudent(student);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		StudentDAOImpl.getInstance().create(student);
 	}
 
 	public Student getStudent(User user) {
-		Student student = studentDAO.initStudent(user);
+		Student student = (Student) studentDAO.initStudent(user);
 				return student;
 	}
 

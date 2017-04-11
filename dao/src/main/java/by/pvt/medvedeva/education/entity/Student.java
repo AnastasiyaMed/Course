@@ -10,7 +10,7 @@ package by.pvt.medvedeva.education.entity;
  *
  */
 
-public class Student extends User {
+public class Student extends User  {
 
 	private int idStudent;
 	private int level;

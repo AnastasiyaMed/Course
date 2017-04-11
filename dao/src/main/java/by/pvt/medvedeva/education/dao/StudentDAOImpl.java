@@ -1,6 +1,7 @@
 
 package by.pvt.medvedeva.education.dao;
 
+import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.StudentDAO;
 import by.pvt.medvedeva.education.entity.Student;
 import by.pvt.medvedeva.education.entity.User;
@@ -16,11 +17,22 @@ import java.util.Properties;
  * @author Medvedeva Anastasiya
  *
  */
-public class StudentDAOImpl implements StudentDAO {
+public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<Student> {
 	public static final String SQL_QUERY_GET_STUDENT = "SELECT * FROM student, user  WHERE student.user_user_id = user.user_id AND user.user_id = ?;";
 	public static final String SQL_QUERY_ADD_STUDENT = "INSERT INTO `education`.`student` (`level`, `average`, `student_id_card`, `user_user_id`) VALUES (?,?,?,?)";
 	public static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `education`.`user` SET `role`='1' WHERE  user.user_id = ?";
 	private final static int STUDENT_ROLE = 1;
+	private static StudentDAOImpl instance;
+	/**
+	 * Singleton-fabric
+	 *
+	 */
+	public static StudentDAOImpl getInstance() {
+		if (instance == null) {
+			instance = new StudentDAOImpl();
+		}
+		return instance;
+	}
 
 	@Override
 	public Student initStudent(User user) {
@@ -73,7 +85,8 @@ public class StudentDAOImpl implements StudentDAO {
 
 
 	@Override
-	public void addStudent(Student student)  {
+	//public void addStudent(Student student)  {
+			public void create (Student student)  {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		try {
