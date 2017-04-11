@@ -3,7 +3,8 @@
  */
 package by.pvt.medvedeva.education.dao;
 
-        import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
+import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
+import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.entity.User;
 
@@ -16,11 +17,22 @@ import java.util.Properties;
 /**
  * @author Medvedeva Anastasiya
  */
-public class TeacherDAOImpl implements TeacherDAO {
+public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<Teacher>  {
     public static final String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, user, course  WHERE teacher.user_user_id = user.user_id AND course.teacher_teacher_id = teacher.teacher_id  AND user.user_id = ? ;";
     public static final String SQL_QUERY_ADD_TEACHER = "INSERT INTO `education`.`teacher` (`user_user_id`) VALUES (?)";
     public static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `education`.`user` SET `role`='2' WHERE  user.user_id = ?";
     private final static int TEACHER_ROLE = 2;
+    private static TeacherDAOImpl instance;
+    /**
+     * Singleton-fabric
+     *
+     */
+    public static TeacherDAOImpl getInstance() {
+        if (instance == null) {
+            instance = new TeacherDAOImpl();
+        }
+        return instance;
+    }
 
     @Override
     public Teacher initTeacher(User user) {
@@ -67,7 +79,8 @@ public class TeacherDAOImpl implements TeacherDAO {
     }
 
     @Override
-    public void addTeacher(Teacher teacher) {
+//    public void addTeacher(Teacher teacher) {
+    public void create(Teacher teacher) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;
         try {

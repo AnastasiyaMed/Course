@@ -12,10 +12,10 @@ import java.io.IOException;
  * @author Medvedeva Anastasiya
  *
  */
-public interface TeacherDAO {
+public interface TeacherDAO <Student>{
 
 	Teacher initTeacher(User user) throws IOException;
 
-	void addTeacher(Teacher teacher) throws IOException;
+	//void addTeacher(Teacher teacher) throws IOException;
 
 }

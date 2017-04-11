@@ -33,11 +33,7 @@ public class TeacherService {
 	}
 
 	public void addTeacher(Teacher teacher) {
-		try {
-			teacherDAO.addTeacher(teacher);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		TeacherDAOImpl.getInstance().create(teacher);
 	}
 
 	public Teacher getTeacher(User user) {

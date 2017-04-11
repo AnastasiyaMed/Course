@@ -14,7 +14,7 @@ public interface StudentDAO <Student> {
 
 	Student initStudent(User user);
 
-	//void addStudent(Student student) throws IOException;
+
 
 
 }
