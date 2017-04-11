@@ -104,22 +104,27 @@ public class UserDAOImpl implements UserDAO {
 
 
 	@Override
-	public boolean CheckLogin(String login) throws SQLException {
+	public boolean CheckLogin(String login)  {
 		boolean checkedLogin = true;
 		ConnectionPool pool = new ConnectionPool();
 		Properties properties = pool.getConnectProperties();
 		Connection connection = pool.getConnect(properties);
 		PreparedStatement ps = null;
 		String query = SQL_QUERY_CHECK_LOGIN;
-		ps = connection.prepareStatement(query);
+		try {
+			ps = connection.prepareStatement(query);
+
 		ps.setString(1, login);
 		ResultSet result = ps.executeQuery();
-		if (result.next()) {
+				if (result.next()) {
 			connection.close();
 			checkedLogin = false;
 		} else {
 			checkedLogin = false;
 			connection.close();}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return checkedLogin;
 	}
 

@@ -11,7 +11,6 @@ import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.entity.User;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -31,8 +30,7 @@ public class UserService {
 	}
 
 	public void addNewCourse(Course course) {
-		CourseDAO courseDAO = new CourseDAOImpl();
-		courseDAO.addCourse(course);
+		CourseDAOImpl.getInstance().create(course);
 	}
 
 	public void addUser(User user)  {
@@ -48,11 +46,7 @@ public class UserService {
 
 	public boolean checkLogin(String login)  {
 		boolean resultCheckLogin = true;
-		try {
-			resultCheckLogin = userDAO.CheckLogin(login);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		resultCheckLogin = userDAO.CheckLogin(login);
 		return resultCheckLogin;
 	}
 

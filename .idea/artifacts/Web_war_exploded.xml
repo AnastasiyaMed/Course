@@ -126,6 +126,7 @@
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.5" />
           <element id="library" level="project" name="Maven: net.snaq:dbpool:7.0.1" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.21" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.16" />
         </element>
       </element>
       <element id="directory" name="META-INF">

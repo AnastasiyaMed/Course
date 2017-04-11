@@ -7,7 +7,7 @@ package by.pvt.medvedeva.education.entity;
  * @author Anastasiya Medvedeva
  *
  */
-public class Course {
+public class Course extends Entity {
 
 	String name;
 	int duration;
@@ -15,9 +15,11 @@ public class Course {
 	int idTeacher;
 
 	public Course() {
+		super();
 	}
 
 	public Course(String name, int duration, int auditorium, int idTeacher) {
+		super();
 		this.name = name;
 		this.duration = duration;
 		this.auditorium = auditorium;

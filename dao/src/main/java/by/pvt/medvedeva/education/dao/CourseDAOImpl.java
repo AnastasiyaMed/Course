@@ -1,32 +1,68 @@
 package by.pvt.medvedeva.education.dao;
 
+import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.CourseDAO;
 import by.pvt.medvedeva.education.entity.Course;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
 
-public class CourseDAOImpl implements CourseDAO {
+public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Course>   {
     public static final String SQL_QUERY_GET_ALL_COURSES = "SELECT *  FROM course";
     public static final String SQL_QUERY_ADD_COURSE = "INSERT INTO course (course_name, duration, auditorium, teacher_teacher_id) VALUES (?,?,?,?)";
     private final String COLUMN_NAME_COURSE = "course_name";
     private final String COLUMN_NAME_DURATION = "duration";
     private final String COLUMN_NAME_AUDITORIUM = "auditorium";
-    Connection connection = null;
+    private static CourseDAOImpl instance;
     ConnectionPool pool = new ConnectionPool();
+    /**
+     * Singleton-fabric
+     *
+     */
+    public static CourseDAOImpl getInstance() {
+        if (instance == null) {
+            instance = new CourseDAOImpl();
+        }
+        return instance;
+    }
 
+
+    @Override
+    public void create(Course course) {
+        ConnectionPool pool = new ConnectionPool();
+        try {
+            Properties properties = pool.getConnectProperties();
+            connection = pool.getConnect(properties);
+            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_COURSE);
+            preparedStatement.setString(1, course.getName());
+            preparedStatement.setInt(2, course.getDuration());
+            preparedStatement.setInt(3, course.getAuditorium());
+            preparedStatement.setInt(4, course.getIdTeacher());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public ArrayList <Course> getAllCoursesInfo() {
         ArrayList <Course> allCourses = new ArrayList <>();
 
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+
         try {
 
             Properties properties = pool.getConnectProperties();
@@ -61,35 +97,11 @@ public class CourseDAOImpl implements CourseDAO {
         return allCourses;
     }
 
-    @Override
-    public void addCourse(final Course course) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        ConnectionPool pool = new ConnectionPool();
-        try {
-            Properties properties = pool.getConnectProperties();
-            connection = pool.getConnect(properties);
-            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_COURSE);
-            preparedStatement.setString(1, course.getName());
-            preparedStatement.setInt(2, course.getDuration());
-            preparedStatement.setInt(3, course.getAuditorium());
-            preparedStatement.setInt(4, course.getIdTeacher());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
 
-                e.printStackTrace();
-            }
-        }
     }
-}
+
+
+
+
+
+
