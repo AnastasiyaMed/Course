@@ -79,7 +79,6 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
     }
 
     @Override
-//    public void addTeacher(Teacher teacher) {
     public void create(Teacher teacher) {
         Connection conn = null;
         PreparedStatement preparedStatement = null;

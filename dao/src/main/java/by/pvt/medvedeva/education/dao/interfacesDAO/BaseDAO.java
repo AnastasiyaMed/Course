@@ -7,5 +7,5 @@ public interface BaseDAO<T extends Entity> {
      void create (T entity);
 
 
-  //  void addNewEntity(Course course);
+
 }

@@ -25,7 +25,7 @@ public class TeacherService {
 	public Teacher initTeacher(User user) {
 		Teacher teacher= null;
 		try {
-			teacher = teacherDAO.initTeacher(user);
+			teacher = (Teacher) teacherDAO.initTeacher(user);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -39,7 +39,7 @@ public class TeacherService {
 	public Teacher getTeacher(User user) {
 		Teacher teacher = null;
 		try {
-			teacher = teacherDAO.initTeacher(user);
+			teacher = (Teacher) teacherDAO.initTeacher(user);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

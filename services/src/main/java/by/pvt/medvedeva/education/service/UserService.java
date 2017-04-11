@@ -26,7 +26,7 @@ public class UserService {
 	}
 
 	public User getUser(String enterLogin) throws IOException {
-		return userDAO.getUserByLogin(enterLogin);
+		return (User) userDAO.getUserByLogin(enterLogin);
 	}
 
 	public void addNewCourse(Course course) {
@@ -34,8 +34,7 @@ public class UserService {
 	}
 
 	public void addUser(User user)  {
-
-			userDAO.addUser(user);
+    UserDAOImpl.getInstance().create(user);
 	}
 
 	public List<Course> getAllCoursesInfo() {

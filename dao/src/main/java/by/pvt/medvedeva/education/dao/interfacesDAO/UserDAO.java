@@ -1,12 +1,10 @@
 package by.pvt.medvedeva.education.dao.interfacesDAO;
 
-import by.pvt.medvedeva.education.entity.User;
-
-public interface UserDAO {
+public interface UserDAO  <User>{
 
 	User getUserByLogin(final String login);
 
-	void addUser(final User user);
+//	void addUser(final User user);
 
 
 	boolean CheckLogin(String login);

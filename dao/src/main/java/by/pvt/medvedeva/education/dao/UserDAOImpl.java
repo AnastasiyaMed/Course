@@ -1,5 +1,6 @@
 package by.pvt.medvedeva.education.dao;
 
+import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.User;
 
@@ -10,14 +11,26 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 
 	public static final String SQL_QUERY_ADD_USER = "INSERT INTO user (name, surname, login, password, role) VALUES (?,?,?,?,?)";
 	public static final String SQL_QUERY_GET_USER = "SELECT *  FROM user WHERE user.login = ?";
 	public static final String SQL_QUERY_CHECK_LOGIN = "SELECT login  FROM user WHERE user.login = ?";
+	private static UserDAOImpl instance;
+	/**
+	 * Singleton-fabric
+	 *
+	 */
+	public static UserDAOImpl getInstance() {
+		if (instance == null) {
+			instance = new UserDAOImpl();
+		}
+		return instance;
+	}
 
 	@Override
-	public void addUser(User user)  {
+	public void create(User user) {
+	// public void addUser(User user)  {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -127,5 +140,6 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return checkedLogin;
 	}
+
 
 }
