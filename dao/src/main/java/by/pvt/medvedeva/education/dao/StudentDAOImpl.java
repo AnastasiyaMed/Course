@@ -6,7 +6,6 @@ import by.pvt.medvedeva.education.dao.interfacesDAO.StudentDAO;
 import by.pvt.medvedeva.education.entity.Student;
 import by.pvt.medvedeva.education.entity.User;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,14 +35,12 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 
 	@Override
 	public Student initStudent(User user) {
-			Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Student student = new Student();
 		try {
-			ConnectionPool pool = new ConnectionPool();
-			Properties properties = pool.getConnectProperties();
-			connection = pool.getConnect(properties);
+			Properties properties = ConnectionPool.getInstance().getConnectProperties();
+			connection = ConnectionPool.getInstance().getConnect(properties);
 			int idUser = user.getIdUser();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_STUDENT);
 			preparedStatement.setInt(1, idUser);
@@ -85,17 +82,14 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 
 
 	@Override
-	//public void addStudent(Student student)  {
-			public void create (Student student)  {
-		Connection conn = null;
+		public void create (Student student)  {
 		PreparedStatement preparedStatement = null;
 		try {
-			ConnectionPool pool = new ConnectionPool();
 			Properties properties = null;
-			properties = pool.getConnectProperties();
-			conn = pool.getConnect(properties);
+			properties = ConnectionPool.getInstance().getConnectProperties();
+			connection = ConnectionPool.getInstance().getConnect(properties);
 
-			preparedStatement = conn.prepareStatement(SQL_QUERY_ADD_STUDENT);
+			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_STUDENT);
 			preparedStatement.setInt(1, student.getLevel());
 			preparedStatement.setDouble(2, student.getAverage());
 			preparedStatement.setString(3, student.getStudentIdCard());
@@ -104,7 +98,7 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 			if (preparedStatement != null) {
 				preparedStatement.close();
 			}
-			preparedStatement = conn.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
+			preparedStatement = connection.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
 			preparedStatement.setInt(1, student.getIdUser());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -115,8 +109,8 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
-				if (conn != null) {
-					conn.close();
+				if (connection != null) {
+					connection.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -124,6 +118,4 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 		}
 	}
 	}
-
-
 

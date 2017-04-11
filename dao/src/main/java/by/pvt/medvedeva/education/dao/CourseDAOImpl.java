@@ -16,8 +16,8 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
     private final String COLUMN_NAME_DURATION = "duration";
     private final String COLUMN_NAME_AUDITORIUM = "auditorium";
     private static CourseDAOImpl instance;
-    ConnectionPool pool = new ConnectionPool();
-    /**
+
+     /**
      * Singleton-fabric
      *
      */
@@ -28,13 +28,11 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
         return instance;
     }
 
-
     @Override
     public void create(Course course) {
-        ConnectionPool pool = new ConnectionPool();
         try {
-            Properties properties = pool.getConnectProperties();
-            connection = pool.getConnect(properties);
+            Properties properties = ConnectionPool.getInstance().getConnectProperties();
+            connection = ConnectionPool.getInstance().getConnect(properties);
             preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_COURSE);
             preparedStatement.setString(1, course.getName());
             preparedStatement.setInt(2, course.getDuration());
@@ -62,11 +60,10 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
     public ArrayList <Course> getAllCoursesInfo() {
         ArrayList <Course> allCourses = new ArrayList <>();
 
-
         try {
 
-            Properties properties = pool.getConnectProperties();
-            connection = pool.getConnect(properties);
+            Properties properties = ConnectionPool.getInstance().getConnectProperties();
+            connection = ConnectionPool.getInstance().getConnect(properties);
             preparedStatement = connection.prepareStatement(SQL_QUERY_GET_ALL_COURSES);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

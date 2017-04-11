@@ -30,14 +30,11 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 
 	@Override
 	public void create(User user) {
-	// public void addUser(User user)  {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
+	    PreparedStatement preparedStatement = null;
 		try {
-			ConnectionPool pool = new ConnectionPool();
-			Properties properties = pool.getConnectProperties();
-			conn = pool.getConnect(properties);
-			preparedStatement = conn.prepareStatement(SQL_QUERY_ADD_USER);
+			Properties properties = ConnectionPool.getInstance().getConnectProperties();
+			connection = ConnectionPool.getInstance().getConnect(properties);
+			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_USER);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getSurname());
 			preparedStatement.setString(3, user.getLogin());
@@ -53,8 +50,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
-				if (conn != null) {
-					conn.close();
+				if (connection != null) {
+					connection.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -64,15 +61,13 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 
 	@Override
 	public User getUserByLogin(final String login)  {
-		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		User user = null;
 		try {
-			ConnectionPool pool = new ConnectionPool();
-			Properties properties = pool.getConnectProperties();
-			conn = pool.getConnect(properties);
-			preparedStatement = conn.prepareStatement(SQL_QUERY_GET_USER);
+			Properties properties = ConnectionPool.getInstance().getConnectProperties();
+			connection = ConnectionPool.getInstance().getConnect(properties);
+			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_USER);
 			preparedStatement.setString(1, login);
 			resultSet = preparedStatement.executeQuery();
 			user = initUser(resultSet);
@@ -87,8 +82,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
-				if (conn != null) {
-					conn.close();
+				if (connection != null) {
+					connection.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -119,9 +114,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	@Override
 	public boolean CheckLogin(String login)  {
 		boolean checkedLogin = true;
-		ConnectionPool pool = new ConnectionPool();
-		Properties properties = pool.getConnectProperties();
-		Connection connection = pool.getConnect(properties);
+		Properties properties = ConnectionPool.getInstance().getConnectProperties();
+		Connection connection = ConnectionPool.getInstance().getConnect(properties);
 		PreparedStatement ps = null;
 		String query = SQL_QUERY_CHECK_LOGIN;
 		try {

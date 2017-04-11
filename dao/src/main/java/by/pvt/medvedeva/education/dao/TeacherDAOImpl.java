@@ -8,7 +8,6 @@ import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.entity.User;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,14 +36,12 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
     @Override
     public Teacher initTeacher(User user) {
 
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Teacher teacher = new Teacher();
         try {
-            ConnectionPool pool = new ConnectionPool();
-            Properties properties = pool.getConnectProperties();
-            connection = pool.getConnect(properties);
+           Properties properties = ConnectionPool.getInstance().getConnectProperties();
+            connection =ConnectionPool.getInstance().getConnect(properties);
             int IdUser = user.getIdUser();
             preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHER);
             preparedStatement.setInt(1, IdUser);
@@ -80,19 +77,17 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
 
     @Override
     public void create(Teacher teacher) {
-        Connection conn = null;
-        PreparedStatement preparedStatement = null;
+         PreparedStatement preparedStatement = null;
         try {
-            ConnectionPool pool = new ConnectionPool();
-            Properties properties = pool.getConnectProperties();
-            conn = pool.getConnect(properties);
-            preparedStatement = conn.prepareStatement(SQL_QUERY_ADD_TEACHER);
+            Properties properties = ConnectionPool.getInstance().getConnectProperties();
+            connection = ConnectionPool.getInstance().getConnect(properties);
+            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_TEACHER);
             preparedStatement.setInt(1, teacher.getIdUser());
             preparedStatement.executeUpdate();
             if (preparedStatement != null) {
                 preparedStatement.close();
             }
-            preparedStatement = conn.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
+            preparedStatement = connection.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
             preparedStatement.setInt(1, teacher.getIdUser());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -102,8 +97,8 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
-                if (conn != null) {
-                    conn.close();
+                if (connection != null) {
+                    connection.close();
                 }
             } catch (SQLException e) {
 

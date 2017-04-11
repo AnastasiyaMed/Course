@@ -14,6 +14,18 @@ import java.util.Properties;
  *
  */
 public class ConnectionPool {
+    private static  ConnectionPool instance;
+
+
+    /**
+     * Singleton
+     */
+    public static ConnectionPool getInstance() {
+                if (instance == null) {
+                instance = new ConnectionPool();
+                }
+    return instance;
+    }
 
 
      public Properties getConnectProperties ()  {
