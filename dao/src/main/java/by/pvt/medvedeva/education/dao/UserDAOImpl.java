@@ -32,8 +32,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	public void create(User user) {
 	    PreparedStatement preparedStatement = null;
 		try {
-			Properties properties = ConnectionPool.getInstance().getConnectProperties();
-			connection = ConnectionPool.getInstance().getConnect(properties);
+			Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+			connection = MySQLConnectionPool.getInstance().getConnect(properties);
 			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_USER);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getSurname());
@@ -65,8 +65,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 		ResultSet resultSet = null;
 		User user = null;
 		try {
-			Properties properties = ConnectionPool.getInstance().getConnectProperties();
-			connection = ConnectionPool.getInstance().getConnect(properties);
+			Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+			connection = MySQLConnectionPool.getInstance().getConnect(properties);
 			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_USER);
 			preparedStatement.setString(1, login);
 			resultSet = preparedStatement.executeQuery();
@@ -114,8 +114,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	@Override
 	public boolean CheckLogin(String login)  {
 		boolean checkedLogin = true;
-		Properties properties = ConnectionPool.getInstance().getConnectProperties();
-		Connection connection = ConnectionPool.getInstance().getConnect(properties);
+		Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+		Connection connection = MySQLConnectionPool.getInstance().getConnect(properties);
 		PreparedStatement ps = null;
 		String query = SQL_QUERY_CHECK_LOGIN;
 		try {

@@ -13,16 +13,16 @@ import java.util.Properties;
  * @author Medvedeva Anastasiya
  *
  */
-public class ConnectionPool {
-    private static  ConnectionPool instance;
+public class MySQLConnectionPool {
+    private static MySQLConnectionPool instance;
 
 
     /**
      * Singleton
      */
-    public static ConnectionPool getInstance() {
+    public static MySQLConnectionPool getInstance() {
                 if (instance == null) {
-                instance = new ConnectionPool();
+                instance = new MySQLConnectionPool();
                 }
     return instance;
     }
