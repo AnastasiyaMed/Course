@@ -11,7 +11,6 @@ import by.pvt.medvedeva.education.entity.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 /**
  * @author Medvedeva Anastasiya
@@ -40,8 +39,8 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
         ResultSet resultSet = null;
         Teacher teacher = new Teacher();
         try {
-           Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-            connection = MySQLConnectionPool.getInstance().getConnect(properties);
+           //Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+            connection = MySQLConnectionPool.getInstance().getConnect();
             int IdUser = user.getIdUser();
             preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHER);
             preparedStatement.setInt(1, IdUser);
@@ -79,8 +78,8 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
     public void create(Teacher teacher) {
          PreparedStatement preparedStatement = null;
         try {
-            Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-            connection = MySQLConnectionPool.getInstance().getConnect(properties);
+         //   Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+            connection = MySQLConnectionPool.getInstance().getConnect();
             preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_TEACHER);
             preparedStatement.setInt(1, teacher.getIdUser());
             preparedStatement.executeUpdate();

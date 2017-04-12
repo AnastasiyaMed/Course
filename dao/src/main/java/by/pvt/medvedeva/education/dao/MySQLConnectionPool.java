@@ -24,14 +24,15 @@ public class MySQLConnectionPool implements ConnectionPool {
     public static MySQLConnectionPool getInstance() {
                 if (instance == null) {
                 instance = new MySQLConnectionPool();
+
                 }
     return instance;
     }
 
 
-     public Properties getConnectProperties ()  {
+     private Properties getConnectProperties ()  {
 
-         String propFileName = "dao.properties";
+         String propFileName = "MySQL.properties";
          InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
          Properties property = new Properties();
          try {
@@ -45,8 +46,8 @@ public class MySQLConnectionPool implements ConnectionPool {
 
 
     @Override
-    public Connection getConnect(Properties property)  {
-
+    public Connection getConnect()  {
+        Properties property = getConnectProperties ();
         DBPoolDataSource ds = new DBPoolDataSource();
         ds.setName(property.getProperty("name"));
         ds.setDriverClassName(property.getProperty("driverClassName"));

@@ -38,8 +38,7 @@ public class UserService {
 	}
 
 	public List<Course> getAllCoursesInfo() {
-		CourseDAO courseDAO = new CourseDAOImpl();
-
+		CourseDAO courseDAO = CourseDAOImpl.getInstance();
 		return courseDAO.getAllCoursesInfo();
 	}
 

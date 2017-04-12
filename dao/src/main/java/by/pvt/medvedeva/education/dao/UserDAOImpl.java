@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 
 public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
@@ -32,8 +31,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	public void create(User user) {
 	    PreparedStatement preparedStatement = null;
 		try {
-			Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-			connection = MySQLConnectionPool.getInstance().getConnect(properties);
+		//	Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+			connection = MySQLConnectionPool.getInstance().getConnect();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_USER);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getSurname());
@@ -65,8 +64,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 		ResultSet resultSet = null;
 		User user = null;
 		try {
-			Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-			connection = MySQLConnectionPool.getInstance().getConnect(properties);
+		//	Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+			connection = MySQLConnectionPool.getInstance().getConnect();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_USER);
 			preparedStatement.setString(1, login);
 			resultSet = preparedStatement.executeQuery();
@@ -114,8 +113,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	@Override
 	public boolean CheckLogin(String login)  {
 		boolean checkedLogin = true;
-		Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-		Connection connection = MySQLConnectionPool.getInstance().getConnect(properties);
+		//Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+		Connection connection = MySQLConnectionPool.getInstance().getConnect();
 		PreparedStatement ps = null;
 		String query = SQL_QUERY_CHECK_LOGIN;
 		try {

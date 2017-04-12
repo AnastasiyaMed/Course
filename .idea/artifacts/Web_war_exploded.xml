@@ -14,6 +14,7 @@
             <element id="module-output" name="dao" />
           </element>
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.6" />
+          <element id="library" level="project" name="Maven: com.h2database:h2:1.4.193" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: org.codehaus.mojo:cobertura-maven-plugin:2.7" />
           <element id="library" level="project" name="Maven: net.sourceforge.cobertura:cobertura:2.1.1" />

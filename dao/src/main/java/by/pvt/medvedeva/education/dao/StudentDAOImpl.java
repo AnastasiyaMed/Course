@@ -39,8 +39,8 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 		ResultSet resultSet = null;
 		Student student = new Student();
 		try {
-			Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-			connection = MySQLConnectionPool.getInstance().getConnect(properties);
+		//	Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+			connection = MySQLConnectionPool.getInstance().getConnect();
 			int idUser = user.getIdUser();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_STUDENT);
 			preparedStatement.setInt(1, idUser);
@@ -86,8 +86,8 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 		PreparedStatement preparedStatement = null;
 		try {
 			Properties properties = null;
-			properties = MySQLConnectionPool.getInstance().getConnectProperties();
-			connection = MySQLConnectionPool.getInstance().getConnect(properties);
+		//	properties = MySQLConnectionPool.getInstance().getConnectProperties();
+			connection = MySQLConnectionPool.getInstance().getConnect();
 
 			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_STUDENT);
 			preparedStatement.setInt(1, student.getLevel());

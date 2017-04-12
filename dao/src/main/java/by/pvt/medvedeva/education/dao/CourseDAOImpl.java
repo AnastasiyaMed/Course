@@ -1,12 +1,12 @@
 package by.pvt.medvedeva.education.dao;
 
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
+import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.CourseDAO;
 import by.pvt.medvedeva.education.entity.Course;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Properties;
 
 
 public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Course>   {
@@ -23,16 +23,29 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
      */
     public static CourseDAOImpl getInstance() {
         if (instance == null) {
-            instance = new CourseDAOImpl();
+            try {
+                instance = new CourseDAOImpl(MySQLConnectionPool.getInstance());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return instance;
     }
 
+
+    public CourseDAOImpl(ConnectionPool connectionPool) throws SQLException {
+        this.connectionPool = connectionPool;
+    }
+
+
+
+
     @Override
     public void create(Course course) {
         try {
-            Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-            connection = MySQLConnectionPool.getInstance().getConnect(properties);
+//            Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+//            connection = MySQLConnectionPool.getInstance().getConnect(properties);
+            connection = connectionPool.getConnect();
             preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_COURSE);
             preparedStatement.setString(1, course.getName());
             preparedStatement.setInt(2, course.getDuration());
@@ -62,8 +75,8 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
 
         try {
 
-            Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-            connection = MySQLConnectionPool.getInstance().getConnect(properties);
+          //  Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
+            connection = MySQLConnectionPool.getInstance().getConnect();
             preparedStatement = connection.prepareStatement(SQL_QUERY_GET_ALL_COURSES);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
