@@ -1,5 +1,6 @@
 package by.pvt.medvedeva.education.dao;
 
+import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import snaq.db.DBPoolDataSource;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.Properties;
  * @author Medvedeva Anastasiya
  *
  */
-public class MySQLConnectionPool {
+public class MySQLConnectionPool implements ConnectionPool {
     private static MySQLConnectionPool instance;
 
 
@@ -43,8 +44,8 @@ public class MySQLConnectionPool {
      }
 
 
+    @Override
     public Connection getConnect(Properties property)  {
-
 
         DBPoolDataSource ds = new DBPoolDataSource();
         ds.setName(property.getProperty("name"));
