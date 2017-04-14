@@ -22,7 +22,7 @@ public class UserService {
 	private UserDAO userDAO;
 
 	public UserService() {
-		userDAO = new UserDAOImpl();
+		userDAO = UserDAOImpl.getInstance();
 	}
 
 	public User getUser(String enterLogin) throws IOException {

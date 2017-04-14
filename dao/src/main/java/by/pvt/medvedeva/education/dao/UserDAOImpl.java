@@ -1,8 +1,10 @@
 package by.pvt.medvedeva.education.dao;
 
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
+import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.User;
+import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,17 +14,22 @@ import java.sql.SQLException;
 
 public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 
-	public static final String SQL_QUERY_ADD_USER = "INSERT INTO user (name, surname, login, password, role) VALUES (?,?,?,?,?)";
-	public static final String SQL_QUERY_GET_USER = "SELECT *  FROM user WHERE user.login = ?";
-	public static final String SQL_QUERY_CHECK_LOGIN = "SELECT login  FROM user WHERE user.login = ?";
+	private static final String SQL_QUERY_ADD_USER = "INSERT INTO user (name, surname, login, password, role) VALUES (?,?,?,?,?)";
+	private static final String SQL_QUERY_GET_USER = "SELECT *  FROM user WHERE user.login = ?";
+	private static final String SQL_QUERY_CHECK_LOGIN = "SELECT login  FROM user WHERE user.login = ?";
 	private static UserDAOImpl instance;
+
+	public UserDAOImpl(ConnectionPool connectionPool) {
+		this.connectionPool = connectionPool;
+	}
+
 	/**
 	 * Singleton-fabric
 	 *
 	 */
 	public static UserDAOImpl getInstance() {
 		if (instance == null) {
-			instance = new UserDAOImpl();
+			instance = new UserDAOImpl(MySQLConnectionPool.getInstance());
 		}
 		return instance;
 	}

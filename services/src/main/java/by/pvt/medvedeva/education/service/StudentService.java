@@ -17,7 +17,7 @@ public class StudentService {
 	private StudentDAO studentDAO;
 
 	public StudentService() {
-		studentDAO = new StudentDAOImpl();
+		studentDAO = StudentDAOImpl.getInstance();
 	}
 
 	public Student initStudent(User user) {

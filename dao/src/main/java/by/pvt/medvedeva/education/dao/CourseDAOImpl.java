@@ -4,17 +4,18 @@ import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.CourseDAO;
 import by.pvt.medvedeva.education.entity.Course;
+import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 
 public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Course>   {
-    public static final String SQL_QUERY_GET_ALL_COURSES = "SELECT *  FROM course";
-    public static final String SQL_QUERY_ADD_COURSE = "INSERT INTO course (course_name, duration, auditorium, teacher_teacher_id) VALUES (?,?,?,?)";
-    private final String COLUMN_NAME_COURSE = "course_name";
-    private final String COLUMN_NAME_DURATION = "duration";
-    private final String COLUMN_NAME_AUDITORIUM = "auditorium";
+    private static final String SQL_QUERY_GET_ALL_COURSES = "SELECT *  FROM course";
+    private static final String SQL_QUERY_ADD_COURSE = "INSERT INTO course (course_name, duration, auditorium, teacher_teacher_id) VALUES (?,?,?,?)";
+    private static final String COLUMN_NAME_COURSE = "course_name";
+    private static final String COLUMN_NAME_DURATION = "duration";
+    private static final String COLUMN_NAME_AUDITORIUM = "auditorium";
     private static CourseDAOImpl instance;
 
      /**
@@ -33,18 +34,15 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
     }
 
 
-    public CourseDAOImpl(ConnectionPool connectionPool) throws SQLException {
+    CourseDAOImpl(ConnectionPool connectionPool) throws SQLException {
         this.connectionPool = connectionPool;
     }
-
 
 
 
     @Override
     public void create(Course course) {
         try {
-//            Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-//            connection = MySQLConnectionPool.getInstance().getConnect(properties);
             connection = connectionPool.getConnect();
             preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_COURSE);
             preparedStatement.setString(1, course.getName());
@@ -72,10 +70,7 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
     @Override
     public ArrayList <Course> getAllCoursesInfo() {
         ArrayList <Course> allCourses = new ArrayList <>();
-
         try {
-
-          //  Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
             connection = MySQLConnectionPool.getInstance().getConnect();
             preparedStatement = connection.prepareStatement(SQL_QUERY_GET_ALL_COURSES);
             resultSet = preparedStatement.executeQuery();

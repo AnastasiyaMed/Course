@@ -1,4 +1,4 @@
-package by.pvt.medvedeva.education.dao;
+package by.pvt.medvedeva.education.utils;
 
 import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import snaq.db.DBPoolDataSource;

@@ -2,12 +2,13 @@
 package by.pvt.medvedeva.education.dao;
 
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
+import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.StudentDAO;
 import by.pvt.medvedeva.education.entity.Student;
 import by.pvt.medvedeva.education.entity.User;
+import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -17,29 +18,33 @@ import java.util.Properties;
  *
  */
 public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<Student> {
-	public static final String SQL_QUERY_GET_STUDENT = "SELECT * FROM student, user  WHERE student.user_user_id = user.user_id AND user.user_id = ?;";
-	public static final String SQL_QUERY_ADD_STUDENT = "INSERT INTO `education`.`student` (`level`, `average`, `student_id_card`, `user_user_id`) VALUES (?,?,?,?)";
-	public static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `education`.`user` SET `role`='1' WHERE  user.user_id = ?";
+	private static final String SQL_QUERY_GET_STUDENT = "SELECT * FROM student, user  WHERE student.user_user_id = user.user_id AND user.user_id = ?;";
+	private static final String SQL_QUERY_ADD_STUDENT = "INSERT INTO `education`.`student` (`level`, `average`, `student_id_card`, `user_user_id`) VALUES (?,?,?,?)";
+	private static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `education`.`user` SET `role`='1' WHERE  user.user_id = ?";
 	private final static int STUDENT_ROLE = 1;
 	private static StudentDAOImpl instance;
+
+	public StudentDAOImpl(ConnectionPool connectionPool) {
+		this.connectionPool = connectionPool;
+	}
+
 	/**
 	 * Singleton-fabric
 	 *
 	 */
 	public static StudentDAOImpl getInstance() {
 		if (instance == null) {
-			instance = new StudentDAOImpl();
+			instance = new StudentDAOImpl(MySQLConnectionPool.getInstance());
 		}
 		return instance;
 	}
 
 	@Override
 	public Student initStudent(User user) {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+		preparedStatement = null;
+		resultSet = null;
 		Student student = new Student();
 		try {
-		//	Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
 			connection = MySQLConnectionPool.getInstance().getConnect();
 			int idUser = user.getIdUser();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_STUDENT);
