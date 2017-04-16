@@ -8,9 +8,7 @@ import by.pvt.medvedeva.education.entity.Student;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Properties;
 
 
 /**
@@ -18,7 +16,8 @@ import java.util.Properties;
  *
  */
 public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<Student> {
-	private static final String SQL_QUERY_GET_STUDENT = "SELECT * FROM student, user  WHERE student.user_user_id = user.user_id AND user.user_id = ?;";
+	private static final String SQL_QUERY_GET_STUDENT_BY_USER = "SELECT * FROM student, user  WHERE student.user_user_id = user.user_id AND user.user_id = ?;";
+	private static final String SQL_QUERY_GET_STUDENT_BY_LOGIN = "SELECT * FROM student, user  WHERE student.user_user_id = user.user_id AND user.user.login = ?;";
 	private static final String SQL_QUERY_ADD_STUDENT = "INSERT INTO `education`.`student` (`level`, `average`, `student_id_card`, `user_user_id`) VALUES (?,?,?,?)";
 	private static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `education`.`user` SET `role`='1' WHERE  user.user_id = ?";
 	private final static int STUDENT_ROLE = 1;
@@ -40,14 +39,31 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 	}
 
 	@Override
-	public Student initStudent(User user) {
+	public Student initStudent(User user, int level, double average, int cardId) {
+		Student student = new Student();
+			int idUser = user.getIdUser();
+			student.setName(user.getName());
+			student.setSurname(user.getSurname());
+			student.setLogin(user.getLogin());
+			student.setPassword(user.getPassword());
+			student.setRole(STUDENT_ROLE);
+			student.setIdUser(user.getIdUser());
+			student.setLevel(level);
+			student.setAverage(average);
+			student.setStudentIdCard(cardId);
+
+		return student;
+	}
+
+	@Override
+	public Student initStudentFromBD(User user) {
 		preparedStatement = null;
 		resultSet = null;
 		Student student = new Student();
 		try {
 			connection = MySQLConnectionPool.getInstance().getConnect();
 			int idUser = user.getIdUser();
-			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_STUDENT);
+			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_STUDENT_BY_USER);
 			preparedStatement.setInt(1, idUser);
 			resultSet = preparedStatement.executeQuery();
 			student.setName(user.getName());
@@ -60,8 +76,7 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 				student.setIdStudent(resultSet.getInt("student_id"));
 				student.setLevel(resultSet.getInt("level"));
 				student.setAverage(resultSet.getDouble("average"));
-				student.setAverage(resultSet.getInt("average"));
-				student.setStudentIdCard(resultSet.getString("student_id_card"));
+				student.setStudentIdCard(resultSet.getInt("student_id_card"));
 			}
 		} catch (SQLException e) {
 
@@ -84,20 +99,49 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 		return student;
 	}
 
+//	@Override
+//	public Student readStudentByLogin(String login) {
+//        preparedStatement = null;
+//        resultSet = null;
+//        Student student = new User();
+//        try {
+//            connection = MySQLConnectionPool.getInstance().getConnect();
+//            preparedStatement = connection.prepareStatement(SQL_QUERY_GET_STUDENT_BY_LOGIN);
+//            preparedStatement.setString(1, login);
+//            resultSet = preparedStatement.executeQuery();
+//            user = initUser(resultSet);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        finally {
+//            try {
+//                if (resultSet != null) {
+//                    resultSet.close();
+//                }
+//                if (preparedStatement != null) {
+//                    preparedStatement.close();
+//                }
+//                if (connection != null) {
+//                    connection.close();
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//	    return null;
+//	}
 
 
 	@Override
 		public void create (Student student)  {
-		PreparedStatement preparedStatement = null;
+		preparedStatement = null;
 		try {
-			Properties properties = null;
-		//	properties = MySQLConnectionPool.getInstance().getConnectProperties();
 			connection = MySQLConnectionPool.getInstance().getConnect();
 
 			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_STUDENT);
 			preparedStatement.setInt(1, student.getLevel());
 			preparedStatement.setDouble(2, student.getAverage());
-			preparedStatement.setString(3, student.getStudentIdCard());
+			preparedStatement.setInt(3, student.getStudentIdCard());
 			preparedStatement.setInt(4, student.getIdUser());
 			preparedStatement.executeUpdate();
 			if (preparedStatement != null) {
@@ -123,4 +167,3 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 		}
 	}
 	}
-

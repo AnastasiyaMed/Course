@@ -15,13 +15,13 @@ public class Student extends User  {
 	private int idStudent;
 	private int level;
 	private double average;
-	private String studentIdCard;
+	private int studentIdCard;
 
 	public Student() {
 		super();
 	}
 
-	public Student(int idStudent, int level, int average, String studentIdCard, int idUser, String name, String surname, String login, String password, int role) {
+	public Student(int idStudent, int level, int average, int studentIdCard, int idUser, String name, String surname, String login, String password, int role) {
 		super(idUser, name, surname, login, password, role);
 		this.idStudent = idStudent;
 		this.level = level;
@@ -53,56 +53,38 @@ public class Student extends User  {
 		this.average = average;
 	}
 
-	public String getStudentIdCard() {
+	public int getStudentIdCard() {
 		return studentIdCard;
 	}
 
-	public void setStudentIdCard(String studentIdCard) {
+	public void setStudentIdCard(int studentIdCard) {
 		this.studentIdCard = studentIdCard;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
 		int result = super.hashCode();
 		long temp;
+		result = 31 * result + idStudent;
+		result = 31 * result + level;
 		temp = Double.doubleToLongBits(average);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + idStudent;
-		result = prime * result + level;
-		result = prime * result + ((studentIdCard == null) ? 0 : studentIdCard.hashCode());
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		result = 31 * result + studentIdCard;
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!super.equals(obj)) {
-			return false;
-		}
-		if (!(obj instanceof Student)) {
-			return false;
-		}
-		Student other = (Student) obj;
-		if (Double.doubleToLongBits(average) != Double.doubleToLongBits(other.average)) {
-			return false;
-		}
-		if (idStudent != other.idStudent) {
-			return false;
-		}
-		if (level != other.level) {
-			return false;
-		}
-		if (studentIdCard == null) {
-			if (other.studentIdCard != null) {
-				return false;
-			}
-		} else if (!studentIdCard.equals(other.studentIdCard)) {
-			return false;
-		}
-		return true;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Student)) return false;
+		if (!super.equals(o)) return false;
+
+		Student student = (Student) o;
+
+		if (idStudent != student.idStudent) return false;
+		if (level != student.level) return false;
+		if (Double.compare(student.average, average) != 0) return false;
+		return studentIdCard == student.studentIdCard;
 	}
 
 	@Override

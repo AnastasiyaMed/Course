@@ -20,17 +20,20 @@ public class StudentService {
 		studentDAO = StudentDAOImpl.getInstance();
 	}
 
-	public Student initStudent(User user) {
-		return (Student) studentDAO.initStudent(user);
+	public Student initStudent(User user, int level, double average, int cardId) {
+		return (Student) studentDAO.initStudent(user,  level, average, cardId);
 	}
 
 	public void addStudent(Student student) {
 		StudentDAOImpl.getInstance().create(student);
 	}
 
-	public Student getStudent(User user) {
-		Student student = (Student) studentDAO.initStudent(user);
+	public Student getStudent(User user, int level, double average, int cardId) {
+		Student student = (Student) studentDAO.initStudent(user,  level, average, cardId);
 				return student;
 	}
-
+	public Student getStudentFromBD(User user) {
+		Student student = (Student) studentDAO.initStudentFromBD(user);
+		return student;
+	}
 }

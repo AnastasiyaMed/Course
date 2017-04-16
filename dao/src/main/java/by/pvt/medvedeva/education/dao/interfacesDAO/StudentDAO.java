@@ -12,9 +12,11 @@ import by.pvt.medvedeva.education.entity.User;
 public interface StudentDAO <Student> {
 
 
-	Student initStudent(User user);
+	Student initStudent(User user, int level, double average, int cardId);
 
+	Student initStudentFromBD(User user);
 
+	//Student readStudentByLogin(String login);
 
 
 }

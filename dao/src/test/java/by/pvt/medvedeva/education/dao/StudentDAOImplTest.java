@@ -20,12 +20,25 @@ public class StudentDAOImplTest {
         user.setPassword("111111");
         user.setRole(1);
         StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
-        Student student = dao.initStudent(user);
+        Student student = dao.initStudent(user, 2, 1.2, 123);
         assertEquals("Ошибка инициализации студента", "vac", student.getLogin());
     }
 
     @Test
     public void create() throws Exception {
+        UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
+        User user = new User();
+        user.setLogin("vac");
+        user.setName("Vasia");
+        user.setSurname("Curicin");
+        user.setPassword("111111");
+        user.setRole(1);
+        StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
+        Student student = dao.initStudent(user, 3, 3.4, 342);
+        dao.create(student);
+        Student studentTest = dao.initStudentFromBD(user);
+        assertEquals("Ошибка добавления студента", "vac", studentTest.getLogin());
+
     }
 
 }

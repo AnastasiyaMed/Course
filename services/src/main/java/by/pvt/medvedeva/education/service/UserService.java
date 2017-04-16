@@ -55,7 +55,7 @@ public class UserService {
 		TeacherService teacherserv = new TeacherService();
 
 		if (userRole == 1) {
-			userByRole = studserv.getStudent(user);
+			userByRole = studserv.getStudentFromBD(user);
 		}
 		if (userRole == 2) {
 			userByRole = teacherserv.getTeacher(user);

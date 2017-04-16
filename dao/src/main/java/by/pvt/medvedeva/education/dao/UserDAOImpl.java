@@ -36,10 +36,9 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 
 	@Override
 	public void create(User user) {
-	    PreparedStatement preparedStatement = null;
+	    preparedStatement = null;
 		try {
-		//	Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-			connection = MySQLConnectionPool.getInstance().getConnect();
+		    connection = MySQLConnectionPool.getInstance().getConnect();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_USER);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getSurname());
@@ -67,11 +66,10 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 
 	@Override
 	public User getUserByLogin(final String login)  {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		User user = null;
+		preparedStatement = null;
+		resultSet = null;
+		User user = new User();
 		try {
-		//	Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
 			connection = MySQLConnectionPool.getInstance().getConnect();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_USER);
 			preparedStatement.setString(1, login);
@@ -140,6 +138,5 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 		}
 		return checkedLogin;
 	}
-
 
 }
