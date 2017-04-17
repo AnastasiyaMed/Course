@@ -12,8 +12,21 @@ function check(formID) {
                   
         case 'password':
             pattern =  new RegExp('^[a-zA-Z0-9_\\*\\!\\^]{6,15}$', '');
-            break;                        
-       
+            break;
+
+        case 'level':
+            pattern =  new RegExp('^([1-6]{1,1})$');
+            break;
+
+        case 'average':
+            pattern =  new RegExp('[\d\.\d+]');
+            break;
+
+        case 'card':
+            pattern =  new RegExp('^([0-9]{1,})');
+            break;
+
+
     }
         
     inputStr = document.getElementById(formID + 'Form').value;
@@ -55,8 +68,20 @@ function check(formID) {
                   
         case 'password':
             pattern =  new RegExp('^[a-zA-Z0-9_\\*\\!\\^]{6,15}$', '');
-            break;                        
-       
+            break;
+
+        case 'level':
+            pattern =  new RegExp('^([1-6]{1,1})$');
+            break;
+
+        case 'average':
+            pattern =  new RegExp('[\d\.\d+]');
+            break;
+
+        case 'card':
+            pattern =  new RegExp('^([0-9]{1,})');
+            break;
+
     }
         
     inputStr = document.getElementById(formID + 'Form').value;

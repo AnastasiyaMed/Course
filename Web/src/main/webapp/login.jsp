@@ -32,8 +32,8 @@
        id="passwordForm" type="text" class="form-control"
        placeholder="Input password" onKeyUp="check('password')">
       <b id="password" style="color: red; font-size: 10px;">Latin
-       letters, digits, *, ! or ^ at least 3 symbols up to 13</b>
-     </div>
+     letters, digits, *, ! or ^ at least 3 symbols up to 13</b>
+   </div>
      <button type="submit" class="btn btn-primary">Log in</button>
     </form>
    
