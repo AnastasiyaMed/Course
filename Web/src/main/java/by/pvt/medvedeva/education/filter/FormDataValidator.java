@@ -36,4 +36,18 @@ public class FormDataValidator {
 	 */
 	public static final Pattern passwordPattern = Pattern.compile("\\A[a-zA-Z0-9_\\*\\!\\^]{6,15}\\z");
 
+	/**
+	 * только одна цифра от 1 до 6
+	 */
+	public static final Pattern levelPattern = Pattern.compile("^([1-6]{1,1})$");
+
+	/**
+	 * только числа с десятичной частью
+	 */
+	public static final Pattern averagePattern = Pattern.compile("([0-9]\\.[0-9]+)");
+	/**
+	 * любое количество цифр
+	 */
+	public static final Pattern cardPattern = Pattern.compile("[\\d]+");
+
 }

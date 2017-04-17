@@ -1,12 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Nastia
-  Date: 14.04.2017
-  Time: 15:35
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script type="text/javascript" src="js/validation.js"></script>
 <head>
     <script type="text/javascript" src="/js/validation.js"></script>
@@ -41,6 +37,13 @@
                 <div class="form-group">
                     <button type="submit"  class="btn btn-primary">Add student</button>
                 </div>
+                <c:if test="${not empty errorFormDataMessage}">
+                    <div class="text-center">
+                        <h4>
+                            <font color="red">${errorFormDataMessage}</font>
+                        </h4>
+                    </div>
+                </c:if>
             </form>
         </div>
     </div>
