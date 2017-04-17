@@ -4,14 +4,32 @@ import by.pvt.medvedeva.education.entity.Student;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.utils.H2ConnectionPool;
 import org.junit.*;
-import static junit.framework.Assert.*;
+
+import java.sql.SQLException;
+
 
 public class StudentDAOImplTest {
-    public StudentDAOImplTest() {
+
+   private StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
+
+    public StudentDAOImplTest() throws SQLException {
+
     }
 
+
     @Test
-    public void initStudent() throws Exception {
+    public void initStudentFromBDTest() throws Exception {
+        User user = new User(1, "q", "q", "q", "q", 1);
+        Student student = dao.initStudent(user, 1, 1, 1);
+        dao.create(student);
+        Student studentTest = dao.initStudentFromBD(user);
+        Assert.assertEquals("Ошибка чтения данных студента из базы", "q", student.getLogin());
+
+    }
+
+
+    @Test
+    public void initStudentTest() throws Exception {
         UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
         User user = new User();
         user.setLogin("vac");
@@ -21,11 +39,11 @@ public class StudentDAOImplTest {
         user.setRole(1);
         StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
         Student student = dao.initStudent(user, 2, 1.2, 123);
-        assertEquals("Ошибка инициализации студента", "vac", student.getLogin());
+        Assert.assertEquals("Ошибка инициализации студента", "vac", student.getLogin());
     }
 
     @Test
-    public void create() throws Exception {
+    public void createTest() throws Exception {
         UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
         User user = new User();
         user.setLogin("vac");
@@ -37,8 +55,7 @@ public class StudentDAOImplTest {
         Student student = dao.initStudent(user, 3, 3.4, 342);
         dao.create(student);
         Student studentTest = dao.initStudentFromBD(user);
-        assertEquals("Ошибка добавления студента", "vac", studentTest.getLogin());
-
+        Assert.assertEquals("Ошибка добавления студента", "vac", studentTest.getLogin());
     }
 
 }
