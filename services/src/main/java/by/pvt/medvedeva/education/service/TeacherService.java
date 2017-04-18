@@ -19,7 +19,7 @@ public class TeacherService {
 	private TeacherDAO teacherDAO;
 
 	public TeacherService() {
-		teacherDAO = new TeacherDAOImpl();
+		teacherDAO = TeacherDAOImpl.getInstance();
 	}
 
 	public Teacher initTeacher(User user) {

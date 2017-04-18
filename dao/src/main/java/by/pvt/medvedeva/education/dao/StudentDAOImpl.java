@@ -17,8 +17,8 @@ import java.sql.SQLException;
  */
 public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<Student> {
 	private static final String SQL_QUERY_GET_STUDENT_BY_USER = "SELECT * FROM student, user  WHERE student.user_user_id = user.user_id AND user.user_id = ?";
-	private static final String SQL_QUERY_ADD_STUDENT = "INSERT INTO `education`.`student` (`level`, `average`, `student_id_card`, `user_user_id`) VALUES (?,?,?,?)";
-	private static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `education`.`user` SET `role`='1' WHERE  user.user_id = ?";
+	private static final String SQL_QUERY_ADD_STUDENT = "INSERT INTO `student` (`level`, `average`, `student_id_card`, `user_user_id`) VALUES (?,?,?,?)";
+	private static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `user` SET `role`='1' WHERE  user.user_id = ?";
 	private final static int STUDENT_ROLE = 1;
 	private static StudentDAOImpl instance;
 
@@ -60,7 +60,8 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 		resultSet = null;
 		Student student = new Student();
 		try {
-			connection = MySQLConnectionPool.getInstance().getConnect();
+		//	connection = MySQLConnectionPool.getInstance().getConnect();
+			connection = connectionPool.getConnect();
 			int idUser = user.getIdUser();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_STUDENT_BY_USER);
 			preparedStatement.setInt(1, idUser);
@@ -102,8 +103,8 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 		public void create (Student student)  {
 		preparedStatement = null;
 		try {
-			connection = MySQLConnectionPool.getInstance().getConnect();
-
+		//	connection = MySQLConnectionPool.getInstance().getConnect();
+			connection = connectionPool.getConnect();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
 			preparedStatement.setInt(1, student.getIdUser());
 			preparedStatement.executeUpdate();

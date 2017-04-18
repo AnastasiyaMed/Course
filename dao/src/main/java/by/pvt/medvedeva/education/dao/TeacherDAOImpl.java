@@ -4,6 +4,7 @@
 package by.pvt.medvedeva.education.dao;
 
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
+import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.entity.User;
@@ -22,13 +23,19 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
     public static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `education`.`user` SET `role`='2' WHERE  user.user_id = ?";
     private final static int TEACHER_ROLE = 2;
     private static TeacherDAOImpl instance;
+
+    TeacherDAOImpl(ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
+    }
+
+
     /**
      * Singleton-fabric
      *
      */
     public static TeacherDAOImpl getInstance() {
         if (instance == null) {
-            instance = new TeacherDAOImpl();
+            instance = new TeacherDAOImpl((MySQLConnectionPool.getInstance()));
         }
         return instance;
     }
@@ -40,7 +47,6 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
         ResultSet resultSet = null;
         Teacher teacher = new Teacher();
         try {
-           //Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
             connection = MySQLConnectionPool.getInstance().getConnect();
             int IdUser = user.getIdUser();
             preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHER);
@@ -79,7 +85,6 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
     public void create(Teacher teacher) {
          PreparedStatement preparedStatement = null;
         try {
-         //   Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
             connection = MySQLConnectionPool.getInstance().getConnect();
             preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_TEACHER);
             preparedStatement.setInt(1, teacher.getIdUser());

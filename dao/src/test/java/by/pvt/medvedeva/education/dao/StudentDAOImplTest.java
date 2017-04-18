@@ -44,14 +44,17 @@ public class StudentDAOImplTest {
 
     @Test
     public void createTest() throws Exception {
-        UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
+        StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
         User user = new User();
         user.setLogin("vac");
         user.setName("Vasia");
         user.setSurname("Curicin");
         user.setPassword("111111");
-        user.setRole(1);
-        StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
+        user.setRole(0);
+     //   user.setIdUser(5);
+
+        UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
+        userDAO.create(user);
         Student student = dao.initStudent(user, 3, 3.4, 342);
         dao.create(student);
         Student studentTest = dao.initStudentFromBD(user);
