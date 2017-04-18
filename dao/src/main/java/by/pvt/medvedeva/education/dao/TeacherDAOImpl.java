@@ -19,15 +19,14 @@ import java.sql.SQLException;
  */
 public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<Teacher>  {
     public static final String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, user, course  WHERE teacher.user_user_id = user.user_id AND course.teacher_teacher_id = teacher.teacher_id  AND user.user_id = ? ;";
-    public static final String SQL_QUERY_ADD_TEACHER = "INSERT INTO `education`.`teacher` (`user_user_id`) VALUES (?)";
-    public static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `education`.`user` SET `role`='2' WHERE  user.user_id = ?";
+    public static final String SQL_QUERY_ADD_TEACHER = "INSERT INTO `teacher` (`user_user_id`) VALUES (?)";
+    public static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `user` SET `role`='2' WHERE  user.user_id = ?";
     private final static int TEACHER_ROLE = 2;
     private static TeacherDAOImpl instance;
 
     TeacherDAOImpl(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
     }
-
 
     /**
      * Singleton-fabric
@@ -47,7 +46,7 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
         ResultSet resultSet = null;
         Teacher teacher = new Teacher();
         try {
-            connection = MySQLConnectionPool.getInstance().getConnect();
+            connection = connectionPool.getConnect();
             int IdUser = user.getIdUser();
             preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHER);
             preparedStatement.setInt(1, IdUser);
@@ -83,18 +82,20 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
 
     @Override
     public void create(Teacher teacher) {
-         PreparedStatement preparedStatement = null;
+         preparedStatement = null;
         try {
-            connection = MySQLConnectionPool.getInstance().getConnect();
-            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_TEACHER);
+            connection = connectionPool.getConnect();
+            preparedStatement = connection.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
             preparedStatement.setInt(1, teacher.getIdUser());
             preparedStatement.executeUpdate();
             if (preparedStatement != null) {
                 preparedStatement.close();
             }
-            preparedStatement = connection.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
+            connection = connectionPool.getConnect();
+            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_TEACHER);
             preparedStatement.setInt(1, teacher.getIdUser());
             preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

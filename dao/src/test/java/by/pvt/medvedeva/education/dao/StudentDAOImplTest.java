@@ -51,10 +51,6 @@ public class StudentDAOImplTest {
         user.setSurname("Curicin");
         user.setPassword("111111");
         user.setRole(0);
-     //   user.setIdUser(5);
-
-        UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
-        userDAO.create(user);
         Student student = dao.initStudent(user, 3, 3.4, 342);
         dao.create(student);
         Student studentTest = dao.initStudentFromBD(user);

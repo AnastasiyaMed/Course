@@ -71,7 +71,7 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
     public ArrayList <Course> getAllCoursesInfo() {
         ArrayList <Course> allCourses = new ArrayList <>();
         try {
-            connection = MySQLConnectionPool.getInstance().getConnect();
+            connection = connectionPool.getConnect();
             preparedStatement = connection.prepareStatement(SQL_QUERY_GET_ALL_COURSES);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
