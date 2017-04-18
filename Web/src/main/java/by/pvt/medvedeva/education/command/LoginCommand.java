@@ -24,7 +24,7 @@ public class LoginCommand implements ActionCommand {
 		// извлечение из запроса логина и пароля
 		String login = request.getParameter(PARAM_NAME_LOGIN);
 		String pass = request.getParameter(PARAM_NAME_PASSWORD);
-					if (!userService.checkLogin(login)) {
+					if (userService.checkLogin(login)) {
 				// проверка логина и пароля
 				if ((LoginLogic.checkUserRole(login) == ADMIN_ROLE) && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
 					HttpSession session = request.getSession(true);

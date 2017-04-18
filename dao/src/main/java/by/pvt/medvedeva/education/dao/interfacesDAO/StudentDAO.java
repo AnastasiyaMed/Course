@@ -16,7 +16,7 @@ public interface StudentDAO <Student> {
 
 	Student initStudentFromBD(User user);
 
-	//Student readStudentByLogin(String login);
+
 
 
 }

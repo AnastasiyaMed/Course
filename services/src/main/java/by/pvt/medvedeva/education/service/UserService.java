@@ -39,7 +39,7 @@ public class UserService {
 
 	public List<Course> getAllCoursesInfo() {
 		CourseDAO courseDAO = CourseDAOImpl.getInstance();
-		return courseDAO.getAllCoursesInfo();
+		return  courseDAO.getAllCoursesInfo();
 	}
 
 	public boolean checkLogin(String login)  {

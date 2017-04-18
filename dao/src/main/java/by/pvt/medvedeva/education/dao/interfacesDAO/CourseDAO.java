@@ -5,9 +5,7 @@ import java.util.List;
 public interface CourseDAO <Course>  {
 
 
-	//void addCourse(Course course);
-
-	List<Course> getAllCoursesInfo();
+	List <Course> getAllCoursesInfo();
 
 
 	}

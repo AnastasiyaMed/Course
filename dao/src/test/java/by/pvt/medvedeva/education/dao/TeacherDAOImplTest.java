@@ -21,7 +21,7 @@ public class TeacherDAOImplTest {
         Teacher teacher = dao.initTeacher(user);
         dao.create(teacher);
         Teacher teacherTest = dao.initTeacher(user);
-        Assert.assertEquals("Ошибка чтения данных преподавателя из базы", "w", teacher.getLogin());
+        Assert.assertEquals("Ошибка чтения данных преподавателя из базы", "w", teacherTest.getLogin());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class TeacherDAOImplTest {
         Teacher teacher = new Teacher(2, 2, "w", "e", "d", "w", 2);
         dao.create(teacher);
         Teacher teacherTest = dao.initTeacher(user);
-        Assert.assertEquals("Ошибка чтения создания преподавателя в базе", "d", teacher.getLogin());
+        Assert.assertEquals("Ошибка чтения создания преподавателя в базе", "d", teacherTest.getLogin());
     }
 
 }

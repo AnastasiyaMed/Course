@@ -6,8 +6,6 @@ import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,7 +17,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	private static final String SQL_QUERY_CHECK_LOGIN = "SELECT login  FROM user WHERE user.login = ?";
 	private static UserDAOImpl instance;
 
-	public UserDAOImpl(ConnectionPool connectionPool) {
+	 UserDAOImpl(ConnectionPool connectionPool) {
 		this.connectionPool = connectionPool;
 	}
 
@@ -38,7 +36,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	public void create(User user) {
 	    preparedStatement = null;
 		try {
-		    connection = MySQLConnectionPool.getInstance().getConnect();
+			connection = connectionPool.getConnect();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_USER);
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getSurname());
@@ -70,7 +68,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 		resultSet = null;
 		User user = new User();
 		try {
-			connection = MySQLConnectionPool.getInstance().getConnect();
+			connection = connectionPool.getConnect();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_GET_USER);
 			preparedStatement.setString(1, login);
 			resultSet = preparedStatement.executeQuery();
@@ -118,18 +116,16 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	@Override
 	public boolean CheckLogin(String login)  {
 		boolean checkedLogin = true;
-		//Properties properties = MySQLConnectionPool.getInstance().getConnectProperties();
-		Connection connection = MySQLConnectionPool.getInstance().getConnect();
-		PreparedStatement ps = null;
-		String query = SQL_QUERY_CHECK_LOGIN;
+		preparedStatement = null;
 		try {
-			ps = connection.prepareStatement(query);
+			connection = connectionPool.getConnect();
+			preparedStatement = connection.prepareStatement(SQL_QUERY_CHECK_LOGIN);
 
-		ps.setString(1, login);
-		ResultSet result = ps.executeQuery();
-				if (result.next()) {
+			preparedStatement.setString(1, login);
+		    resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
 			connection.close();
-			checkedLogin = false;
+			checkedLogin = true;
 		} else {
 			checkedLogin = false;
 			connection.close();}
@@ -138,5 +134,4 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 		}
 		return checkedLogin;
 	}
-
 }

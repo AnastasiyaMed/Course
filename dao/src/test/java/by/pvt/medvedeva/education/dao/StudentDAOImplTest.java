@@ -23,21 +23,20 @@ public class StudentDAOImplTest {
         Student student = dao.initStudent(user, 1, 1, 1);
         dao.create(student);
         Student studentTest = dao.initStudentFromBD(user);
-        Assert.assertEquals("Ошибка чтения данных студента из базы", "q", student.getLogin());
+        Assert.assertEquals("Ошибка чтения данных студента из базы", "q", studentTest.getLogin());
 
     }
 
 
     @Test
     public void initStudentTest() throws Exception {
-        UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
+        StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
         User user = new User();
         user.setLogin("vac");
         user.setName("Vasia");
         user.setSurname("Curicin");
         user.setPassword("111111");
         user.setRole(1);
-        StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
         Student student = dao.initStudent(user, 2, 1.2, 123);
         Assert.assertEquals("Ошибка инициализации студента", "vac", student.getLogin());
     }

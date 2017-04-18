@@ -35,7 +35,7 @@ public class LoginLogic {
 
     public boolean checkLogin(String login) {
         UserService userService = new UserService();
-        boolean resultChek = false;
+        boolean resultChek;
 
             if (userService.checkLogin(login)) {
                 resultChek = true;
