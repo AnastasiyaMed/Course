@@ -26,7 +26,7 @@ import java.io.IOException;
 public class ConfigFilter implements Filter {
 	private static final String ROLE_ATTRIBUT = "role";
 	private static final String USER_OBJECT_ATTRIBUTE = "user";
-	public static String LOGIN = "login";
+	private static String LOGIN = "login";
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

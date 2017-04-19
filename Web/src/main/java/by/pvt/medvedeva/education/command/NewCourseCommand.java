@@ -4,12 +4,16 @@
 package by.pvt.medvedeva.education.command;
 
 import by.pvt.medvedeva.education.entity.Course;
+import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
 import by.pvt.medvedeva.education.service.TeacherService;
 import by.pvt.medvedeva.education.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import static by.pvt.medvedeva.education.filter.ClientType.GUEST;
 
 /**
  * @author Anastasiya Medvedeva
@@ -28,6 +32,12 @@ public class NewCourseCommand implements ActionCommand {
 		Course course = new Course();
 		UserService userService = new UserService();
 		String page = null;
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpSession session = req.getSession();
+        ClientType type = (ClientType) session.getAttribute("userType");
+        if (type == GUEST) {
+            page = ConfigurationManager.getProperty("path.page.login");
+        }
 		if (request.getParameter(TEACHERID).isEmpty()) {
 			request.setAttribute("wrongteacherid", MessageManager.getProperty("message.wrongteacherid"));
             page = ConfigurationManager.getProperty("path.page.addcourses");
