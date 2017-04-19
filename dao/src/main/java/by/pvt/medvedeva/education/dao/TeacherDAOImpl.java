@@ -98,15 +98,16 @@ private final static  String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, use
             preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHER);
             preparedStatement.setInt(1, idTeacher);
             resultSet = preparedStatement.executeQuery();
-           if ((resultSet.next())) {
-            teacher = new Teacher();
+
             while (resultSet.next()) {
+              //  if ((resultSet.next())) {
+                    teacher = new Teacher();
                 teacher.setIdUser(resultSet.getInt("user_id"));
                 teacher.setLogin(resultSet.getString("login"));
                 teacher.setName(resultSet.getString("name"));
                 teacher.setSurname(resultSet.getString("surname"));
                 teacher.setPassword(resultSet.getString("password"));
-               }}
+               }//}
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
