@@ -3,6 +3,7 @@
  */
 package by.pvt.medvedeva.education.command;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
@@ -40,20 +41,24 @@ public class RegistrCommand implements ActionCommand {
 			request.setAttribute("errorFormDataMessage", validate(user));
 			return page = ConfigurationManager.getProperty("path.page.registr");
 		}
-
+		try {
 		if (userService.checkLogin(user.getLogin())) {
 			request.setAttribute("errorRegistrUserMessage", MessageManager.getProperty("message.register.user.error"));
 			request.setAttribute("userType", ClientType.GUEST);
 			return page = ConfigurationManager.getProperty("path.page.registr");
-		} else
+		} else {
 			userService.addUser(user);
-		HttpSession session = request.getSession(true);
-		session.setAttribute("user", request.getParameter(LOGIN));
-		session.setAttribute("login", request.getParameter(LOGIN));
-		session.setAttribute("isAuthorized", "yes");
-		userService.addUser(user);
-		session.setAttribute("userType", ClientType.DEFAULT_USER);
-		page = ConfigurationManager.getProperty("path.page.defaultuser");
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user", request.getParameter(LOGIN));
+			session.setAttribute("login", request.getParameter(LOGIN));
+			session.setAttribute("isAuthorized", "yes");
+			//userService.addUser(user);
+			session.setAttribute("userType", ClientType.DEFAULT_USER);
+			page = ConfigurationManager.getProperty("path.page.defaultuser");
+		} } catch (DAOException e) {
+			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+			page = ConfigurationManager.getProperty("path.page.registr");
+		}
 
 		return page;
 	}

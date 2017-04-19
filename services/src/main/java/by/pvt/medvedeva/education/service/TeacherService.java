@@ -4,6 +4,7 @@
 package by.pvt.medvedeva.education.service;
 
 import by.pvt.medvedeva.education.dao.TeacherDAOImpl;
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.entity.User;
@@ -38,14 +39,14 @@ public class TeacherService {
 		return teacher;
 	}
 
-	public Teacher initTeacherFromBD(int idTeacher) {
+	public Teacher initTeacherFromBD(int idTeacher) throws DAOException {
 		Teacher teacher= null;
 		teacher = (Teacher) teacherDAO.initTeacherFromBD(idTeacher);
 		return teacher;
 	}
 
 
-	public void addTeacher(Teacher teacher) {
+	public void addTeacher(Teacher teacher) throws DAOException {
 		TeacherDAOImpl.getInstance().create(teacher);
 	}
 

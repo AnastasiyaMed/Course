@@ -3,6 +3,7 @@
  */
 package by.pvt.medvedeva.education.command;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
@@ -46,17 +47,22 @@ public class NewCourseCommand implements ActionCommand {
         } else if ((errMessage = validate(request.getParameter(DURATION), request.getParameter(AUDITORIUM), request.getParameter(TEACHERID))) != null) {
             request.setAttribute("errorFormDataMessage", validate((request.getParameter(DURATION)), request.getParameter(AUDITORIUM), request.getParameter(TEACHERID)));
             page = ConfigurationManager.getProperty("path.page.addcourses");
-        } else if (TeacherService.getInstance().initTeacherFromBD(Integer.parseInt(request.getParameter(TEACHERID))) == null) {
-            request.setAttribute("wrongteacherid", MessageManager.getProperty("message.wrongteacherid"));
+        } else try {
+            if (TeacherService.getInstance().initTeacherFromBD(Integer.parseInt(request.getParameter(TEACHERID))) == null) {
+                request.setAttribute("wrongteacherid", MessageManager.getProperty("message.wrongteacherid"));
+                page = ConfigurationManager.getProperty("path.page.addcourses");
+            } else {
+                course.setName(request.getParameter(NAME).trim());
+                course.setDuration(Integer.parseInt(request.getParameter(DURATION).trim()));
+                course.setAuditorium(Integer.parseInt(request.getParameter(AUDITORIUM).trim()));
+                course.setIdTeacher((Integer.parseInt(request.getParameter(TEACHERID).trim())));
+                UserService.getInstance().addNewCourse(course);
+                // определение пути к main.jsp
+                page = ConfigurationManager.getProperty("path.page.main");
+            }
+        } catch (DAOException e) {
+            request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
             page = ConfigurationManager.getProperty("path.page.addcourses");
-        } else {
-            course.setName(request.getParameter(NAME).trim());
-            course.setDuration(Integer.parseInt(request.getParameter(DURATION).trim()));
-            course.setAuditorium(Integer.parseInt(request.getParameter(AUDITORIUM).trim()));
-            course.setIdTeacher((Integer.parseInt(request.getParameter(TEACHERID).trim())));
-            UserService.getInstance().addNewCourse(course);
-            // определение пути к main.jsp
-            page = ConfigurationManager.getProperty("path.page.main");
         }
         return page;
     }

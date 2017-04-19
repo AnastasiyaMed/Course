@@ -3,7 +3,9 @@
  */
 package by.pvt.medvedeva.education.command;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.filter.ClientType;
+import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
 import by.pvt.medvedeva.education.service.TeacherService;
 import by.pvt.medvedeva.education.service.UserService;
@@ -33,6 +35,9 @@ public class SetTeacherRoleCommand implements ActionCommand {
 			teacherService.addTeacher(teacherService.initTeacher(userService.getUser(login)));
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (DAOException e) {
+			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+			page = ConfigurationManager.getProperty("path.page.defaultuser");
 		}
 		request.setAttribute("user", login);
 		session.setAttribute("userType", ClientType.TEACHER);

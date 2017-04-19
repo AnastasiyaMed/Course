@@ -38,10 +38,10 @@
     </form>
    
    
-    <br /> ${wrongAction} <br /> ${nullPage} <br /> <a
+    <br /> ${wrongAction} <br /> ${exeptionMessage} <br /> ${nullPage} <br /> <a
      href="registr.jsp">Registration</a> Links for guest... <br />
     Debug info - session = ${sessionScope}
-    
+
     
    </div>
   </div>

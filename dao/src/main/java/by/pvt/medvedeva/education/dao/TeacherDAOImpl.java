@@ -3,6 +3,7 @@
  */
 package by.pvt.medvedeva.education.dao;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
@@ -54,7 +55,7 @@ private final static  String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, use
     }
 
     @Override
-    public void create(Teacher teacher) {
+    public void create(Teacher teacher) throws DAOException {
          preparedStatement = null;
         try {
             connection = connectionPool.getConnect();
@@ -70,7 +71,7 @@ private final static  String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, use
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Some trouble whith connect to database", e);
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -80,8 +81,7 @@ private final static  String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, use
                     connection.close();
                 }
             } catch (SQLException e) {
-
-                e.printStackTrace();
+                throw new DAOException("Some trouble whith connect to database", e);
             }
         }
     }
@@ -89,7 +89,7 @@ private final static  String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, use
 
 
     @Override
-    public Teacher initTeacherFromBD(int idTeacher) {
+    public Teacher initTeacherFromBD(int idTeacher) throws DAOException {
         preparedStatement = null;
         resultSet = null;
         Teacher teacher = null;
@@ -100,16 +100,15 @@ private final static  String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, use
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-              //  if ((resultSet.next())) {
-                    teacher = new Teacher();
+                teacher = new Teacher();
                 teacher.setIdUser(resultSet.getInt("user_id"));
                 teacher.setLogin(resultSet.getString("login"));
                 teacher.setName(resultSet.getString("name"));
                 teacher.setSurname(resultSet.getString("surname"));
                 teacher.setPassword(resultSet.getString("password"));
-               }//}
+               }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Some trouble whith connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {
@@ -122,7 +121,7 @@ private final static  String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, use
                     connection.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new DAOException("Some trouble whith connect to database", e);
             }
         }
         System.out.println(teacher);

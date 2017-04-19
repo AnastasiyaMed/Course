@@ -20,6 +20,8 @@ ${wrongAction}
  <br/>
 ${nullPage}
  <br/>
+${exeptionMessage}
+<br/>
 Links for guest...<br/>
 Debug info - session = ${sessionScope}
 </body></html>

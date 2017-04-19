@@ -1,5 +1,6 @@
 package by.pvt.medvedeva.education.dao;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
@@ -33,7 +34,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	}
 
 	@Override
-	public void create(User user) {
+	public void create(User user) throws DAOException {
 	    preparedStatement = null;
 		try {
 			connection = connectionPool.getConnect();
@@ -44,10 +45,9 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 			preparedStatement.setString(4, user.getPassword());
 			preparedStatement.setInt(5, user.getRole());
 			preparedStatement.executeUpdate();
-
 		}
 			catch (SQLException e) {
-			e.printStackTrace();
+				throw new DAOException("Some trouble whith connect to database", e);
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -57,13 +57,13 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DAOException("Some trouble whith connect to database", e);
 			}
 		}
 	}
 
 	@Override
-	public User getUserByLogin(final String login)  {
+	public User getUserByLogin(final String login) throws DAOException {
 		preparedStatement = null;
 		resultSet = null;
 		User user = new User();
@@ -74,7 +74,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 			resultSet = preparedStatement.executeQuery();
 			user = initUser(resultSet);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Some trouble whith connect to database", e);
 			}
 		finally {
 			try {
@@ -88,13 +88,13 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 					connection.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DAOException("Some trouble whith connect to database", e);
 			}
 		}
 		return user;
 	}
 
-	private User initUser(ResultSet resultSet)  {
+	private User initUser(ResultSet resultSet) throws DAOException {
 		User user = new User();
 		try {
 		while (resultSet.next()) {
@@ -106,7 +106,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 			user.setRole(resultSet.getInt(6));
 			} }
 			catch (SQLException e) {
-				e.printStackTrace();
+				throw new DAOException("Some trouble whith connect to database", e);
 			}
 				return user;
 	}
@@ -114,13 +114,12 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 
 
 	@Override
-	public boolean CheckLogin(String login)  {
+	public boolean CheckLogin(String login) throws DAOException {
 		boolean checkedLogin = true;
 		preparedStatement = null;
 		try {
 			connection = connectionPool.getConnect();
 			preparedStatement = connection.prepareStatement(SQL_QUERY_CHECK_LOGIN);
-
 			preparedStatement.setString(1, login);
 		    resultSet = preparedStatement.executeQuery();
 				if (resultSet.next()) {
@@ -130,7 +129,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 			checkedLogin = false;
 			connection.close();}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException("Some trouble whith connect to database", e);
 		}
 		return checkedLogin;
 	}

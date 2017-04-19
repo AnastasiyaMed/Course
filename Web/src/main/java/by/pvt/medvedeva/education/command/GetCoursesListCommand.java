@@ -1,7 +1,9 @@
 package by.pvt.medvedeva.education.command;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.filter.ClientType;
+import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
 import by.pvt.medvedeva.education.service.UserService;
 
@@ -25,11 +27,17 @@ public class GetCoursesListCommand implements ActionCommand {
 			page = ConfigurationManager.getProperty("path.page.login");
 		} else {
 
-			list = userService.getAllCoursesInfo();
+			try {
+				list = userService.getAllCoursesInfo();
+
 			int listSize = list.size();
 			request.setAttribute("list", list);
 			request.setAttribute("listSize", listSize);
 			page = ConfigurationManager.getProperty("path.page.allcourses");
+			} catch (DAOException e) {
+				request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+				page = ConfigurationManager.getProperty("path.page.student");
+			}
 		}
 
 		return page;

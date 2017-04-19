@@ -5,6 +5,7 @@ package by.pvt.medvedeva.education.service;
 
 import by.pvt.medvedeva.education.dao.CourseDAOImpl;
 import by.pvt.medvedeva.education.dao.UserDAOImpl;
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.CourseDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.Course;
@@ -37,24 +38,24 @@ public class UserService {
 		userDAO = UserDAOImpl.getInstance();
 	}
 
-	public User getUser(String enterLogin) throws IOException {
+	public User getUser(String enterLogin) throws IOException, DAOException {
 		return (User) userDAO.getUserByLogin(enterLogin);
 	}
 
-	public void addNewCourse(Course course) {
+	public void addNewCourse(Course course) throws DAOException {
 		CourseDAOImpl.getInstance().create(course);
 	}
 
-	public void addUser(User user)  {
+	public void addUser(User user) throws DAOException {
     UserDAOImpl.getInstance().create(user);
 	}
 
-	public List<Course> getAllCoursesInfo() {
+	public List<Course> getAllCoursesInfo() throws DAOException {
 		CourseDAO courseDAO = CourseDAOImpl.getInstance();
 		return  courseDAO.getAllCoursesInfo();
 	}
 
-	public boolean checkLogin(String login)  {
+	public boolean checkLogin(String login) throws DAOException {
 		boolean resultCheckLogin = true;
 		resultCheckLogin = userDAO.CheckLogin(login);
 		return resultCheckLogin;

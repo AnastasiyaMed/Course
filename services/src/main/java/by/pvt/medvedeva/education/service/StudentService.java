@@ -4,6 +4,7 @@
 package by.pvt.medvedeva.education.service;
 
 import by.pvt.medvedeva.education.dao.StudentDAOImpl;
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.StudentDAO;
 import by.pvt.medvedeva.education.entity.Student;
 import by.pvt.medvedeva.education.entity.User;
@@ -36,11 +37,11 @@ public class StudentService {
 		return (Student) studentDAO.initStudent(user,  level, average, cardId);
 	}
 
-	public void addStudent(Student student) {
+	public void addStudent(Student student) throws DAOException {
 		StudentDAOImpl.getInstance().create(student);
 	}
 
-		Student getStudentFromBD(User user) {
+		Student getStudentFromBD(User user) throws DAOException {
 		Student student = (Student) studentDAO.initStudentFromBD(user);
 		return student;
 	}

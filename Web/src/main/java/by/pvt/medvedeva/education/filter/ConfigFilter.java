@@ -4,6 +4,7 @@
  */
 package by.pvt.medvedeva.education.filter;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.service.UserService;
 
@@ -37,11 +38,14 @@ public class ConfigFilter implements Filter {
 			initSession(((HttpServletRequest) request).getSession(), (HttpServletRequest) request);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
+		} catch (DAOException e) {
+			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 		chain.doFilter(request, response);
 	}
 
-	private void initSession(HttpSession session, HttpServletRequest request) {
+	private void initSession(HttpSession session, HttpServletRequest request) throws DAOException {
 		if (session.isNew()) {
 			Cookie[] cookies = request.getCookies();
 			boolean isFound = false;

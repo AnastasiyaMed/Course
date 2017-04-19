@@ -1,5 +1,6 @@
 package by.pvt.medvedeva.education.logic;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.service.UserService;
 
@@ -20,7 +21,7 @@ public class LoginLogic {
         return instance;
     }
 
-    public static int checkUserRole(String enterLogin) {
+    public static int checkUserRole(String enterLogin) throws DAOException {
         User user = null;
         try {
             user = UserService.getInstance().getUser(enterLogin);
@@ -32,12 +33,12 @@ public class LoginLogic {
         return userRole;
     }
 
-    public static String GetUserPasswordForCheck(String enterLogin) {
+    public static String GetUserPasswordForCheck(String enterLogin) throws DAOException {
         User user = null;
         try {
             user = UserService.getInstance().getUser(enterLogin);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DAOException("Some trouble whith access to data", e);
         }
         String userPassword = user.getPassword();
         return userPassword;

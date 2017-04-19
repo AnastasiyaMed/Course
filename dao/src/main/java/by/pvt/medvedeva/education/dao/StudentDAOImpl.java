@@ -1,6 +1,7 @@
 
 package by.pvt.medvedeva.education.dao;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.StudentDAO;
@@ -40,7 +41,6 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 	@Override
 	public Student initStudent(User user, int level, double average, int cardId) {
 		Student student = new Student();
-		//	int idUser = user.getIdUser();
 			student.setName(user.getName());
 			student.setSurname(user.getSurname());
 			student.setLogin(user.getLogin());
@@ -55,7 +55,7 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 	}
 
 	@Override
-	public Student initStudentFromBD(User user) {
+	public Student initStudentFromBD(User user) throws DAOException {
 		preparedStatement = null;
 		resultSet = null;
 		Student student = new Student();
@@ -80,7 +80,7 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 			}
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			throw new DAOException("Some trouble whith connect to database", e);
 		}  finally {
 			try {
 				if (resultSet != null) {
@@ -93,14 +93,14 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 					connection.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DAOException("Some trouble whith connect to database", e);
 			}
 		}
 		return student;
 	}
 
 	@Override
-		public void create (Student student)  {
+		public void create (Student student) throws DAOException {
 		preparedStatement = null;
 		try {
 			connection = connectionPool.getConnect();
@@ -118,7 +118,7 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			throw new DAOException("Some trouble whith connect to database", e);
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -128,7 +128,7 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 					connection.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DAOException("Some trouble whith connect to database", e);
 			}
 		}
 	}

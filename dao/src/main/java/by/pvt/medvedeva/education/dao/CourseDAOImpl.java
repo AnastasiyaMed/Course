@@ -1,5 +1,6 @@
 package by.pvt.medvedeva.education.dao;
 
+import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.CourseDAO;
@@ -22,12 +23,12 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
      * Singleton-fabric
      *
      */
-    public static CourseDAOImpl getInstance() {
+    public static CourseDAOImpl getInstance() throws DAOException {
         if (instance == null) {
             try {
                 instance = new CourseDAOImpl(MySQLConnectionPool.getInstance());
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new DAOException("Some trouble whith connect to database", e);
             }
         }
         return instance;
@@ -41,7 +42,7 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
 
 
     @Override
-    public void create(Course course) {
+    public void create(Course course) throws DAOException {
         try {
             connection = connectionPool.getConnect();
             preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_COURSE);
@@ -51,7 +52,7 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
             preparedStatement.setInt(4, course.getIdTeacher());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Some trouble whith connect to database", e);
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -68,7 +69,7 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
     }
 
     @Override
-    public ArrayList <Course> getAllCoursesInfo() {
+    public ArrayList <Course> getAllCoursesInfo() throws DAOException {
         ArrayList <Course> allCourses = new ArrayList <>();
         try {
             connection = connectionPool.getConnect();
@@ -82,7 +83,7 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
                 allCourses.add(course);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("Some trouble whith connect to database", e);
         } finally {
             try {
                 if (resultSet != null) {

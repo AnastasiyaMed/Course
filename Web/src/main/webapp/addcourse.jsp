@@ -40,12 +40,20 @@ ${nullPage}
   </div>
  </c:if>
  <c:if test="${not empty wrongteacherid}">
+ <div class="text-center">
+  <h4>
+   <font color="red">${wrongteacherid}</font>
+  </h4>
+ </div>
+</c:if>
+ <c:if test="${not empty exeptionMessage}">
   <div class="text-center">
    <h4>
-    <font color="red">${wrongteacherid}</font>
+    <font color="red">${exeptionMessage}</font>
    </h4>
   </div>
  </c:if>
+
  </form><hr/>
 
 <br/>
