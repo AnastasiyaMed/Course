@@ -20,6 +20,18 @@ import java.util.List;
  */
 public class UserService {
 	private UserDAO userDAO;
+	private static UserService instance;
+
+	/**
+	 * Singleton-fabric
+	 *
+	 */
+	public static  UserService getInstance() {
+		if (instance == null) {
+			instance = new  UserService();
+		}
+		return instance;
+	}
 
 	public UserService() {
 		userDAO = UserDAOImpl.getInstance();
@@ -46,24 +58,6 @@ public class UserService {
 		boolean resultCheckLogin = true;
 		resultCheckLogin = userDAO.CheckLogin(login);
 		return resultCheckLogin;
-	}
-
-
-	public User setUserByRole(User user, int userRole) {
-		User userByRole = null;
-		StudentService studserv = new StudentService();
-		TeacherService teacherserv = new TeacherService();
-
-		if (userRole == 1) {
-			userByRole = studserv.getStudentFromBD(user);
-		}
-		if (userRole == 2) {
-			userByRole = teacherserv.getTeacher(user);
-		}
-		if (userRole == 3) {
-			userByRole = user;
-		}
-		return userByRole;
 	}
 
 }

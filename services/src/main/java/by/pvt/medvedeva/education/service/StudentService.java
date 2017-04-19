@@ -15,6 +15,18 @@ import by.pvt.medvedeva.education.entity.User;
  */
 public class StudentService {
 	private StudentDAO studentDAO;
+	private static StudentService instance;
+
+	/**
+	 * Singleton-fabric
+	 *
+	 */
+	public static StudentService getInstance() {
+		if (instance == null) {
+			instance = new StudentService();
+		}
+		return instance;
+	}
 
 	public StudentService() {
 		studentDAO = StudentDAOImpl.getInstance();
@@ -28,11 +40,7 @@ public class StudentService {
 		StudentDAOImpl.getInstance().create(student);
 	}
 
-	public Student getStudent(User user, int level, double average, int cardId) {
-		Student student = (Student) studentDAO.initStudent(user,  level, average, cardId);
-				return student;
-	}
-	public Student getStudentFromBD(User user) {
+		Student getStudentFromBD(User user) {
 		Student student = (Student) studentDAO.initStudentFromBD(user);
 		return student;
 	}

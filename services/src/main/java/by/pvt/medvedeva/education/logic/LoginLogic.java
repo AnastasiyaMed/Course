@@ -7,12 +7,23 @@ import java.io.IOException;
 
 
 public class LoginLogic {
+    private static LoginLogic instance;
+
+    /**
+     * Singleton-fabric
+     *
+     */
+    public static LoginLogic getInstance() {
+        if (instance == null) {
+               instance = new LoginLogic();
+         }
+        return instance;
+    }
 
     public static int checkUserRole(String enterLogin) {
-        UserService userService = new UserService();
         User user = null;
         try {
-            user = userService.getUser(enterLogin);
+            user = UserService.getInstance().getUser(enterLogin);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -22,10 +33,9 @@ public class LoginLogic {
     }
 
     public static String GetUserPasswordForCheck(String enterLogin) {
-        UserService userService = new UserService();
         User user = null;
         try {
-            user = userService.getUser(enterLogin);
+            user = UserService.getInstance().getUser(enterLogin);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,15 +43,4 @@ public class LoginLogic {
         return userPassword;
     }
 
-    public boolean checkLogin(String login) {
-        UserService userService = new UserService();
-        boolean resultChek;
-
-            if (userService.checkLogin(login)) {
-                resultChek = true;
-            } else {
-                resultChek = false;
-            }
-              return resultChek;
-    }
 }

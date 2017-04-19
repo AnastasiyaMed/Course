@@ -49,11 +49,4 @@ public class TeacherService {
 		TeacherDAOImpl.getInstance().create(teacher);
 	}
 
-	Teacher getTeacher(User user) {
-		Teacher teacher = null;
-		teacher = (Teacher) teacherDAO.initTeacher(user);
-
-		return teacher;
-	}
-
 }
