@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8");%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <title>Registration</title></head>
@@ -17,14 +19,19 @@ Courses Name:<br/>
 <br/>
 <br/>
 
- <br/>
-${errorOfCourseAddingMessage}
- <br/>
+
 ${wrongAction}
  <br/>
 ${nullPage}
  <br/>
   <input type="submit" value="Add Course"/>
+ <c:if test="${not empty wrongteacherid}">
+  <div class="text-center">
+   <h4>
+    <font color="red">${wrongteacherid}</font>
+   </h4>
+  </div>
+ </c:if>
 </form><hr/>
 
 <br/>

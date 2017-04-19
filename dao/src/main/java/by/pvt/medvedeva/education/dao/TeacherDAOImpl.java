@@ -10,17 +10,15 @@ import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
  * @author Medvedeva Anastasiya
  */
 public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<Teacher>  {
-    public static final String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, user, course  WHERE teacher.user_user_id = user.user_id AND course.teacher_teacher_id = teacher.teacher_id  AND user.user_id = ? ;";
-    public static final String SQL_QUERY_ADD_TEACHER = "INSERT INTO `teacher` (`user_user_id`) VALUES (?)";
-    public static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `user` SET `role`='2' WHERE  user.user_id = ?";
+private final static  String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, user  WHERE teacher.user_user_id = user.user_id AND teacher.teacher_id = ? ;";
+    private final static  String SQL_QUERY_ADD_TEACHER = "INSERT INTO `teacher` (`user_user_id`) VALUES (?)";
+    private final static  String SQL_QUERY_CHANGE_USERROLE = "UPDATE `user` SET `role`='2' WHERE  user.user_id = ?";
     private final static int TEACHER_ROLE = 2;
     private static TeacherDAOImpl instance;
 
@@ -42,41 +40,16 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
     @Override
     public Teacher initTeacher(User user) {
 
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+
         Teacher teacher = new Teacher();
-        try {
-            connection = connectionPool.getConnect();
-            int IdUser = user.getIdUser();
-            preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHER);
-            preparedStatement.setInt(1, IdUser);
-            resultSet = preparedStatement.executeQuery();
+
             teacher.setName(user.getName());
             teacher.setSurname(user.getSurname());
             teacher.setLogin(user.getLogin());
             teacher.setPassword(user.getPassword());
             teacher.setRole(TEACHER_ROLE);
             teacher.setIdUser(user.getIdUser());
-            while (resultSet.next()) {
-                teacher.setIdTeacher(resultSet.getInt("teacher_id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+
         return teacher;
     }
 
@@ -112,4 +85,47 @@ public class TeacherDAOImpl extends AbstractDAO<Teacher> implements TeacherDAO<T
             }
         }
     }
+
+
+
+    @Override
+    public Teacher initTeacherFromBD(int idTeacher) {
+        preparedStatement = null;
+        resultSet = null;
+        Teacher teacher = null;
+        try {
+            connection = connectionPool.getConnect();
+            preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHER);
+            preparedStatement.setInt(1, idTeacher);
+            resultSet = preparedStatement.executeQuery();
+           if ((resultSet.next())) {
+            teacher = new Teacher();
+            while (resultSet.next()) {
+                teacher.setIdUser(resultSet.getInt("user_id"));
+                teacher.setLogin(resultSet.getString("login"));
+                teacher.setName(resultSet.getString("name"));
+                teacher.setSurname(resultSet.getString("surname"));
+                teacher.setPassword(resultSet.getString("password"));
+               }}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(teacher);
+        return teacher;
+            }
+
 }

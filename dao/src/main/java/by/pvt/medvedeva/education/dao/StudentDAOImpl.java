@@ -40,7 +40,7 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 	@Override
 	public Student initStudent(User user, int level, double average, int cardId) {
 		Student student = new Student();
-			int idUser = user.getIdUser();
+		//	int idUser = user.getIdUser();
 			student.setName(user.getName());
 			student.setSurname(user.getSurname());
 			student.setLogin(user.getLogin());

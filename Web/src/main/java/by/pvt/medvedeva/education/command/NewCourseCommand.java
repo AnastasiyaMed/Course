@@ -4,8 +4,9 @@
 package by.pvt.medvedeva.education.command;
 
 import by.pvt.medvedeva.education.entity.Course;
-import by.pvt.medvedeva.education.resource.ConfigurationManager;
 import by.pvt.medvedeva.education.filter.MessageManager;
+import by.pvt.medvedeva.education.resource.ConfigurationManager;
+import by.pvt.medvedeva.education.service.TeacherService;
 import by.pvt.medvedeva.education.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,26 +28,21 @@ public class NewCourseCommand implements ActionCommand {
 		Course course = new Course();
 		UserService userService = new UserService();
 		String page = null;
-
-		if ((Integer.parseInt(request.getParameter(TEACHERID)) < 1) || Integer.parseInt(request.getParameter(TEACHERID)) > 5) {
-			request.setAttribute("errorOfCourseAddingMessage", MessageManager.getProperty("message.addcourseererror"));
-			page = ConfigurationManager.getProperty("path.page.registr");
-			return page;
-		} else {
-
+		if (request.getParameter(TEACHERID).isEmpty()) {
+			request.setAttribute("wrongteacherid", MessageManager.getProperty("message.wrongteacherid"));
+            page = ConfigurationManager.getProperty("path.page.addcourses");
+		} else  if  (TeacherService.getInstance().initTeacherFromBD(Integer.parseInt(request.getParameter(TEACHERID)))== null) {
+            request.setAttribute("wrongteacherid", MessageManager.getProperty("message.wrongteacherid"));
+			page = ConfigurationManager.getProperty("path.page.addcourses");
+			} else {
 			course.setName(request.getParameter(NAME).trim());
 			course.setDuration(Integer.parseInt(request.getParameter(DURATION).trim()));
-
 			course.setAuditorium(Integer.parseInt(request.getParameter(AUDITORIUM).trim()));
-
 			course.setIdTeacher((Integer.parseInt(request.getParameter(TEACHERID).trim())));
-
 			userService.addNewCourse(course);
-
 			// определение пути к main.jsp
 			page = ConfigurationManager.getProperty("path.page.main");
-
-			return page;
 		}
+        return page;
 	}
 }

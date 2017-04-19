@@ -2,12 +2,12 @@
 package by.pvt.medvedeva.education.entity;
 
 public class User extends Entity {
-	int idUser;
-	String name;
-	String surname;
-	String login;
-	String password;
-	int role;
+	 int idUser;
+	 String name;
+	 String surname;
+	 String login;
+	 String password;
+	 int role;
 
 	public User() {
 		super();
