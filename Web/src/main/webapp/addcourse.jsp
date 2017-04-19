@@ -25,6 +25,20 @@ ${wrongAction}
 ${nullPage}
  <br/>
   <input type="submit" value="Add Course"/>
+<c:if test="${not empty dataofcourseerror}">
+ <div class="text-center">
+  <h4>
+   <font color="red">${dataofcourseerror}</font>
+  </h4>
+ </div>
+</c:if>
+ <c:if test="${not empty errorFormDataMessage}">
+  <div class="text-center">
+   <h4>
+    <font color="red">${errorFormDataMessage}</font>
+   </h4>
+  </div>
+ </c:if>
  <c:if test="${not empty wrongteacherid}">
   <div class="text-center">
    <h4>
@@ -32,7 +46,7 @@ ${nullPage}
    </h4>
   </div>
  </c:if>
-</form><hr/>
+ </form><hr/>
 
 <br/>
 <a href="controller?command=logout">Logout</a>

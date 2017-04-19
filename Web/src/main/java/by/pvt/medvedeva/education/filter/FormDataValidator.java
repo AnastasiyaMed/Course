@@ -50,4 +50,17 @@ public class FormDataValidator {
 	 */
 	public static final Pattern cardPattern = Pattern.compile("[\\d]+");
 
+	/**
+	 * любое количество цифр
+	 */
+	public static final Pattern durationPattern = Pattern.compile("[\\d]+");
+	/**
+	 * максимум 4 цифры
+	 */
+	public static final Pattern auditoriumPattern = Pattern.compile("^([0-9]{1,4})$");
+	/**
+	 * максимум 9 цифр
+	 */
+	public static final Pattern teacherIdPattern = Pattern.compile("^([0-9]{1,9})");
+
 }
