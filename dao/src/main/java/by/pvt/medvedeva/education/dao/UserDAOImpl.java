@@ -19,7 +19,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	private static UserDAOImpl instance;
 
 	 UserDAOImpl(ConnectionPool connectionPool) {
-		this.connectionPool = connectionPool;
+		 super(User.class);
+	 	this.connectionPool = connectionPool;
 	}
 
 	/**

@@ -1,8 +1,8 @@
 package by.pvt.medvedeva.education.command;
 
-import javax.servlet.http.HttpServletRequest;
-
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class LogoutCommand implements ActionCommand {
 	@Override

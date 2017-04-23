@@ -9,33 +9,33 @@ import java.io.IOException;
 import static by.pvt.medvedeva.education.filter.ClientType.GUEST;
 
 @WebFilter(dispatcherTypes = {
-    DispatcherType.REQUEST,
-    DispatcherType.FORWARD,
-    DispatcherType.INCLUDE,
-	}, urlPatterns = {"/controller", "*.jsp"}, servletNames = { "Controller" })
+        DispatcherType.REQUEST,
+        DispatcherType.FORWARD,
+        DispatcherType.INCLUDE,
+}, urlPatterns = {"/controller", "*.jsp"}, servletNames = {"Controller"})
 public class ServletSecurityFilter implements Filter {
 
-	@Override
-	public void destroy() {
-	}
+    @Override
+    public void destroy() {
+    }
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpSession session = req.getSession();
-		ClientType type = (ClientType) session.getAttribute("userType");
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpSession session = req.getSession();
+        ClientType type = (ClientType) session.getAttribute("userType");
 
-		if ((type == null)) {
-			type = GUEST;
-			session.setAttribute("userType", type);
-			request.getRequestDispatcher("/login.jsp").forward(request, response);
-			return;
-		}
+        if ((type == null)) {
+            type = GUEST;
+            session.setAttribute("userType", type);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            return;
+        }
+            chain.doFilter(request, response);
 
-		chain.doFilter(request, response);
-	}
+    }
 
-	@Override
-	public void init(FilterConfig fConfig) throws ServletException {
-	}
+    @Override
+    public void init(FilterConfig fConfig) throws ServletException {
+    }
 }

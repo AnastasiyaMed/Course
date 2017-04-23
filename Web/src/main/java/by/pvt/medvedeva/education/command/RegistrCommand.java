@@ -56,7 +56,7 @@ public class RegistrCommand implements ActionCommand {
 			session.setAttribute("userType", ClientType.DEFAULT_USER);
 			page = ConfigurationManager.getProperty("path.page.defaultuser");
 		} } catch (DAOException e) {
-			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
 			page = ConfigurationManager.getProperty("path.page.registr");
 		}
 

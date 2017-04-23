@@ -36,7 +36,7 @@ public class SetTeacherRoleCommand implements ActionCommand {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DAOException e) {
-			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+			request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
 			page = ConfigurationManager.getProperty("path.page.defaultuser");
 		}
 		request.setAttribute("user", login);

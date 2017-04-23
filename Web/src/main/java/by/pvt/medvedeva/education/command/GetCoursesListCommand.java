@@ -35,7 +35,7 @@ public class GetCoursesListCommand implements ActionCommand {
 			request.setAttribute("listSize", listSize);
 			page = ConfigurationManager.getProperty("path.page.allcourses");
 			} catch (DAOException e) {
-				request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+				request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
 				page = ConfigurationManager.getProperty("path.page.student");
 			}
 		}

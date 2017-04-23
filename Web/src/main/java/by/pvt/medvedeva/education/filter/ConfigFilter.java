@@ -18,10 +18,10 @@ import java.io.IOException;
 /**
  * Фильтр исполняет две задачи: кодирует параметры request объекта в UTF-8 и
  * анализирует куки в случае новой сессии.
- * 
+ *
  * Filter stands for two tasks: encodes request object in UTF-8 and analyses
  * cookies in case of new session.
- * 
+ *
  */
 @WebFilter(urlPatterns = { "/controller" }, servletNames = { "Controller" })
 public class ConfigFilter implements Filter {
@@ -37,9 +37,10 @@ public class ConfigFilter implements Filter {
 			// смотрим куки
 			initSession(((HttpServletRequest) request).getSession(), (HttpServletRequest) request);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
+			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		} catch (DAOException e) {
-			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 		chain.doFilter(request, response);
@@ -53,13 +54,12 @@ public class ConfigFilter implements Filter {
 				for (Cookie c : cookies) {
 					// looking for user LOGIN (for authorize purpose)
 					if ((c.getName()).equals(LOGIN)) {
-						UserService userservice = new UserService();
 						User user = null;
 						try {
-							user = userservice.getUser(c.getValue());
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+							UserService.getInstance().getUser(c.getValue());
+							} catch (IOException e) {
+							request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+													}
 						session.setAttribute(ROLE_ATTRIBUT, user.getRole());
 						session.setAttribute(USER_OBJECT_ATTRIBUTE, user);
 

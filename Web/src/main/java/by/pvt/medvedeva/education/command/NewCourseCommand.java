@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package by.pvt.medvedeva.education.command;
 
@@ -15,13 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import static by.pvt.medvedeva.education.filter.ClientType.GUEST;
-import static by.pvt.medvedeva.education.filter.FormDataValidator.auditoriumPattern;
-import static by.pvt.medvedeva.education.filter.FormDataValidator.durationPattern;
-import static by.pvt.medvedeva.education.filter.FormDataValidator.teacherIdPattern;
+import static by.pvt.medvedeva.education.filter.FormDataValidator.*;
 
 /**
  * @author Anastasiya Medvedeva
- *
  */
 public class NewCourseCommand implements ActionCommand {
 
@@ -41,14 +38,16 @@ public class NewCourseCommand implements ActionCommand {
         if (type == GUEST) {
             page = ConfigurationManager.getProperty("path.page.login");
         }
-        if ((request.getParameter(NAME).isEmpty()) || (request.getParameter(DURATION).isEmpty()) || (request.getParameter(AUDITORIUM).isEmpty()) || (request.getParameter(TEACHERID).isEmpty())) {
+        if ((request.getParameter(NAME).isEmpty()) || (request.getParameter(DURATION).isEmpty())
+                || (request.getParameter(AUDITORIUM).isEmpty()) || (request.getParameter(TEACHERID).isEmpty())) {
             page = ConfigurationManager.getProperty("path.page.addcourses");
             request.setAttribute("dataofcourseerror", MessageManager.getProperty("message.dataofcourseerror"));
-        } else if ((errMessage = validate(request.getParameter(DURATION), request.getParameter(AUDITORIUM), request.getParameter(TEACHERID))) != null) {
+        } else if ((errMessage = validate(request.getParameter(DURATION), request.getParameter(AUDITORIUM),
+                request.getParameter(TEACHERID))) != null) {
             request.setAttribute("errorFormDataMessage", validate((request.getParameter(DURATION)), request.getParameter(AUDITORIUM), request.getParameter(TEACHERID)));
             page = ConfigurationManager.getProperty("path.page.addcourses");
         } else try {
-            if (TeacherService.getInstance().initTeacherFromBD(Integer.parseInt(request.getParameter(TEACHERID))) == null) {
+            if (TeacherService.getInstance().getById(Integer.parseInt(request.getParameter(TEACHERID))) == null) {
                 request.setAttribute("wrongteacherid", MessageManager.getProperty("message.wrongteacherid"));
                 page = ConfigurationManager.getProperty("path.page.addcourses");
             } else {
@@ -61,7 +60,7 @@ public class NewCourseCommand implements ActionCommand {
                 page = ConfigurationManager.getProperty("path.page.main");
             }
         } catch (DAOException e) {
-            request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+            request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
             page = ConfigurationManager.getProperty("path.page.addcourses");
         }
         return page;

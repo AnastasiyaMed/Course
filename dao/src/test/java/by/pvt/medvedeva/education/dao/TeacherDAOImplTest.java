@@ -67,16 +67,16 @@ User user = new User(1, "d", "s", "c", "c", 2);
         Assert.assertEquals("Ошибка чтения данных преподавателя из базы", "w", teacherTest.getLogin());
     }
 
-    @Test
-    public void initTeacherFromBDTest() throws Exception {
-        Teacher teacherTest = dao.initTeacherFromBD(setUpTeacherID());
-        Assert.assertNotNull("преподаватель не найден в базе", teacherTest);
-    }
-
-    @Test
-    public void createTest() throws Exception {
-                Teacher teacherTest = dao.initTeacherFromBD(setUpTeacherID());
-                Assert.assertEquals("Ошибка чтения создания преподавателя в базе", "c", teacherTest.getLogin());
-    }
+//    @Test
+//    public void initTeacherFromBDTest() throws Exception {
+//        Teacher teacherTest = dao.initTeacherFromBD(setUpTeacherID());
+//        Assert.assertNotNull("преподаватель не найден в базе", teacherTest);
+//    }
+//
+//    @Test
+//    public void createTest() throws Exception {
+//                Teacher teacherTest = dao.initTeacherFromBD(setUpTeacherID());
+//                Assert.assertEquals("Ошибка чтения создания преподавателя в базе", "c", teacherTest.getLogin());
+//    }
 
 }

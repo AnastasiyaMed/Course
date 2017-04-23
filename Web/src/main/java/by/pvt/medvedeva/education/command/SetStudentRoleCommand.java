@@ -49,7 +49,7 @@ public class SetStudentRoleCommand implements ActionCommand {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (DAOException e) {
-				request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exeptionMessage"));
+				request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
 				page = ConfigurationManager.getProperty("path.page.newStudent");
 			}
 			request.setAttribute("user", login);

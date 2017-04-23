@@ -1,109 +1,59 @@
 /**
- * 
+ *
  */
 package by.pvt.medvedeva.education.entity;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
+
+
 /**
  * @author Anastasiya Medvedeva
- *
  */
-public class Course extends Entity {
 
-	String name;
-	int duration;
-	int auditorium;
-	int idTeacher;
+@Table (name = "course")
+@Data
+@Entity
+@EqualsAndHashCode(callSuper = true)
+public class Course extends Pojo {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Column (name = "course_id")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer courseId;
+    @Column (name = "course_name")
+    private String name;
+    @Column (name = "duration")
+    private Integer duration;
+    @Column (name = "auditorium")
+    private Integer auditorium;
+    private Integer idTeacher;
+//    @OneToOne(mappedBy = "course", orphanRemoval = false)
+  //  @JoinColumn(name="teacher_id")
+ //     private Teacher teacher;
+ //   @OneToMany (mappedBy = "student_has_course", orphanRemoval = false)
+//    @JoinColumn(name="student_id")
+//    private Set<Student> students = new HashSet<>();
 
-	public Course() {
-		super();
-	}
+    public Course() {
+        super();
+    }
 
-	public Course(String name, int duration, int auditorium, int idTeacher) {
-		super();
-		this.name = name;
-		this.duration = duration;
-		this.auditorium = auditorium;
-		this.idTeacher = idTeacher;
+    public Course(String name, int duration, int auditorium, int idTeacher) {
+        super();
+        this.name = name;
+        this.duration = duration;
+        this.auditorium = auditorium;
+       this.idTeacher = idTeacher;
 
-	}
+    }
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getDuration() {
-		return duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
-	public int getAuditorium() {
-		return auditorium;
-	}
-
-	public void setAuditorium(int auditorium) {
-		this.auditorium = auditorium;
-	}
-
-	public int getIdTeacher() {
-		return idTeacher;
-	}
-
-	public void setIdTeacher(int idTeacher) {
-		this.idTeacher = idTeacher;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + auditorium;
-		result = prime * result + duration;
-		result = prime * result + idTeacher;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof Course)) {
-			return false;
-		}
-		Course other = (Course) obj;
-		if (auditorium != other.auditorium) {
-			return false;
-		}
-		if (duration != other.duration) {
-			return false;
-		}
-		if (idTeacher != other.idTeacher) {
-			return false;
-		}
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Course [name=" + name + ", duration=" + duration + ", auditorium=" + auditorium + ", idTeacher=" + idTeacher + "]";
-	}
+    @Override
+    public String toString() {
+        return "Course [name=" + name + ", duration=" + duration + ", auditorium=" + auditorium + ", idTeacher=" + idTeacher + "]";
+    }
 
 }

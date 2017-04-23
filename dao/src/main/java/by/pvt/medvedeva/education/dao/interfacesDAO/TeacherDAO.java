@@ -3,7 +3,6 @@
  */
 package by.pvt.medvedeva.education.dao.interfacesDAO;
 
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.entity.User;
 
 /**
@@ -15,5 +14,7 @@ public interface TeacherDAO <Teacher>{
 
 	Teacher initTeacher(User user);
 
-	Teacher initTeacherFromBD(int idTeacher) throws DAOException;
+	//Teacher initTeacherFromBD(int idTeacher) throws DAOException;
+
+
 	}

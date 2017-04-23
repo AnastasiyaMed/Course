@@ -1,12 +1,12 @@
 package by.pvt.medvedeva.education.dao.interfacesDAO;
 
 import by.pvt.medvedeva.education.dao.exeption.DAOException;
-import by.pvt.medvedeva.education.entity.Entity;
+import by.pvt.medvedeva.education.entity.Pojo;
 
-public interface BaseDAO<T extends Entity> {
+public interface BaseDAO<T extends Pojo> {
 
      void create (T entity) throws DAOException;
 
 
-
+    T getById(Integer id) throws DAOException;
 }

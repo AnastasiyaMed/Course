@@ -24,6 +24,7 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 	private static StudentDAOImpl instance;
 
 	StudentDAOImpl(ConnectionPool connectionPool) {
+		super(Student.class);
 		this.connectionPool = connectionPool;
 	}
 

@@ -22,7 +22,7 @@ public class CourseDAOImplTest {
         Course course = new Course();
         course.setAuditorium(5);
         course.setDuration(214);
-        course.setIdTeacher(1);
+      //  course.setIdTeacher(1);
         course.setName("ss");
         CourseDAOImpl dao = new CourseDAOImpl(H2ConnectionPool.getInstance());
         dao.create(course);
@@ -35,7 +35,7 @@ public class CourseDAOImplTest {
         Course course = new Course();
         course.setAuditorium(504);
         course.setDuration(214);
-        course.setIdTeacher(1);
+      //  course.setIdTeacher(1);
         course.setName("KDHD");
         CourseDAOImpl dao = new CourseDAOImpl(H2ConnectionPool.getInstance());
         dao.create(course);

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Course>   {
+public class CourseDAOImpl extends AbstractDAO <Course> implements CourseDAO <Course> {
     private static final String SQL_QUERY_GET_ALL_COURSES = "SELECT *  FROM course";
     private static final String SQL_QUERY_ADD_COURSE = "INSERT INTO course (course_name, duration, auditorium, teacher_teacher_id) VALUES (?,?,?,?)";
     private static final String COLUMN_NAME_COURSE = "course_name";
@@ -19,9 +19,8 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
     private static final String COLUMN_NAME_AUDITORIUM = "auditorium";
     private static CourseDAOImpl instance;
 
-     /**
+    /**
      * Singleton-fabric
-     *
      */
     public static CourseDAOImpl getInstance() throws DAOException {
         if (instance == null) {
@@ -36,9 +35,9 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
 
 
     CourseDAOImpl(ConnectionPool connectionPool) throws SQLException {
+        super(Course.class);
         this.connectionPool = connectionPool;
     }
-
 
 
     @Override
@@ -67,6 +66,14 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
             }
         }
     }
+
+//    @Override
+//    public void create(Course course) throws DAOException {
+//        Session session = HibernateUtil.getHibernateUtil().getSession();
+//        session.beginTransaction();
+//        session.saveOrUpdate(course);
+//        session.getTransaction().commit();
+//    }
 
     @Override
     public ArrayList <Course> getAllCoursesInfo() throws DAOException {
@@ -104,7 +111,7 @@ public class CourseDAOImpl extends AbstractDAO<Course> implements CourseDAO<Cour
     }
 
 
-    }
+}
 
 
 
