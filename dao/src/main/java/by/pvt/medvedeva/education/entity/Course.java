@@ -3,8 +3,10 @@
  */
 package by.pvt.medvedeva.education.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -15,6 +17,8 @@ import javax.persistence.*;
 
 @Table (name = "course")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Course extends Pojo {
@@ -29,31 +33,20 @@ public class Course extends Pojo {
     private Integer duration;
     @Column (name = "auditorium")
     private Integer auditorium;
-    private Integer idTeacher;
-//    @OneToOne(mappedBy = "course", orphanRemoval = false)
-  //  @JoinColumn(name="teacher_id")
- //     private Teacher teacher;
+    @OneToOne 
+    @JoinColumn(name = "teacher_user_id", referencedColumnName = "user_id")
+     private Teacher teacher;
  //   @OneToMany (mappedBy = "student_has_course", orphanRemoval = false)
 //    @JoinColumn(name="student_id")
 //    private Set<Student> students = new HashSet<>();
 
-    public Course() {
-        super();
-    }
 
-    public Course(String name, int duration, int auditorium, int idTeacher) {
-        super();
-        this.name = name;
-        this.duration = duration;
-        this.auditorium = auditorium;
-       this.idTeacher = idTeacher;
 
-    }
 
 
     @Override
     public String toString() {
-        return "Course [name=" + name + ", duration=" + duration + ", auditorium=" + auditorium + ", idTeacher=" + idTeacher + "]";
+        return "Course [name=" + name + ", duration=" + duration + ", auditorium=" + auditorium + ", Teacher=" + teacher + "]";
     }
 
 }

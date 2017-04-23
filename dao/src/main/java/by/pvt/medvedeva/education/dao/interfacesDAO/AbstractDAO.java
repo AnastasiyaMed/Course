@@ -38,4 +38,17 @@ public abstract class AbstractDAO<T extends Pojo>  implements BaseDAO <T>{
         }
     }
 
+    @Override
+    public void create(T pojo) throws DAOException {
+
+        try {
+            session = util.getSession();
+            session.save(pojo);
+        } catch (HibernateException e) {
+            throw new DAOException(persistentClass, "Fatal error in create method", e);
+        }
+
+    }
+
+
 }

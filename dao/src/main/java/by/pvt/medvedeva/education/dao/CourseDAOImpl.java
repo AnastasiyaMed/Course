@@ -40,36 +40,36 @@ public class CourseDAOImpl extends AbstractDAO <Course> implements CourseDAO <Co
     }
 
 
-    @Override
-    public void create(Course course) throws DAOException {
-        try {
-            connection = connectionPool.getConnect();
-            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_COURSE);
-            preparedStatement.setString(1, course.getName());
-            preparedStatement.setInt(2, course.getDuration());
-            preparedStatement.setInt(3, course.getAuditorium());
-            preparedStatement.setInt(4, course.getIdTeacher());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new DAOException("Some trouble whith connect to database", e);
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-
-                e.printStackTrace();
-            }
-        }
-    }
+//    @Override
+//    public void create(Course course) throws DAOException {
+//        try {
+//            connection = connectionPool.getConnect();
+//            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_COURSE);
+//            preparedStatement.setString(1, course.getName());
+//            preparedStatement.setInt(2, course.getDuration());
+//            preparedStatement.setInt(3, course.getAuditorium());
+//            preparedStatement.setObject(4, course.getTeacher());
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            throw new DAOException("Some trouble whith connect to database", e);
+//        } finally {
+//            try {
+//                if (preparedStatement != null) {
+//                    preparedStatement.close();
+//                }
+//                if (connection != null) {
+//                    connection.close();
+//                }
+//            } catch (SQLException e) {
+//
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
 //    @Override
 //    public void create(Course course) throws DAOException {
-//        Session session = HibernateUtil.getHibernateUtil().getSession();
+//        session = util.getSession();
 //        session.beginTransaction();
 //        session.saveOrUpdate(course);
 //        session.getTransaction().commit();

@@ -6,9 +6,6 @@ import by.pvt.medvedeva.education.utils.H2ConnectionPool;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TeacherDAOImplTest {
@@ -20,43 +17,43 @@ public class TeacherDAOImplTest {
     }
 
 
-    public int setUpTeacherID() throws Exception {
-User user = new User(1, "d", "s", "c", "c", 2);
-    UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
-        userDAO.create(user);
-    User userTest = userDAO.getUserByLogin(user.getLogin());
-    Teacher teacher = dao.initTeacher(userTest);
-       dao.create(teacher);
-    int userID = userTest.getIdUser();
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-        try {
-        connection =  H2ConnectionPool.getInstance().getConnect();
-        preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHERID);
-        preparedStatement.setInt(1, userID);
-        resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            teacher.setIdTeacher(resultSet.getInt("teacher_id"));
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    } return teacher.getIdTeacher();
-    }
+//    public int setUpTeacherID() throws Exception {
+//User user = new User(1, "d", "s", "c", "c", 2);
+//    UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
+//        userDAO.create(user);
+//    User userTest = userDAO.getUserByLogin(user.getLogin());
+//    Teacher teacher = dao.initTeacher(userTest);
+//       dao.create(teacher);
+//    int userID = userTest.getIdUser();
+//    Connection connection = null;
+//    PreparedStatement preparedStatement = null;
+//    ResultSet resultSet = null;
+//        try {
+//        connection =  H2ConnectionPool.getInstance().getConnect();
+//        preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHERID);
+//        preparedStatement.setInt(1, userID);
+//        resultSet = preparedStatement.executeQuery();
+//        while (resultSet.next()) {
+//  //          teacher.setIdTeacher(resultSet.getInt("teacher_id"));
+//        }
+//    } catch (SQLException e) {
+//        e.printStackTrace();
+//    } finally {
+//        try {
+//            if (resultSet != null) {
+//                resultSet.close();
+//            }
+//            if (preparedStatement != null) {
+//                preparedStatement.close();
+//            }
+//            if (connection != null) {
+//                connection.close();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+// //   } return teacher.getIdTeacher();
+//    }
 
     @Test
     public void initTeacherTest() throws Exception {

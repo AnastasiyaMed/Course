@@ -3,15 +3,12 @@
  */
 package by.pvt.medvedeva.education.dao;
 
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
-
-import java.sql.SQLException;
 
 /**
  * @author Medvedeva Anastasiya
@@ -54,37 +51,37 @@ public class TeacherDAOImpl extends AbstractDAO <Teacher> implements TeacherDAO 
         return teacher;
     }
 
-    @Override
-    public void create(Teacher teacher) throws DAOException {
-        preparedStatement = null;
-        try {
-            connection = connectionPool.getConnect();
-            preparedStatement = connection.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
-            preparedStatement.setInt(1, teacher.getIdUser());
-            preparedStatement.executeUpdate();
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            connection = connectionPool.getConnect();
-            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_TEACHER);
-            preparedStatement.setInt(1, teacher.getIdUser());
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new DAOException("Some trouble whith connect to database", e);
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                throw new DAOException("Some trouble whith connect to database", e);
-            }
-        }
-    }
+//    @Override
+//    public void create(Teacher teacher) throws DAOException {
+//        preparedStatement = null;
+//        try {
+//            connection = connectionPool.getConnect();
+//            preparedStatement = connection.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
+//            preparedStatement.setInt(1, teacher.getIdUser());
+//            preparedStatement.executeUpdate();
+//            if (preparedStatement != null) {
+//                preparedStatement.close();
+//            }
+//            connection = connectionPool.getConnect();
+//            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_TEACHER);
+//            preparedStatement.setInt(1, teacher.getIdUser());
+//            preparedStatement.executeUpdate();
+//
+//        } catch (SQLException e) {
+//            throw new DAOException("Some trouble whith connect to database", e);
+//        } finally {
+//            try {
+//                if (preparedStatement != null) {
+//                    preparedStatement.close();
+//                }
+//                if (connection != null) {
+//                    connection.close();
+//                }
+//            } catch (SQLException e) {
+//                throw new DAOException("Some trouble whith connect to database", e);
+//            }
+//        }
+//    }
 
 
 //    @Override

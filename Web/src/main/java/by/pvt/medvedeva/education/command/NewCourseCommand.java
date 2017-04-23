@@ -5,11 +5,12 @@ package by.pvt.medvedeva.education.command;
 
 import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.entity.Course;
+import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
+import by.pvt.medvedeva.education.service.CourseService;
 import by.pvt.medvedeva.education.service.TeacherService;
-import by.pvt.medvedeva.education.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,6 +32,7 @@ public class NewCourseCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         Course course = new Course();
+        Teacher teacher = new Teacher();
         String page = null;
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
@@ -51,11 +53,14 @@ public class NewCourseCommand implements ActionCommand {
                 request.setAttribute("wrongteacherid", MessageManager.getProperty("message.wrongteacherid"));
                 page = ConfigurationManager.getProperty("path.page.addcourses");
             } else {
+                teacher = TeacherService.getInstance().getById((Integer.parseInt(request.getParameter(TEACHERID).trim())));
+                System.out.println(teacher);
                 course.setName(request.getParameter(NAME).trim());
                 course.setDuration(Integer.parseInt(request.getParameter(DURATION).trim()));
                 course.setAuditorium(Integer.parseInt(request.getParameter(AUDITORIUM).trim()));
-                course.setIdTeacher((Integer.parseInt(request.getParameter(TEACHERID).trim())));
-                UserService.getInstance().addNewCourse(course);
+                course.setTeacher(teacher);
+                System.out.println(course);
+                CourseService.getInstance().create(course);
                 // определение пути к main.jsp
                 page = ConfigurationManager.getProperty("path.page.main");
             }
