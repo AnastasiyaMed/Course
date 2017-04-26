@@ -59,9 +59,8 @@ public class TeacherService {
         } catch (HibernateException e) {
             log.error("Transaction failed in getById method" + e);
             transaction.rollback();
-            throw new DAOException(Main.class, "Transaction failed in getById method", e);
+            throw new DAOException(getClass(), "Transaction failed in getById method", e);
         }
-
         return teacher;
     }
 

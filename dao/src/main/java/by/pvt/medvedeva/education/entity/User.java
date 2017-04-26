@@ -1,7 +1,6 @@
 
 package by.pvt.medvedeva.education.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,6 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "user")
 @Inheritance (strategy = InheritanceType.JOINED)
 @Entity
@@ -20,7 +18,7 @@ public class User extends Pojo {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column (name = "id")
-    int idUser;
+    Integer idUser;
     @Column (name = "name")
     String name;
     @Column (name = "surname")
@@ -30,10 +28,16 @@ public class User extends Pojo {
     @Column (name = "password")
     String password;
     @Column (name = "role")
-    int role;
+    Integer role;
 
-
-
+    public User(Integer idUser, String name, String surname, String login, String password, Integer role) {
+        this.idUser = idUser;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public String toString() {

@@ -12,7 +12,6 @@ import by.pvt.medvedeva.education.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 import static by.pvt.medvedeva.education.filter.FormDataValidator.*;
 
@@ -45,11 +44,9 @@ public class SetStudentRoleCommand implements ActionCommand {
 			StudentService studentService = StudentService.getInstance();
 			UserService userService = new UserService();
 			try {
-				studentService.create(studentService.initStudent(userService.getUser(login), level, average, cardId));
-			} catch (IOException e) {
-				e.printStackTrace();
+				studentService.create(studentService.initStudent(userService.getByLogin(login), level, average, cardId));
 			} catch (DAOException e) {
-				request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+				request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
 				page = ConfigurationManager.getProperty("path.page.newStudent");
 			}
 			request.setAttribute("user", login);

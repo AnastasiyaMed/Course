@@ -55,11 +55,7 @@ public class ConfigFilter implements Filter {
 					// looking for user LOGIN (for authorize purpose)
 					if ((c.getName()).equals(LOGIN)) {
 						User user = null;
-						try {
-							UserService.getInstance().getUser(c.getValue());
-							} catch (IOException e) {
-							request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
-													}
+						UserService.getInstance().getByLogin(c.getValue());
 						session.setAttribute(ROLE_ATTRIBUT, user.getRole());
 						session.setAttribute(USER_OBJECT_ATTRIBUTE, user);
 

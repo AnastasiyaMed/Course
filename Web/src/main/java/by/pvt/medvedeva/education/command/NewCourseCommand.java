@@ -26,7 +26,7 @@ public class NewCourseCommand implements ActionCommand {
     private final String NAME = "name";
     private final String DURATION = "duration";
     private final String AUDITORIUM = "auditorium";
-    private final String TEACHERID = "id";
+    private final String USERID = "id";
     String errMessage = null;
 
     @Override
@@ -41,19 +41,19 @@ public class NewCourseCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.login");
         }
         if ((request.getParameter(NAME).isEmpty()) || (request.getParameter(DURATION).isEmpty())
-                || (request.getParameter(AUDITORIUM).isEmpty()) || (request.getParameter(TEACHERID).isEmpty())) {
+                || (request.getParameter(AUDITORIUM).isEmpty()) || (request.getParameter(USERID).isEmpty())) {
             page = ConfigurationManager.getProperty("path.page.addcourses");
             request.setAttribute("dataofcourseerror", MessageManager.getProperty("message.dataofcourseerror"));
         } else if ((errMessage = validate(request.getParameter(DURATION), request.getParameter(AUDITORIUM),
-                request.getParameter(TEACHERID))) != null) {
-            request.setAttribute("errorFormDataMessage", validate((request.getParameter(DURATION)), request.getParameter(AUDITORIUM), request.getParameter(TEACHERID)));
+                request.getParameter(USERID))) != null) {
+            request.setAttribute("errorFormDataMessage", validate((request.getParameter(DURATION)), request.getParameter(AUDITORIUM), request.getParameter(USERID)));
             page = ConfigurationManager.getProperty("path.page.addcourses");
         } else try {
-            if (TeacherService.getInstance().getById(Integer.parseInt(request.getParameter(TEACHERID))) == null) {
+            if (TeacherService.getInstance().getById(Integer.parseInt(request.getParameter(USERID))) == null) {
                 request.setAttribute("wrongteacherid", MessageManager.getProperty("message.wrongteacherid"));
                 page = ConfigurationManager.getProperty("path.page.addcourses");
             } else {
-                teacher = TeacherService.getInstance().getById((Integer.parseInt(request.getParameter(TEACHERID).trim())));
+                teacher = TeacherService.getInstance().getById((Integer.parseInt(request.getParameter(USERID).trim())));
                 System.out.println(teacher);
                 course.setName(request.getParameter(NAME).trim());
                 course.setDuration(Integer.parseInt(request.getParameter(DURATION).trim()));

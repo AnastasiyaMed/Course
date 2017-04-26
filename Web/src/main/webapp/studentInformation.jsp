@@ -44,10 +44,10 @@
                         </h4>
                     </div>
                 </c:if>
-                <c:if test="${not empty exeptionMessage}">
+                <c:if test="${not empty exceptionMessage}">
                     <div class="text-center">
                         <h4>
-                            <font color="red">${exeptionMessage}</font>
+                            <font color="red">${exceptionMessage}</font>
                         </h4>
                     </div>
                 </c:if>

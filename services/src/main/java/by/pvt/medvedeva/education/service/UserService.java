@@ -14,8 +14,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.io.IOException;
-
 
 /**
  * @author Anastasiya Medvedeva
@@ -42,10 +40,22 @@ public class UserService {
         userDAO = UserDAOImpl.getInstance();
     }
 
-    public User getUser(String enterLogin) throws IOException, DAOException {
-        return (User) userDAO.getUserByLogin(enterLogin);
-    }
+    public User getByLogin(String  login) throws DAOException {
+        User user;
+        try {
+            session = util.getSession();
+            transaction = session.beginTransaction();
+            user = UserDAOImpl.getInstance().getByLogin(login);
+            transaction.commit();
 
+        } catch (HibernateException e) {
+            log.error("Transaction failed in getById method" + e);
+            transaction.rollback();
+            throw new DAOException(Main.class, "Transaction failed in getById method", e);
+        }
+
+        return user;
+    }
 
     public void create(User user) throws DAOException {
 
@@ -61,11 +71,11 @@ public class UserService {
         }
     }
 
-
     public boolean checkLogin(String login) throws DAOException {
         boolean resultCheckLogin = true;
-        resultCheckLogin = userDAO.CheckLogin(login);
+        if (null == getByLogin(login))   {
+            resultCheckLogin = false;
+        }
         return resultCheckLogin;
     }
-
 }

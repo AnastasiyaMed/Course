@@ -15,28 +15,28 @@ import static by.pvt.medvedeva.education.filter.ClientType.GUEST;
 
 public class GetCoursesListCommand implements ActionCommand {
 
-	@Override
-	public String execute(HttpServletRequest request) {
-		String page = null;
-		List<Course> list;
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpSession session = req.getSession();
-		ClientType type = (ClientType) session.getAttribute("userType");
-		if (type == GUEST) {
-			page = ConfigurationManager.getProperty("path.page.login");
-		} else {
+    @Override
+    public String execute(HttpServletRequest request) {
+        String page = null;
+        List <Course> list;
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpSession session = req.getSession();
+        ClientType type = (ClientType) session.getAttribute("userType");
+        if (type == GUEST) {
+            page = ConfigurationManager.getProperty("path.page.login");
+        } else {
 
-			try {
-				list = CourseService.getInstance().getAll();
-			int listSize = list.size();
-			request.setAttribute("list", list);
-			request.setAttribute("listSize", listSize);
-			page = ConfigurationManager.getProperty("path.page.allcourses");
-			} catch (DAOException e) {
-				request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
-				page = ConfigurationManager.getProperty("path.page.student");
-			}
-		}
-		return page;
-	}
+            try {
+                list = CourseService.getInstance().getAll();
+                int listSize = list.size();
+                request.setAttribute("list", list);
+                request.setAttribute("listSize", listSize);
+                page = ConfigurationManager.getProperty("path.page.allcourses");
+            } catch (DAOException e) {
+                request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+                page = ConfigurationManager.getProperty("path.page.student");
+            }
+        }
+        return page;
+    }
 }

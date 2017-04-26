@@ -31,9 +31,7 @@ public class Student extends User {
     private double average;
     @Column (name = "student_id_card")
     private int studentIdCard;
-//    @OneToMany (mappedBy = "course_course_id", orphanRemoval = false)
-//   // @JoinColumn(name="course_id")
-//    private Set<Course> courses = new HashSet<>();
+
 
 
 

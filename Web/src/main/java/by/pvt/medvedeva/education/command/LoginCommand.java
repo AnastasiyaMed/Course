@@ -21,14 +21,14 @@ public class LoginCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
-        UserService userService = new UserService();
+        UserService userService = UserService.getInstance();
         // извлечение из запроса логина и пароля
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
         try {
             if (userService.checkLogin(login)) {
                 // проверка логина и пароля
-                if ((LoginLogic.checkUserRole(login) == ADMIN_ROLE) && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
+                if ((ADMIN_ROLE == LoginLogic.checkUserRole(login) ) && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("user", login);
                     session.setAttribute("login", login);
@@ -62,7 +62,7 @@ public class LoginCommand implements ActionCommand {
                 page = ConfigurationManager.getProperty("path.page.login");
             }
         } catch (DAOException e) {
-            request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+            request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
             page = ConfigurationManager.getProperty("path.page.login");
         }
 
