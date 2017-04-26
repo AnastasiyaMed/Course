@@ -4,7 +4,6 @@ import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.utils.H2ConnectionPool;
 import by.pvt.medvedeva.education.utils.HibernateUtil;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -14,10 +13,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CourseDAOImplTest {
-    protected HibernateUtil util = HibernateUtil.getHibernateUtil();
-    protected Session session;
-    protected Criteria criteria;
-    private Class persistentClass;
+    private HibernateUtil util = HibernateUtil.getHibernateUtil();
+    private Session session;
     private static Transaction transaction;
     CourseDAOImpl dao = new CourseDAOImpl(H2ConnectionPool.getInstance());
 
