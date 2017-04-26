@@ -6,13 +6,11 @@ package by.pvt.medvedeva.education.service;
 import by.pvt.medvedeva.education.dao.CourseDAOImpl;
 import by.pvt.medvedeva.education.dao.UserDAOImpl;
 import by.pvt.medvedeva.education.dao.exeption.DAOException;
-import by.pvt.medvedeva.education.dao.interfacesDAO.CourseDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.entity.User;
 
 import java.io.IOException;
-import java.util.List;
 
 
 /**
@@ -50,10 +48,10 @@ public class UserService {
     UserDAOImpl.getInstance().create(user);
 	}
 
-	public List<Course> getAllCoursesInfo() throws DAOException {
-		CourseDAO courseDAO = CourseDAOImpl.getInstance();
-		return  courseDAO.getAllCoursesInfo();
-	}
+//	public List<Course> getAllCoursesInfo() throws DAOException {
+//		CourseDAO courseDAO = CourseDAOImpl.getInstance();
+//		return  courseDAO.getAllCoursesInfo();
+//	}
 
 	public boolean checkLogin(String login) throws DAOException {
 		boolean resultCheckLogin = true;

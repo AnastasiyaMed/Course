@@ -5,7 +5,7 @@ import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
-import by.pvt.medvedeva.education.service.UserService;
+import by.pvt.medvedeva.education.service.CourseService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,7 +18,6 @@ public class GetCoursesListCommand implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request) {
 		String page = null;
-		UserService userService = new UserService();
 		List<Course> list;
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
@@ -28,8 +27,7 @@ public class GetCoursesListCommand implements ActionCommand {
 		} else {
 
 			try {
-				list = userService.getAllCoursesInfo();
-
+				list = CourseService.getInstance().getAll();
 			int listSize = list.size();
 			request.setAttribute("list", list);
 			request.setAttribute("listSize", listSize);
@@ -39,7 +37,6 @@ public class GetCoursesListCommand implements ActionCommand {
 				page = ConfigurationManager.getProperty("path.page.student");
 			}
 		}
-
 		return page;
 	}
 }

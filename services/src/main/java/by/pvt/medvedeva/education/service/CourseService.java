@@ -10,6 +10,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 /**
  * @author Anastasiya Medvedeva
  */
@@ -36,13 +38,11 @@ public class CourseService {
     }
 
     public void create(Course course) throws DAOException {
-
         try {
             session = util.getSession();
             transaction = session.beginTransaction();
             courseDAO.create(course);
             transaction.commit();
-
         } catch (HibernateException e) {
             log.error("Transaction failed in create course method" + e);
             transaction.rollback();
@@ -50,4 +50,12 @@ public class CourseService {
         }
         }
 
+    public List<Course> getAll() throws DAOException  {
+        List<Course> courses;
+            session = util.getSession();
+            transaction = session.beginTransaction();
+            courses = courseDAO.getAll();
+            transaction.commit();
+        return courses;
+    }
 }

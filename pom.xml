@@ -16,6 +16,8 @@
         <module>Web</module>
         <module>services</module>
     </modules>
+
+
     <profiles>
 
         <profile>
@@ -33,7 +35,7 @@
                                 <manifest>
                                     <addClasspath>true</addClasspath>
                                     <classpathPrefix>lib/</classpathPrefix>
-                                    <mainClass>com.pvt.app.App</mainClass>
+                                    <!--<mainClass>com.pvt.app.App</mainClass>-->
                                 </manifest>
                             </archive>
                         </configuration>
@@ -89,11 +91,6 @@
             <groupId>org.apache.tomcat.maven</groupId>
             <artifactId>tomcat7-maven-plugin</artifactId>
             <version>2.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.6</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>

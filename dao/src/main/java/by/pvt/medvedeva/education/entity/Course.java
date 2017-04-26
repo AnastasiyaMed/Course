@@ -33,7 +33,7 @@ public class Course extends Pojo {
     private Integer duration;
     @Column (name = "auditorium")
     private Integer auditorium;
-    @OneToOne 
+    @OneToOne
     @JoinColumn(name = "teacher_user_id", referencedColumnName = "user_id")
      private Teacher teacher;
  //   @OneToMany (mappedBy = "student_has_course", orphanRemoval = false)
