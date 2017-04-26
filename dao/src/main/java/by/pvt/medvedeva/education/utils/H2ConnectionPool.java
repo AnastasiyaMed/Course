@@ -23,17 +23,17 @@ public class H2ConnectionPool implements ConnectionPool {
 
 
     private H2ConnectionPool() throws SQLException {
-        try (Connection c = getConnect()) {
-            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_SCHEMA"));
-            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_USER_TABLE_SQL"));
-            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_COURSE_TABLE_SQL"));
-            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_STUDENT_TABLE_SQL"));
-            c.createStatement().executeUpdate(H2DbSQLManager.getProperty("CREATE_STUDENT_HAS_COURSE_TABLE_SQL"));
-            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_TEACHER_TABLE_SQL"));
-          //  c.createStatement().execute(H2DbSQLManager.getProperty("INSERT_INTO_TEACHER_TABLE_SQL"));
-            c.createStatement().execute(H2DbSQLManager.getProperty("INSERT_INTO_USER_TABLE_SQL"));
-            c.createStatement().executeUpdate(H2DbSQLManager.getProperty("INSERT_INTO_STUDENT_TABLE_SQL"));
-        }
+//        try (Connection c = getConnect()) {
+//            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_SCHEMA"));
+//            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_USER_TABLE_SQL"));
+//            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_COURSE_TABLE_SQL"));
+//            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_STUDENT_TABLE_SQL"));
+//            c.createStatement().executeUpdate(H2DbSQLManager.getProperty("CREATE_STUDENT_HAS_COURSE_TABLE_SQL"));
+//            c.createStatement().execute(H2DbSQLManager.getProperty("CREATE_TEACHER_TABLE_SQL"));
+//          //  c.createStatement().execute(H2DbSQLManager.getProperty("INSERT_INTO_TEACHER_TABLE_SQL"));
+//            c.createStatement().execute(H2DbSQLManager.getProperty("INSERT_INTO_USER_TABLE_SQL"));
+//            c.createStatement().executeUpdate(H2DbSQLManager.getProperty("INSERT_INTO_STUDENT_TABLE_SQL"));
+ //       }
     }
 
 

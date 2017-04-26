@@ -7,17 +7,13 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 
 public abstract class AbstractDAO<T extends Pojo>  implements BaseDAO <T>{
     protected ConnectionPool connectionPool;
-    protected Connection connection;
-    protected PreparedStatement preparedStatement;
-    protected ResultSet resultSet;
-//    private static Logger log = Logger.getLogger(AbstractDAO.class);
+//    protected Connection connection;
+//    protected PreparedStatement preparedStatement;
+//    protected ResultSet resultSet;
     protected HibernateUtil util = HibernateUtil.getHibernateUtil();
     protected Session session;
     protected Criteria criteria;

@@ -36,9 +36,7 @@ public class Course extends Pojo {
     @OneToOne
     @JoinColumn(name = "teacher_user_id", referencedColumnName = "user_id")
      private Teacher teacher;
- //   @OneToMany (mappedBy = "student_has_course", orphanRemoval = false)
-//    @JoinColumn(name="student_id")
-//    private Set<Student> students = new HashSet<>();
+
 
 
 

@@ -5,7 +5,6 @@ package by.pvt.medvedeva.education.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -16,7 +15,6 @@ import javax.persistence.Table;
  * @author Anastasiya Medvedeva
  */
 @Data
-@NoArgsConstructor
 @Table(name = "teacher")
 @PrimaryKeyJoinColumn(name = "user_id")
 @Entity
@@ -30,6 +28,10 @@ public class Teacher extends User {
 
     public Teacher(Integer idUser, String name, String surname, String login, String password, Integer role) {
         super(idUser, name, surname, login, password, role);
+    }
+
+    public Teacher() {
+        super();
     }
 
     @Override
