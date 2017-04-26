@@ -15,7 +15,6 @@ import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
  */
 public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<Student> {
 
-	private static final String SQL_QUERY_ADD_STUDENT = "INSERT INTO `student` (`level`, `average`, `student_id_card`, `user_user_id`) VALUES (?,?,?,?)";
 	private static final String SQL_QUERY_CHANGE_USERROLE = "UPDATE `user` SET `role`='1' WHERE  user.user_id = ?";
 	private final static int STUDENT_ROLE = 1;
 	private static StudentDAOImpl instance;
@@ -51,39 +50,4 @@ public class StudentDAOImpl extends AbstractDAO<Student> implements StudentDAO<S
 		return student;
 	}
 
-
-
-//	@Override
-//		public void create (Student student) throws DAOException {
-//		preparedStatement = null;
-//		try {
-//			connection = connectionPool.getConnect();
-//			preparedStatement = connection.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
-//			preparedStatement.setInt(1, student.getIdUser());
-//			preparedStatement.executeUpdate();
-//			if (preparedStatement != null) {
-//				preparedStatement.close();
-//			}
-//			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_STUDENT);
-//			preparedStatement.setInt(1, student.getLevel());
-//			preparedStatement.setDouble(2, student.getAverage());
-//			preparedStatement.setInt(3, student.getStudentIdCard());
-//			preparedStatement.setInt(4, student.getIdUser());
-//			preparedStatement.executeUpdate();
-//		} catch (SQLException e) {
-//
-//			throw new DAOException("Some trouble whith connect to database", e);
-//		} finally {
-//			try {
-//				if (preparedStatement != null) {
-//					preparedStatement.close();
-//				}
-//				if (connection != null) {
-//					connection.close();
-//				}
-//			} catch (SQLException e) {
-//				throw new DAOException("Some trouble whith connect to database", e);
-//			}
-//		}
-//	}
 	}

@@ -14,8 +14,6 @@ import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
  * @author Medvedeva Anastasiya
  */
 public class TeacherDAOImpl extends AbstractDAO <Teacher> implements TeacherDAO <Teacher> {
-    private final static String SQL_QUERY_GET_TEACHER = "SELECT * FROM teacher, user  WHERE teacher.user_user_id = user.user_id AND teacher.teacher_id = ? ;";
-    private final static String SQL_QUERY_ADD_TEACHER = "INSERT INTO `teacher` (`user_user_id`) VALUES (?)";
     private final static String SQL_QUERY_CHANGE_USERROLE = "UPDATE `user` SET `role`='2' WHERE  user.user_id = ?";
     private final static int TEACHER_ROLE = 2;
     private static TeacherDAOImpl instance;
@@ -50,81 +48,6 @@ public class TeacherDAOImpl extends AbstractDAO <Teacher> implements TeacherDAO 
 
         return teacher;
     }
-
-//    @Override
-//    public void create(Teacher teacher) throws DAOException {
-//        preparedStatement = null;
-//        try {
-//            connection = connectionPool.getConnect();
-//            preparedStatement = connection.prepareStatement(SQL_QUERY_CHANGE_USERROLE);
-//            preparedStatement.setInt(1, teacher.getIdUser());
-//            preparedStatement.executeUpdate();
-//            if (preparedStatement != null) {
-//                preparedStatement.close();
-//            }
-//            connection = connectionPool.getConnect();
-//            preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_TEACHER);
-//            preparedStatement.setInt(1, teacher.getIdUser());
-//            preparedStatement.executeUpdate();
-//
-//        } catch (SQLException e) {
-//            throw new DAOException("Some trouble whith connect to database", e);
-//        } finally {
-//            try {
-//                if (preparedStatement != null) {
-//                    preparedStatement.close();
-//                }
-//                if (connection != null) {
-//                    connection.close();
-//                }
-//            } catch (SQLException e) {
-//                throw new DAOException("Some trouble whith connect to database", e);
-//            }
-//        }
-//    }
-
-
-//    @Override
-//    public Teacher initTeacherFromBD(int idTeacher) throws DAOException {
-//        preparedStatement = null;
-//        resultSet = null;
-//        Teacher teacher = null;
-//        try {
-//            connection = connectionPool.getConnect();
-//            preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHER);
-//            preparedStatement.setInt(1, idTeacher);
-//            resultSet = preparedStatement.executeQuery();
-//
-//            while (resultSet.next()) {
-//                teacher = new Teacher();
-//                teacher.setIdUser(resultSet.getInt("user_id"));
-//                teacher.setLogin(resultSet.getString("login"));
-//                teacher.setName(resultSet.getString("name"));
-//                teacher.setSurname(resultSet.getString("surname"));
-//                teacher.setPassword(resultSet.getString("password"));
-//            }
-//        } catch (SQLException e) {
-//            throw new DAOException("Some trouble whith connect to database", e);
-//        } finally {
-//            try {
-//                if (resultSet != null) {
-//                    resultSet.close();
-//                }
-//                if (preparedStatement != null) {
-//                    preparedStatement.close();
-//                }
-//                if (connection != null) {
-//                    connection.close();
-//                }
-//            } catch (SQLException e) {
-//                throw new DAOException("Some trouble whith connect to database", e);
-//            }
-//        }
-//        System.out.println(teacher);
-//        return teacher;
-//    }
-
-
 
 
 }

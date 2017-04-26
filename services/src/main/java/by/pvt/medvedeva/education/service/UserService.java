@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package by.pvt.medvedeva.education.service;
 
@@ -7,49 +7,65 @@ import by.pvt.medvedeva.education.dao.UserDAOImpl;
 import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.User;
+import by.pvt.medvedeva.education.utils.HibernateUtil;
+import by.pvt.medvedeva.education.utils.Main;
+import lombok.extern.log4j.Log4j;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.io.IOException;
 
 
 /**
  * @author Anastasiya Medvedeva
- *
  */
+@Log4j
 public class UserService {
-	private UserDAO userDAO;
-	private static UserService instance;
+    private UserDAO userDAO;
+    private static UserService instance;
+    private static HibernateUtil util = HibernateUtil.getHibernateUtil();
+    private static Session session;
+    private static Transaction transaction;
 
-	/**
-	 * Singleton-fabric
-	 *
-	 */
-	public static  UserService getInstance() {
-		if (instance == null) {
-			instance = new  UserService();
-		}
-		return instance;
-	}
+    /**
+     * Singleton-fabric
+     */
+    public static UserService getInstance() {
+        if (instance == null) {
+            instance = new UserService();
+        }
+        return instance;
+    }
 
-	public UserService() {
-		userDAO = UserDAOImpl.getInstance();
-	}
+    public UserService() {
+        userDAO = UserDAOImpl.getInstance();
+    }
 
-	public User getUser(String enterLogin) throws IOException, DAOException {
-		return (User) userDAO.getUserByLogin(enterLogin);
-	}
-
-
-
-	public void addUser(User user) throws DAOException {
-    UserDAOImpl.getInstance().AddUser(user);
-	}
+    public User getUser(String enterLogin) throws IOException, DAOException {
+        return (User) userDAO.getUserByLogin(enterLogin);
+    }
 
 
+    public void create(User user) throws DAOException {
 
-	public boolean checkLogin(String login) throws DAOException {
-		boolean resultCheckLogin = true;
-		resultCheckLogin = userDAO.CheckLogin(login);
-		return resultCheckLogin;
-	}
+        try {
+            session = util.getSession();
+            transaction = session.beginTransaction();
+            UserDAOImpl.getInstance().create(user);
+            transaction.commit();
+        } catch (HibernateException e) {
+            log.error("Transaction failed in create user method" + e);
+            transaction.rollback();
+            throw new DAOException(Main.class, "Transaction failed in create user method", e);
+        }
+    }
+
+
+    public boolean checkLogin(String login) throws DAOException {
+        boolean resultCheckLogin = true;
+        resultCheckLogin = userDAO.CheckLogin(login);
+        return resultCheckLogin;
+    }
 
 }

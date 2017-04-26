@@ -42,15 +42,14 @@ public class TeacherService {
     }
 
     public Teacher initTeacher(User user) {
-        Teacher teacher = null;
-        teacher = (Teacher) teacherDAO.initTeacher(user);
+        Teacher teacher = (Teacher) teacherDAO.initTeacher(user);
         return teacher;
     }
 
 
 
     public Teacher getById(Integer id) throws DAOException {
-        Teacher teacher = new Teacher();
+        Teacher teacher;
         try {
             session = util.getSession();
             transaction = session.beginTransaction();
@@ -66,8 +65,19 @@ public class TeacherService {
         return teacher;
     }
 
-    public void addTeacher(Teacher teacher) throws DAOException {
-        TeacherDAOImpl.getInstance().create(teacher);
+
+    public void create(Teacher teacher) throws DAOException {
+
+        try {
+            session = util.getSession();
+            transaction = session.beginTransaction();
+            TeacherDAOImpl.getInstance().create(teacher);
+            transaction.commit();
+        } catch (HibernateException e) {
+            log.error("Transaction failed in create teacher method" + e);
+            transaction.rollback();
+            throw new DAOException(Main.class, "Transaction failed in create teacher method", e);
+        }
     }
 
 }

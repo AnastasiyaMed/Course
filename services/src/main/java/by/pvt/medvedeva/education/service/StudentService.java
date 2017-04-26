@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package by.pvt.medvedeva.education.service;
 
@@ -17,50 +17,46 @@ import org.hibernate.Transaction;
 
 /**
  * @author Anastasiya Medvedeva
- *
  */
 @Log4j
 public class StudentService {
-	private StudentDAOImpl studentDAO;
-	private static StudentService instance;
-	private static HibernateUtil util = HibernateUtil.getHibernateUtil();
-	private static Session session;
-	private static Transaction transaction;
+    private StudentDAOImpl studentDAO;
+    private static StudentService instance;
+    private static HibernateUtil util = HibernateUtil.getHibernateUtil();
+    private static Session session;
+    private static Transaction transaction;
 
-	/**
-	 * Singleton-fabric
-	 *
-	 */
-	public static StudentService getInstance() {
-		if (instance == null) {
-			instance = new StudentService();
-		}
-		return instance;
-	}
+    /**
+     * Singleton-fabric
+     */
+    public static StudentService getInstance() {
+        if (instance == null) {
+            instance = new StudentService();
+        }
+        return instance;
+    }
 
-	public StudentService() {
-		studentDAO = StudentDAOImpl.getInstance();
-	}
+    public StudentService() {
+        studentDAO = StudentDAOImpl.getInstance();
+    }
 
-	public Student initStudent(User user, int level, double average, int cardId) {
-		return (Student) studentDAO.initStudent(user,  level, average, cardId);
-	}
+    public Student initStudent(User user, int level, double average, int cardId) {
+        return (Student) studentDAO.initStudent(user, level, average, cardId);
+    }
 
-//	public void addStudent(Student student) throws DAOException {
-//		StudentDAOImpl.getInstance().create(student);
-//	}
 
-	public void create(Student student) throws DAOException {
-		try {
-			session = util.getSession();
-			transaction = session.beginTransaction();
-			studentDAO.create(student);
-			transaction.commit();
-		} catch (HibernateException e) {
-			log.error("Transaction failed in create course method" + e);
-			transaction.rollback();
-			throw new DAOException(Main.class, "Transaction failed in create course method", e);
-		}
-	}
+    public void create(Student student) throws DAOException {
+
+        try {
+            session = util.getSession();
+            transaction = session.beginTransaction();
+            studentDAO.create(student);
+            transaction.commit();
+        } catch (HibernateException e) {
+            log.error("Transaction failed in create student method" + e);
+            transaction.rollback();
+            throw new DAOException(Main.class, "Transaction failed in create student method", e);
+        }
+    }
 
 }

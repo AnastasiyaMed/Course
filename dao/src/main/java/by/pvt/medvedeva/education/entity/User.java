@@ -35,7 +35,6 @@ public class User extends Pojo {
 
 
 
-
     @Override
     public String toString() {
         return "User [name=" + name + ", surname=" + surname + ", login=" + login + ", password=" + password + ", role=" + role + "]";

@@ -46,7 +46,7 @@ public class RegistrCommand implements ActionCommand {
 			request.setAttribute("userType", ClientType.GUEST);
 			return page = ConfigurationManager.getProperty("path.page.registr");
 		} else {
-			UserService.getInstance().addUser(user);
+			UserService.getInstance().create(user);
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", request.getParameter(LOGIN));
 			session.setAttribute("login", request.getParameter(LOGIN));

@@ -35,33 +35,33 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 	}
 
 
-	public void AddUser(User user) throws DAOException {
-	    preparedStatement = null;
-		try {
-			connection = connectionPool.getConnect();
-			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_USER);
-			preparedStatement.setString(1, user.getName());
-			preparedStatement.setString(2, user.getSurname());
-			preparedStatement.setString(3, user.getLogin());
-			preparedStatement.setString(4, user.getPassword());
-			preparedStatement.setInt(5, user.getRole());
-			preparedStatement.executeUpdate();
-		}
-			catch (SQLException e) {
-				throw new DAOException("Some trouble whith connect to database", e);
-		} finally {
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				throw new DAOException("Some trouble whith connect to database", e);
-			}
-		}
-	}
+//	public void AddUser(User user) throws DAOException {
+//	    preparedStatement = null;
+//		try {
+//			connection = connectionPool.getConnect();
+//			preparedStatement = connection.prepareStatement(SQL_QUERY_ADD_USER);
+//			preparedStatement.setString(1, user.getName());
+//			preparedStatement.setString(2, user.getSurname());
+//			preparedStatement.setString(3, user.getLogin());
+//			preparedStatement.setString(4, user.getPassword());
+//			preparedStatement.setInt(5, user.getRole());
+//			preparedStatement.executeUpdate();
+//		}
+//			catch (SQLException e) {
+//				throw new DAOException("Some trouble whith connect to database", e);
+//		} finally {
+//			try {
+//				if (preparedStatement != null) {
+//					preparedStatement.close();
+//				}
+//				if (connection != null) {
+//					connection.close();
+//				}
+//			} catch (SQLException e) {
+//				throw new DAOException("Some trouble whith connect to database", e);
+//			}
+//		}
+//	}
 
 	@Override
 	public User getUserByLogin(final String login) throws DAOException {

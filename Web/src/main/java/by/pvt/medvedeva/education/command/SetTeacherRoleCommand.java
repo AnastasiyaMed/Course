@@ -29,10 +29,10 @@ public class SetTeacherRoleCommand implements ActionCommand {
 		// извлечение из сессии логина
 		HttpSession session = request.getSession();
 		String login = (String) session.getAttribute(PARAM_NAME_LOGIN);
-		TeacherService teacherService = new TeacherService();
-		UserService userService = new UserService();
+		TeacherService teacherService = TeacherService.getInstance();
+		UserService userService = UserService.getInstance();
 		try {
-			teacherService.addTeacher(teacherService.initTeacher(userService.getUser(login)));
+			teacherService.create(teacherService.initTeacher(userService.getUser(login)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DAOException e) {
