@@ -47,11 +47,7 @@ public class TeacherService {
         return teacher;
     }
 
-//	public Teacher initTeacherFromBD(int idTeacher) throws DAOException {
-//		Teacher teacher= null;
-//		teacher = (Teacher) teacherDAO.initTeacherFromBD(idTeacher);
-//		return teacher;
-//	}
+
 
     public Teacher getById(Integer id) throws DAOException {
         Teacher teacher = new Teacher();

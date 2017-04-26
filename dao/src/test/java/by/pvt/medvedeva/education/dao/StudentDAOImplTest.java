@@ -17,15 +17,7 @@ public class StudentDAOImplTest {
     }
 
 
-    @Test
-    public void initStudentFromBDTest() throws Exception {
-        User user = new User(1, "q", "q", "q", "q", 1);
-        Student student = dao.initStudent(user, 1, 1, 1);
-        dao.create(student);
-        Student studentTest = dao.initStudentFromBD(user);
-        Assert.assertEquals("Ошибка чтения данных студента из базы", "q", studentTest.getLogin());
 
-    }
 
 
     @Test
@@ -41,19 +33,19 @@ public class StudentDAOImplTest {
         Assert.assertEquals("Ошибка инициализации студента", "vac", student.getLogin());
     }
 
-    @Test
-    public void createTest() throws Exception {
-        StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
-        User user = new User();
-        user.setLogin("vac");
-        user.setName("Vasia");
-        user.setSurname("Curicin");
-        user.setPassword("111111");
-        user.setRole(0);
-        Student student = dao.initStudent(user, 3, 3.4, 342);
-        dao.create(student);
-        Student studentTest = dao.initStudentFromBD(user);
-        Assert.assertEquals("Ошибка добавления студента", "vac", studentTest.getLogin());
-    }
+//    @Test
+//    public void createTest() throws Exception {
+//        StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
+//        User user = new User();
+//        user.setLogin("vac");
+//        user.setName("Vasia");
+//        user.setSurname("Curicin");
+//        user.setPassword("111111");
+//        user.setRole(0);
+//        Student student = dao.initStudent(user, 3, 3.4, 342);
+//        dao.create(student);
+//        Student studentTest = dao.initStudentFromBD(user);
+//        Assert.assertEquals("Ошибка добавления студента", "vac", studentTest.getLogin());
+//    }
 
 }

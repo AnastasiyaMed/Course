@@ -30,7 +30,6 @@ public class RegistrCommand implements ActionCommand {
 	@Override
 	public String execute(HttpServletRequest request) {
 		User user = new User();
-		UserService userService = new UserService();
 		String page = null;
 		user.setLogin(request.getParameter(LOGIN).trim());
 		user.setName(request.getParameter(NAME).trim());
@@ -42,27 +41,25 @@ public class RegistrCommand implements ActionCommand {
 			return page = ConfigurationManager.getProperty("path.page.registr");
 		}
 		try {
-		if (userService.checkLogin(user.getLogin())) {
+		if (UserService.getInstance().checkLogin(user.getLogin())) {
 			request.setAttribute("errorRegistrUserMessage", MessageManager.getProperty("message.register.user.error"));
 			request.setAttribute("userType", ClientType.GUEST);
 			return page = ConfigurationManager.getProperty("path.page.registr");
 		} else {
-			userService.addUser(user);
+			UserService.getInstance().addUser(user);
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", request.getParameter(LOGIN));
 			session.setAttribute("login", request.getParameter(LOGIN));
 			session.setAttribute("isAuthorized", "yes");
-			//userService.addUser(user);
 			session.setAttribute("userType", ClientType.DEFAULT_USER);
 			page = ConfigurationManager.getProperty("path.page.defaultuser");
 		} } catch (DAOException e) {
-			request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+			request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
 			page = ConfigurationManager.getProperty("path.page.registr");
 		}
 
 		return page;
 	}
-
 
 	private String validate(User user) {
 		String errMessage = null;

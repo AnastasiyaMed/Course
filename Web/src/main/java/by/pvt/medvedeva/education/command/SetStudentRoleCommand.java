@@ -42,10 +42,10 @@ public class SetStudentRoleCommand implements ActionCommand {
 			// извлечение из сессии логина
 			HttpSession session = request.getSession();
 			String login = (String) session.getAttribute(PARAM_NAME_LOGIN);
-			StudentService studentService = new StudentService();
+			StudentService studentService = StudentService.getInstance();
 			UserService userService = new UserService();
 			try {
-				studentService.addStudent(studentService.initStudent(userService.getUser(login), level, average, cardId));
+				studentService.create(studentService.initStudent(userService.getUser(login), level, average, cardId));
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (DAOException e) {
@@ -61,7 +61,6 @@ public class SetStudentRoleCommand implements ActionCommand {
 
 		return page;
 	}
-
 
 	private String validate(String level, String average, String card) {
 		String errMessage = null;

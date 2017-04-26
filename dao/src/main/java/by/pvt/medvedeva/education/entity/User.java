@@ -1,12 +1,16 @@
 
 package by.pvt.medvedeva.education.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user")
 @Inheritance (strategy = InheritanceType.JOINED)
 @Entity
@@ -27,20 +31,6 @@ public class User extends Pojo {
     String password;
     @Column (name = "role")
     int role;
-
-
-    public User() {
-        super();
-    }
-
-    public User(int idUser, String name, String surname, String login, String password, int role) {
-        this.idUser = idUser;
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-        this.role = role;
-    }
 
 
 

@@ -22,7 +22,6 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
 public class Teacher extends User {
     private static final long serialVersionUID = 1L;
-
     @OneToOne
     @PrimaryKeyJoinColumn
      private Course courses;

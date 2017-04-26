@@ -5,18 +5,27 @@ package by.pvt.medvedeva.education.service;
 
 import by.pvt.medvedeva.education.dao.StudentDAOImpl;
 import by.pvt.medvedeva.education.dao.exeption.DAOException;
-import by.pvt.medvedeva.education.dao.interfacesDAO.StudentDAO;
 import by.pvt.medvedeva.education.entity.Student;
 import by.pvt.medvedeva.education.entity.User;
+import by.pvt.medvedeva.education.utils.HibernateUtil;
+import by.pvt.medvedeva.education.utils.Main;
+import lombok.extern.log4j.Log4j;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 
 /**
  * @author Anastasiya Medvedeva
  *
  */
+@Log4j
 public class StudentService {
-	private StudentDAO studentDAO;
+	private StudentDAOImpl studentDAO;
 	private static StudentService instance;
+	private static HibernateUtil util = HibernateUtil.getHibernateUtil();
+	private static Session session;
+	private static Transaction transaction;
 
 	/**
 	 * Singleton-fabric
@@ -37,12 +46,21 @@ public class StudentService {
 		return (Student) studentDAO.initStudent(user,  level, average, cardId);
 	}
 
-	public void addStudent(Student student) throws DAOException {
-		StudentDAOImpl.getInstance().create(student);
+//	public void addStudent(Student student) throws DAOException {
+//		StudentDAOImpl.getInstance().create(student);
+//	}
+
+	public void create(Student student) throws DAOException {
+		try {
+			session = util.getSession();
+			transaction = session.beginTransaction();
+			studentDAO.create(student);
+			transaction.commit();
+		} catch (HibernateException e) {
+			log.error("Transaction failed in create course method" + e);
+			transaction.rollback();
+			throw new DAOException(Main.class, "Transaction failed in create course method", e);
+		}
 	}
 
-		Student getStudentFromBD(User user) throws DAOException {
-		Student student = (Student) studentDAO.initStudentFromBD(user);
-		return student;
-	}
 }

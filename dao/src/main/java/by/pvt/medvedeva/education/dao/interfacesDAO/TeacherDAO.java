@@ -14,7 +14,4 @@ public interface TeacherDAO <Teacher>{
 
 	Teacher initTeacher(User user);
 
-	//Teacher initTeacherFromBD(int idTeacher) throws DAOException;
-
-
-	}
+		}

@@ -34,8 +34,8 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO<User>  {
 		return instance;
 	}
 
-	@Override
-	public void create(User user) throws DAOException {
+
+	public void AddUser(User user) throws DAOException {
 	    preparedStatement = null;
 		try {
 			connection = connectionPool.getConnect();
