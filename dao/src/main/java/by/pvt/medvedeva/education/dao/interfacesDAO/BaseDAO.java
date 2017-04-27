@@ -13,5 +13,11 @@ public interface BaseDAO<T extends Pojo> {
     T getById(Integer id) throws DAOException;
 
 
+    void update (T pojo) throws DAOException;
+
     List<T> getAll() throws DAOException;
+
+
+
+    void delete (Integer id) throws DAOException;
 }

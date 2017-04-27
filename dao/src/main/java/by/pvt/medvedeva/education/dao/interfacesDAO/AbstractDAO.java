@@ -35,13 +35,22 @@ public abstract class AbstractDAO<T extends Pojo>  implements BaseDAO <T>{
 
     @Override
     public void create(T pojo) throws DAOException {
-
         try {
             session = util.getSession();
             session.save(pojo);
         } catch (HibernateException e) {
             throw new DAOException(persistentClass, "Fatal error in create method", e);
         }
+    }
+
+        @Override
+        public void update(T pojo) throws DAOException {
+            try {
+                session = util.getSession();
+                session.update(pojo);
+            } catch (HibernateException e) {
+                throw new DAOException(persistentClass, "Fatal error in create method", e);
+            }
     }
     @Override
     public List<T> getAll() throws DAOException {
@@ -51,6 +60,17 @@ public abstract class AbstractDAO<T extends Pojo>  implements BaseDAO <T>{
             return criteria.list();
         } catch (HibernateException e) {
             throw new DAOException(persistentClass, "Fatal error in getAll method", e);
+        }
+    }
+
+    @Override
+    public void delete(Integer id) throws DAOException {
+        try {
+            session = util.getSession();
+            T pojo = getById(id);
+            session.delete(pojo);
+        } catch (HibernateException e) {
+            throw new DAOException(persistentClass, "Fatal error in remove category method", e);
         }
     }
 

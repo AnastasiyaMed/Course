@@ -20,7 +20,7 @@ import org.hibernate.Transaction;
  */
 @Log4j
 public class UserService {
-    private UserDAO userDAO;
+    private UserDAO userDAO = UserDAOImpl.getInstance();
     private static UserService instance;
     private static HibernateUtil util = HibernateUtil.getHibernateUtil();
     private static Session session;
@@ -38,6 +38,12 @@ public class UserService {
 
     public UserService() {
         userDAO = UserDAOImpl.getInstance();
+    }
+
+
+    protected User getById (Integer id) throws DAOException {
+        User user = UserDAOImpl.getInstance().getById(id);
+        return user;
     }
 
     public User getByLogin(String  login) throws DAOException {
@@ -77,5 +83,21 @@ public class UserService {
             resultCheckLogin = false;
         }
         return resultCheckLogin;
+    }
+
+    public void delete(Integer id) throws DAOException {
+
+        try {
+            session = util.getSession();
+           if (transaction == null) {
+               transaction = session.beginTransaction();
+           }
+            UserDAOImpl.getInstance().delete(id);
+            transaction.commit();
+        } catch (HibernateException e) {
+            log.error("Transaction failed in create user method" + e);
+            transaction.rollback();
+            throw new DAOException(Main.class, "Transaction failed in delete user method", e);
+        }
     }
 }

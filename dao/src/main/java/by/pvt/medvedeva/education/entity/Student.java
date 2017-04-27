@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "student")
-@PrimaryKeyJoinColumn (name = "user_id")
+@PrimaryKeyJoinColumn (name = "user_id", referencedColumnName = "id")
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Student extends User {

@@ -14,4 +14,5 @@ public interface StudentDAO <Student> {
 
 	Student initStudent(User user, int level, double average, int cardId);
 
+
 }

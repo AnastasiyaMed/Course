@@ -42,7 +42,7 @@ public class SetStudentRoleCommand implements ActionCommand {
 			HttpSession session = request.getSession();
 			String login = (String) session.getAttribute(PARAM_NAME_LOGIN);
 			StudentService studentService = StudentService.getInstance();
-			UserService userService = new UserService();
+			UserService userService = UserService.getInstance();
 			try {
 				studentService.create(studentService.initStudent(userService.getByLogin(login), level, average, cardId));
 			} catch (DAOException e) {

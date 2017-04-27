@@ -50,6 +50,8 @@ public class StudentService {
         try {
             session = util.getSession();
             transaction = session.beginTransaction();
+            User user = UserService.getInstance().getById(student.getIdUser());
+            session.delete(user);
             studentDAO.create(student);
             transaction.commit();
         } catch (HibernateException e) {
