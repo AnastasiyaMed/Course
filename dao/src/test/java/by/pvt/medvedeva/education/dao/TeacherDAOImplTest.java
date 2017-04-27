@@ -3,57 +3,24 @@ package by.pvt.medvedeva.education.dao;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.utils.H2ConnectionPool;
+import by.pvt.medvedeva.education.utils.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.SQLException;
 
 public class TeacherDAOImplTest {
-    private final static  String SQL_QUERY_GET_TEACHERID = "SELECT * FROM teacher, `user`  WHERE teacher.user_user_id = `user`.user_id AND `user`.user_id = ?";
-//    private final static  String SQL_QUERY_GET_TEACHERID = "SELECT * FROM teacher, `user`  WHERE teacher.user_user_id = `user`.user_id AND `user`.login = ?";
     private TeacherDAOImpl dao = new TeacherDAOImpl(H2ConnectionPool.getInstance());
+    private HibernateUtil util = HibernateUtil.getHibernateUtil();
+    private Session session;
+    private static Transaction transaction;
 
     public TeacherDAOImplTest() throws SQLException {
     }
 
-
-//    public int setUpTeacherID() throws Exception {
-//User user = new User(1, "d", "s", "c", "c", 2);
-//    UserDAOImpl userDAO = new UserDAOImpl(H2ConnectionPool.getInstance());
-//        userDAO.create(user);
-//    User userTest = userDAO.getUserByLogin(user.getLogin());
-//    Teacher teacher = dao.initTeacher(userTest);
-//       dao.create(teacher);
-//    int userID = userTest.getIdUser();
-//    Connection connection = null;
-//    PreparedStatement preparedStatement = null;
-//    ResultSet resultSet = null;
-//        try {
-//        connection =  H2ConnectionPool.getInstance().getConnect();
-//        preparedStatement = connection.prepareStatement(SQL_QUERY_GET_TEACHERID);
-//        preparedStatement.setInt(1, userID);
-//        resultSet = preparedStatement.executeQuery();
-//        while (resultSet.next()) {
-//  //          teacher.setIdTeacher(resultSet.getInt("teacher_id"));
-//        }
-//    } catch (SQLException e) {
-//        e.printStackTrace();
-//    } finally {
-//        try {
-//            if (resultSet != null) {
-//                resultSet.close();
-//            }
-//            if (preparedStatement != null) {
-//                preparedStatement.close();
-//            }
-//            if (connection != null) {
-//                connection.close();
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-// //   } return teacher.getIdTeacher();
-//    }
 
     @Test
     public void initTeacherTest() throws Exception {
@@ -61,19 +28,41 @@ public class TeacherDAOImplTest {
         Teacher teacher = dao.initTeacher(user);
         dao.create(teacher);
         Teacher teacherTest = dao.initTeacher(user);
-        Assert.assertEquals("Ошибка чтения данных преподавателя из базы", "w", teacherTest.getLogin());
+        Assert.assertEquals("Ошибка инициализации преподавателя", "w", teacherTest.getLogin());
     }
 
-//    @Test
-//    public void initTeacherFromBDTest() throws Exception {
-//        Teacher teacherTest = dao.initTeacherFromBD(setUpTeacherID());
-//        Assert.assertNotNull("преподаватель не найден в базе", teacherTest);
-//    }
-//
-//    @Test
-//    public void createTest() throws Exception {
-//                Teacher teacherTest = dao.initTeacherFromBD(setUpTeacherID());
-//                Assert.assertEquals("Ошибка чтения создания преподавателя в базе", "c", teacherTest.getLogin());
-//    }
+    @Test
+    public void getByIdTest() throws Exception {
+        Teacher teacher = new Teacher(null, "w", "w", "w", "w", 2);
+        session = util.getSession();
+        transaction = session.beginTransaction();
+        session.saveOrUpdate(teacher);
+        Teacher teacher1 = (Teacher) session.createCriteria(Teacher.class)
+                .add(Restrictions.like("login", "w"))
+                .uniqueResult();
+        Teacher teacherTest = dao.getById(teacher1.getIdUser());
+        transaction.commit();
+        Assert.assertNotNull("преподаватель не найден в базе", teacherTest);
+    }
+
+    @Test
+    public void createTest() throws Exception {
+        User user = new User();
+        user.setLogin("tim");
+        user.setName("John");
+        user.setSurname("Sinicin");
+        user.setPassword("111111");
+        user.setRole(2);
+        Teacher teacher = dao.initTeacher(user);
+        session = util.getSession();
+        transaction = session.beginTransaction();
+        session.saveOrUpdate(teacher);
+        Teacher teacherTest = (Teacher) session.createCriteria(Teacher.class)
+                .add(Restrictions.like("login", "tim"))
+                .uniqueResult();
+        transaction.commit();
+        Assert.assertEquals("Ошибка добавления студента", "tim", teacherTest.getLogin());
+    }
+
 
 }
