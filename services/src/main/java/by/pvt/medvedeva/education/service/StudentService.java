@@ -22,9 +22,9 @@ import org.hibernate.Transaction;
 public class StudentService {
     private StudentDAOImpl studentDAO;
     private static StudentService instance;
-    private  HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private  Session  session = util.getSession();
-    private  Transaction transaction;
+    private HibernateUtil util = HibernateUtil.getHibernateUtil();
+    private Session session = util.getSession();
+    private Transaction transaction;
 
     /**
      * Singleton-fabric
@@ -46,13 +46,14 @@ public class StudentService {
 
 
     public void create(Student student) throws DAOException {
-
         try {
             session = util.getSession();
             transaction = session.beginTransaction();
             User user = UserService.getInstance().getById(student.getIdUser());
-            session.delete(user);
+          //  Integer id = student.getIdUser();
+             session.delete(user);
             studentDAO.create(student);
+//            UserService.getInstance().delete(id);
             transaction.commit();
         } catch (HibernateException e) {
             log.error("Transaction failed in create student method" + e);

@@ -26,7 +26,7 @@ public class User extends Pojo {
     String name;
     @Column(name = "surname")
     String surname;
-    @Column(name = "login", unique = true)
+    @Column(name = "login", unique = false)
     String login;
     @Column(name = "password")
     String password;

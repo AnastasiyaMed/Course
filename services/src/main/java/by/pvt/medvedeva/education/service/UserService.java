@@ -20,12 +20,15 @@ import org.hibernate.Transaction;
  */
 @Log4j
 public class UserService {
-    private UserDAO userDAO = UserDAOImpl.getInstance();
     private static UserService instance;
+    private UserDAO userDAO = UserDAOImpl.getInstance();
     private HibernateUtil util = HibernateUtil.getHibernateUtil();
     private Session session = util.getSession();
+    private Transaction transaction;
 
-    private static Transaction transaction;
+    public UserService() {
+        userDAO = UserDAOImpl.getInstance();
+    }
 
     /**
      * Singleton-fabric
@@ -36,11 +39,6 @@ public class UserService {
         }
         return instance;
     }
-
-    public UserService() {
-        userDAO = UserDAOImpl.getInstance();
-    }
-
 
     protected User getById(Integer id) throws DAOException {
         User user = UserDAOImpl.getInstance().getById(id);
@@ -90,9 +88,7 @@ public class UserService {
 
         try {
             session = util.getSession();
-            if (transaction == null) {
-                transaction = session.beginTransaction();
-            }
+            transaction = session.beginTransaction();
             UserDAOImpl.getInstance().delete(id);
             transaction.commit();
         } catch (HibernateException e) {

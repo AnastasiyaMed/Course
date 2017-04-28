@@ -37,7 +37,7 @@ public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
     @Override
     public User getByLogin(String login) throws DAOException {
         try {
-
+            session = util.getSession();
             return (User) session.createCriteria(User.class)
                     .add(Restrictions.like("login", login))
                     .uniqueResult();
