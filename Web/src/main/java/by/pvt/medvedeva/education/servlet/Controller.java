@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/controller")
+@WebServlet(name = "Controller", urlPatterns = "/controller")
 public class Controller extends HttpServlet {
     /**
      *
@@ -45,6 +45,8 @@ public class Controller extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             // вызов страницы ответа на запрос
             dispatcher.forward(request, response);
+
+
         } else {
             // установка страницы c cообщением об ошибке
             page = ConfigurationManager.getProperty("path.page.index");

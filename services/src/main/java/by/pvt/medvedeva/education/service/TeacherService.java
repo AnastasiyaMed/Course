@@ -15,6 +15,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 
 /**
  * @author Anastasiya Medvedeva
@@ -25,7 +27,7 @@ public class TeacherService {
     private static TeacherService instance;
     private static HibernateUtil util = HibernateUtil.getHibernateUtil();
     private static Session session = util.getSession();
-    private static Transaction transaction;
+    private  Transaction transaction;
 
     /**
      * Singleton-fabric
@@ -50,11 +52,10 @@ public class TeacherService {
     public Teacher getById(Integer id) throws DAOException {
         Teacher teacher;
         try {
-            //          session = util.getSession();
+            session = util.getSession();
             transaction = session.beginTransaction();
             teacher = TeacherDAOImpl.getInstance().getById(id);
             transaction.commit();
-
         } catch (HibernateException e) {
             log.error("Transaction failed in getById method" + e);
             transaction.rollback();
@@ -67,7 +68,7 @@ public class TeacherService {
     public void create(Teacher teacher) throws DAOException {
 
         try {
-            //           session = util.getSession();
+            session = util.getSession();
             transaction = session.beginTransaction();
             User user = UserService.getInstance().getById(teacher.getIdUser());
             session.delete(user);
@@ -79,5 +80,16 @@ public class TeacherService {
             throw new DAOException(Main.class, "Transaction failed in create teacher method", e);
         }
     }
+
+
+    public List <Teacher> getAll() throws DAOException {
+        List <Teacher> teachers;
+        session = util.getSession();
+        transaction = session.beginTransaction();
+        teachers = TeacherDAOImpl.getInstance().getAll();
+        transaction.commit();
+        return teachers;
+    }
+
 
 }

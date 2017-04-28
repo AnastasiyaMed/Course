@@ -10,7 +10,7 @@ import org.hibernate.service.ServiceRegistry;
 public class HibernateUtil {
     private static HibernateUtil util;
     private static Logger log = Logger.getLogger(HibernateUtil.class);
-    private SessionFactory sessionFactory;
+    private  SessionFactory sessionFactory;
     private final ThreadLocal sessions = new ThreadLocal();
 
     private HibernateUtil() {

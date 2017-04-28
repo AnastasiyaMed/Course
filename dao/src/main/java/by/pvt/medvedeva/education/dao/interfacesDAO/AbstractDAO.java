@@ -11,8 +11,8 @@ import java.util.List;
 
 public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     protected ConnectionPool connectionPool;
-    protected HibernateUtil util = HibernateUtil.getHibernateUtil();
-    protected Session session = util.getSession();
+    protected static HibernateUtil util = HibernateUtil.getHibernateUtil();
+    protected static Session session;
     protected Criteria criteria;
     private Class persistentClass;
 
@@ -23,6 +23,7 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
 
     @Override
     public T getById(Integer id) throws DAOException {
+        session = util.getSession();
         try {
             return (T) session.get(persistentClass, id);
         } catch (HibernateException e) {
@@ -32,8 +33,8 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
 
     @Override
     public void create(T pojo) throws DAOException {
+        session = util.getSession();
         try {
-            //       session = util.getSession();
             session.save(pojo);
         } catch (HibernateException e) {
             throw new DAOException(persistentClass, "Fatal error in create method", e);
@@ -42,8 +43,8 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
 
     @Override
     public void update(T pojo) throws DAOException {
+        session = util.getSession();
         try {
-            //             session = util.getSession();
             session.update(pojo);
         } catch (HibernateException e) {
             throw new DAOException(persistentClass, "Fatal error in create method", e);
@@ -52,8 +53,8 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
 
     @Override
     public List <T> getAll() throws DAOException {
+        session = util.getSession();
         try {
-            //          session = util.getSession();
             criteria = session.createCriteria(persistentClass);
             return criteria.list();
         } catch (HibernateException e) {
@@ -63,8 +64,8 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
 
     @Override
     public void delete(Integer id) throws DAOException {
+        session = util.getSession();
         try {
-            //          session = util.getSession();
             T pojo = getById(id);
             session.delete(pojo);
         } catch (HibernateException e) {

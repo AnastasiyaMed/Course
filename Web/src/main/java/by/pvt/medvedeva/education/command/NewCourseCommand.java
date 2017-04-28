@@ -31,43 +31,43 @@ public class NewCourseCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest request) {
+        String page;
         Course course = new Course();
-        Teacher teacher = new Teacher();
-        String page = null;
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpSession session = req.getSession();
+        Teacher teacher;
+        HttpSession session = request.getSession();
+
         ClientType type = (ClientType) session.getAttribute("userType");
         if (type == GUEST) {
             page = ConfigurationManager.getProperty("path.page.login");
-        }
-        if ((request.getParameter(NAME).isEmpty()) || (request.getParameter(DURATION).isEmpty())
-                || (request.getParameter(AUDITORIUM).isEmpty()) || (request.getParameter(USERID).isEmpty())) {
-            page = ConfigurationManager.getProperty("path.page.addcourses");
-            request.setAttribute("dataofcourseerror", MessageManager.getProperty("message.dataofcourseerror"));
-        } else if ((errMessage = validate(request.getParameter(DURATION), request.getParameter(AUDITORIUM),
-                request.getParameter(USERID))) != null) {
-            request.setAttribute("errorFormDataMessage", validate((request.getParameter(DURATION)), request.getParameter(AUDITORIUM), request.getParameter(USERID)));
-            page = ConfigurationManager.getProperty("path.page.addcourses");
-        } else try {
-            if (TeacherService.getInstance().getById(Integer.parseInt(request.getParameter(USERID))) == null) {
-                request.setAttribute("wrongteacherid", MessageManager.getProperty("message.wrongteacherid"));
+        } else {
+            if ((request.getParameter(NAME).isEmpty())
+                    || (request.getParameter(DURATION).isEmpty())
+                    || (request.getParameter(AUDITORIUM).isEmpty())
+                    || (request.getParameter(USERID).isEmpty())) {
+                page = ConfigurationManager.getProperty("path.page.addcourses");
+                request.setAttribute("dataofcourseerror", MessageManager.getProperty("message.dataofcourseerror"));
+            } else if ((errMessage = validate(request.getParameter(DURATION), request.getParameter(AUDITORIUM), request.getParameter(USERID))) != null) {
+                request.setAttribute("errorFormDataMessage", validate((request.getParameter(DURATION)), request.getParameter(AUDITORIUM), request.getParameter(USERID)));
                 page = ConfigurationManager.getProperty("path.page.addcourses");
             } else {
-                teacher = TeacherService.getInstance().getById((Integer.parseInt(request.getParameter(USERID).trim())));
-                System.out.println(teacher);
-                course.setName(request.getParameter(NAME).trim());
-                course.setDuration(Integer.parseInt(request.getParameter(DURATION).trim()));
-                course.setAuditorium(Integer.parseInt(request.getParameter(AUDITORIUM).trim()));
-                course.setTeacher(teacher);
-                System.out.println(course);
-                CourseService.getInstance().create(course);
-                // определение пути к main.jsp
-                page = ConfigurationManager.getProperty("path.page.main");
+                try {
+                    teacher = TeacherService.getInstance().getById((Integer.parseInt(request.getParameter(USERID).trim())));
+                    course.setName(request.getParameter(NAME).trim());
+                    course.setDuration(Integer.parseInt(request.getParameter(DURATION).trim()));
+                    course.setAuditorium(Integer.parseInt(request.getParameter(AUDITORIUM).trim()));
+                    course.setTeacher(teacher);
+                    System.out.println(course);
+                    CourseService.getInstance().create(course);
+                    // определение пути к main.jsp
+                    page = ConfigurationManager.getProperty("path.page.main");
+
+                } catch (DAOException e) {
+                    request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+                    page = ConfigurationManager.getProperty("path.page.addcourses");
+                }
             }
-        } catch (DAOException e) {
-            request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
-            page = ConfigurationManager.getProperty("path.page.addcourses");
         }
+
         return page;
     }
 
@@ -85,7 +85,7 @@ public class NewCourseCommand implements ActionCommand {
             errMessage = MessageManager.getProperty("message.auditoriumerror");
         }
         // проверка id преподавателя
-        if (!teacherIdPattern.matcher(auditorium).matches()) {
+        if (!teacherIdPattern.matcher(teacherID).matches()) {
             // если совпадение не найдено
             errMessage = MessageManager.getProperty("message.wrongteacherid");
         }

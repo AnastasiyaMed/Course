@@ -38,7 +38,12 @@ public enum CommandEnum {
 			this.command = new NewCourseCommand();
 		}
 		},
-		CHANGELOCALE {
+	GOTOADDCOURSE {
+		{
+			this.command = new GoToNewCourseCommand();
+		}
+	},
+	CHANGELOCALE {
 			{
 				this.command = new SetLocaleCommand();
 		}

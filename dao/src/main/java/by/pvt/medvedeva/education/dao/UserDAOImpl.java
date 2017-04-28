@@ -14,8 +14,8 @@ import org.hibernate.criterion.Restrictions;
 
 public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
     private static UserDAOImpl instance;
-    private static HibernateUtil util = HibernateUtil.getHibernateUtil();
-    protected static Session session = util.getSession();
+    private  HibernateUtil util = HibernateUtil.getHibernateUtil();
+    protected  Session session = util.getSession();
     ;
 
     UserDAOImpl(ConnectionPool connectionPool) {

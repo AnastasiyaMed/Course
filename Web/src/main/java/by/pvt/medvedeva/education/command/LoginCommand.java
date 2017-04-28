@@ -28,7 +28,8 @@ public class LoginCommand implements ActionCommand {
         try {
             if (userService.checkLogin(login)) {
                 // проверка логина и пароля
-                if ((ADMIN_ROLE == LoginLogic.checkUserRole(login) ) && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
+                if ((ADMIN_ROLE == LoginLogic.checkUserRole(login))
+                        && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("user", login);
                     session.setAttribute("login", login);

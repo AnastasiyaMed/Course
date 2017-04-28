@@ -22,8 +22,8 @@ import org.hibernate.Transaction;
 public class UserService {
     private UserDAO userDAO = UserDAOImpl.getInstance();
     private static UserService instance;
-    private static HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private static Session session = util.getSession();
+    private HibernateUtil util = HibernateUtil.getHibernateUtil();
+    private Session session = util.getSession();
 
     private static Transaction transaction;
 
@@ -50,7 +50,7 @@ public class UserService {
     public User getByLogin(String login) throws DAOException {
         User user;
         try {
-            //      session = util.getSession();
+            session = util.getSession();
             transaction = session.beginTransaction();
             user = UserDAOImpl.getInstance().getByLogin(login);
             transaction.commit();
@@ -67,7 +67,7 @@ public class UserService {
     public void create(User user) throws DAOException {
 
         try {
-            //      session = util.getSession();
+            session = util.getSession();
             transaction = session.beginTransaction();
             UserDAOImpl.getInstance().create(user);
             transaction.commit();
@@ -89,7 +89,7 @@ public class UserService {
     public void delete(Integer id) throws DAOException {
 
         try {
-            //     session = util.getSession();
+            session = util.getSession();
             if (transaction == null) {
                 transaction = session.beginTransaction();
             }
