@@ -5,13 +5,18 @@ import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.User;
+import by.pvt.medvedeva.education.utils.HibernateUtil;
 import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 
 public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
     private static UserDAOImpl instance;
+    private static HibernateUtil util = HibernateUtil.getHibernateUtil();
+    protected static Session session = util.getSession();
+    ;
 
     UserDAOImpl(ConnectionPool connectionPool) {
         super(User.class);
@@ -29,11 +34,10 @@ public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
     }
 
 
-
     @Override
     public User getByLogin(String login) throws DAOException {
         try {
-            session = util.getSession();
+
             return (User) session.createCriteria(User.class)
                     .add(Restrictions.like("login", login))
                     .uniqueResult();

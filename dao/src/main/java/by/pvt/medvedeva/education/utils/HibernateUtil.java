@@ -35,10 +35,19 @@ public class HibernateUtil {
         return session;
     }
 
+
+
     public static synchronized HibernateUtil getHibernateUtil(){
         if (util == null){
             util = new HibernateUtil();
         }
         return util;
+    }
+
+    public void releaseSession(Session session){
+        if(session != null){
+            session.close();
+            sessions.remove();
+        }
     }
 }

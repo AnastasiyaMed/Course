@@ -24,7 +24,7 @@ public class TeacherService {
     private TeacherDAO teacherDAO;
     private static TeacherService instance;
     private static HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private static Session session;
+    private static Session session = util.getSession();
     private static Transaction transaction;
 
     /**
@@ -47,11 +47,10 @@ public class TeacherService {
     }
 
 
-
     public Teacher getById(Integer id) throws DAOException {
         Teacher teacher;
         try {
-            session = util.getSession();
+            //          session = util.getSession();
             transaction = session.beginTransaction();
             teacher = TeacherDAOImpl.getInstance().getById(id);
             transaction.commit();
@@ -68,7 +67,7 @@ public class TeacherService {
     public void create(Teacher teacher) throws DAOException {
 
         try {
-            session = util.getSession();
+            //           session = util.getSession();
             transaction = session.beginTransaction();
             User user = UserService.getInstance().getById(teacher.getIdUser());
             session.delete(user);

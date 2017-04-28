@@ -20,7 +20,7 @@ public class CourseService {
     private CourseDAOImpl courseDAO;
     private static CourseService instance;
     private static HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private static Session session;
+    private static Session  session = util.getSession();
     private static Transaction transaction;
 
     /**
@@ -39,7 +39,6 @@ public class CourseService {
 
     public void create(Course course) throws DAOException {
         try {
-            session = util.getSession();
             transaction = session.beginTransaction();
             courseDAO.create(course);
             transaction.commit();
@@ -52,7 +51,7 @@ public class CourseService {
 
     public List<Course> getAll() throws DAOException  {
         List<Course> courses;
-            session = util.getSession();
+ //           session = util.getSession();
             transaction = session.beginTransaction();
             courses = courseDAO.getAll();
             transaction.commit();

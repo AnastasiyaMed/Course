@@ -14,7 +14,6 @@ import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
  * @author Medvedeva Anastasiya
  */
 public class TeacherDAOImpl extends AbstractDAO <Teacher> implements TeacherDAO <Teacher> {
-    private final static String SQL_QUERY_CHANGE_USERROLE = "UPDATE `user` SET `role`='2' WHERE  user.user_id = ?";
     private final static int TEACHER_ROLE = 2;
     private static TeacherDAOImpl instance;
 

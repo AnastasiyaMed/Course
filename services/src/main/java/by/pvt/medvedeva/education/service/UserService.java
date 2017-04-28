@@ -23,7 +23,8 @@ public class UserService {
     private UserDAO userDAO = UserDAOImpl.getInstance();
     private static UserService instance;
     private static HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private static Session session;
+    private static Session session = util.getSession();
+
     private static Transaction transaction;
 
     /**
@@ -41,15 +42,15 @@ public class UserService {
     }
 
 
-    protected User getById (Integer id) throws DAOException {
+    protected User getById(Integer id) throws DAOException {
         User user = UserDAOImpl.getInstance().getById(id);
         return user;
     }
 
-    public User getByLogin(String  login) throws DAOException {
+    public User getByLogin(String login) throws DAOException {
         User user;
         try {
-            session = util.getSession();
+            //      session = util.getSession();
             transaction = session.beginTransaction();
             user = UserDAOImpl.getInstance().getByLogin(login);
             transaction.commit();
@@ -66,7 +67,7 @@ public class UserService {
     public void create(User user) throws DAOException {
 
         try {
-            session = util.getSession();
+            //      session = util.getSession();
             transaction = session.beginTransaction();
             UserDAOImpl.getInstance().create(user);
             transaction.commit();
@@ -79,7 +80,7 @@ public class UserService {
 
     public boolean checkLogin(String login) throws DAOException {
         boolean resultCheckLogin = true;
-        if (null == getByLogin(login))   {
+        if (null == getByLogin(login)) {
             resultCheckLogin = false;
         }
         return resultCheckLogin;
@@ -88,10 +89,10 @@ public class UserService {
     public void delete(Integer id) throws DAOException {
 
         try {
-            session = util.getSession();
-           if (transaction == null) {
-               transaction = session.beginTransaction();
-           }
+            //     session = util.getSession();
+            if (transaction == null) {
+                transaction = session.beginTransaction();
+            }
             UserDAOImpl.getInstance().delete(id);
             transaction.commit();
         } catch (HibernateException e) {

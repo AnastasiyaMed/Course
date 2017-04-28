@@ -23,7 +23,7 @@ public class StudentService {
     private StudentDAOImpl studentDAO;
     private static StudentService instance;
     private static HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private static Session session;
+    private static Session  session = util.getSession();
     private static Transaction transaction;
 
     /**
@@ -48,7 +48,7 @@ public class StudentService {
     public void create(Student student) throws DAOException {
 
         try {
-            session = util.getSession();
+  //          session = util.getSession();
             transaction = session.beginTransaction();
             User user = UserService.getInstance().getById(student.getIdUser());
             session.delete(user);
