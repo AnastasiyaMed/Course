@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Data
 @Table(name = "teacher")
-@PrimaryKeyJoinColumn(name = "user_id")
+@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Teacher extends User {

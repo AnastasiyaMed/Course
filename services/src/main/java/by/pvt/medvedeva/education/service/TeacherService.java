@@ -70,6 +70,8 @@ public class TeacherService {
         try {
             session = util.getSession();
             transaction = session.beginTransaction();
+            User user = UserService.getInstance().getById(teacher.getIdUser());
+            session.delete(user);
             TeacherDAOImpl.getInstance().create(teacher);
             transaction.commit();
         } catch (HibernateException e) {
