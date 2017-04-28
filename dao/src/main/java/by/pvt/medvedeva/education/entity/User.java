@@ -4,35 +4,33 @@ package by.pvt.medvedeva.education.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
 @Table(name = "user")
-@Inheritance (strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class User extends Pojo {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Cascade(CascadeType.ALL)
-    @Column (name = "id")
+    @Column(name = "id")
     Integer idUser;
-    @Column (name = "name")
+    @Column(name = "name")
     String name;
-    @Column (name = "surname")
+    @Column(name = "surname")
     String surname;
-    @Column (name = "login")
+    @Column(name = "login", unique = true)
     String login;
-    @Column (name = "password")
+    @Column(name = "password")
     String password;
-    @Column (name = "role", updatable = true)
+    @Column(name = "role", updatable = true)
     Integer role;
 
     public User(Integer idUser, String name, String surname, String login, String password, Integer role) {

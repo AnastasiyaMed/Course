@@ -35,7 +35,6 @@ public class TeacherDAOImpl extends AbstractDAO <Teacher> implements TeacherDAO 
     @Override
     public Teacher initTeacher(User user) {
 
-
         Teacher teacher = new Teacher();
 
         teacher.setName(user.getName());

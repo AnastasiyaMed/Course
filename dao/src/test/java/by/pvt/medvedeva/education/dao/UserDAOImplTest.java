@@ -24,11 +24,11 @@ public class UserDAOImplTest {
     @Test
     public void createTest() throws Exception {
         User user = new User();
-        user.setLogin("tim");
+        user.setLogin("hut");
         user.setName("John");
         user.setSurname("Sinicin");
         user.setPassword("111111");
-        user.setRole(0);
+       // user.setRole(0);
         session = util.getSession();
         transaction = session.beginTransaction();
         dao.create(user);

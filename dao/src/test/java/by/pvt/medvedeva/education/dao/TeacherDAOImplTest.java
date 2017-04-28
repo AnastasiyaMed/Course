@@ -24,11 +24,9 @@ public class TeacherDAOImplTest {
 
     @Test
     public void initTeacherTest() throws Exception {
-        User user = new User(0, "w", "w", "w", "w", 2);
+        User user = new User(0, "w", "w", "return", "w", 2);
         Teacher teacher = dao.initTeacher(user);
-        dao.create(teacher);
-        Teacher teacherTest = dao.initTeacher(user);
-        Assert.assertEquals("Ошибка инициализации преподавателя", "w", teacherTest.getLogin());
+        Assert.assertEquals("Ошибка инициализации преподавателя", "return", teacher.getLogin());
     }
 
     @Test
