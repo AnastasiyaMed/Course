@@ -8,12 +8,9 @@ import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.entity.User;
-import by.pvt.medvedeva.education.utils.HibernateUtil;
 import by.pvt.medvedeva.education.utils.Main;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -22,12 +19,10 @@ import java.util.List;
  * @author Anastasiya Medvedeva
  */
 @Log4j
-public class TeacherService {
+public class TeacherService extends AbstractService {
     private TeacherDAO teacherDAO;
     private static TeacherService instance;
-    private static HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private static Session session = util.getSession();
-    private  Transaction transaction;
+
 
     /**
      * Singleton-fabric
@@ -66,12 +61,12 @@ public class TeacherService {
 
 
     public void create(Teacher teacher) throws DAOException {
-
+        flag = true;
+        Integer id = teacher.getIdUser();
         try {
             session = util.getSession();
             transaction = session.beginTransaction();
-            User user = UserService.getInstance().getById(teacher.getIdUser());
-            session.delete(user);
+            UserService.getInstance().delete(id);
             TeacherDAOImpl.getInstance().create(teacher);
             transaction.commit();
         } catch (HibernateException e) {

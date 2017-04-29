@@ -7,24 +7,19 @@ import by.pvt.medvedeva.education.dao.UserDAOImpl;
 import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.User;
-import by.pvt.medvedeva.education.utils.HibernateUtil;
 import by.pvt.medvedeva.education.utils.Main;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 
 /**
  * @author Anastasiya Medvedeva
  */
 @Log4j
-public class UserService {
+public class UserService extends AbstractService {
     private static UserService instance;
     private UserDAO userDAO = UserDAOImpl.getInstance();
-    private HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private Session session = util.getSession();
-    private Transaction transaction;
+
 
     public UserService() {
         userDAO = UserDAOImpl.getInstance();
@@ -85,14 +80,19 @@ public class UserService {
     }
 
     public void delete(Integer id) throws DAOException {
-
         try {
             session = util.getSession();
-            transaction = session.beginTransaction();
+            if (transaction == null) {
+                transaction = session.beginTransaction();
+            } else if (transaction != null) {
+                transaction = session.getTransaction();
+            }
             UserDAOImpl.getInstance().delete(id);
-            transaction.commit();
+            if (flag != true) {
+                transaction.commit();
+            }
         } catch (HibernateException e) {
-            log.error("Transaction failed in create user method" + e);
+            log.error("Transaction failed in delete user method" + e);
             transaction.rollback();
             throw new DAOException(Main.class, "Transaction failed in delete user method", e);
         }

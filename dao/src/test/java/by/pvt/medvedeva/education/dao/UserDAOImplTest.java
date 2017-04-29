@@ -28,7 +28,7 @@ public class UserDAOImplTest {
         user.setName("John");
         user.setSurname("Sinicin");
         user.setPassword("111111");
-       // user.setRole(0);
+        // user.setRole(0);
         session = util.getSession();
         transaction = session.beginTransaction();
         dao.create(user);
@@ -48,6 +48,18 @@ public class UserDAOImplTest {
         session.saveOrUpdate(user);
         User userTest = dao.getByLogin(user.getLogin());
         Assert.assertEquals("Ошибка чтения пользователя из базы", "c", userTest.getLogin());
+    }
+
+
+    @Test
+    public void deleteTest() throws Exception {
+        User user = new User(null, "bg", "bg", "bg", "bg", 0);
+        session = util.getSession();
+        dao.create(user);
+        Integer id = user.getIdUser();
+        dao.delete(id);
+        User userTest = dao.getById(id);
+        Assert.assertNull("Ошибка удаления пользователя из базы", userTest);
     }
 
 }

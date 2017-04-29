@@ -14,7 +14,7 @@
   <div class="row">
    <div class="col-md-5">
     <div class="text-center">
-     <h3>Login Form</h3>
+     <h3><fmt:message key="Login.Form"/></h3>
      <h3><fmt:message key="locale"/></h3>
     </div>
     <form action="controller" method="POST" class="form-horizontal">

@@ -11,8 +11,8 @@ import java.util.List;
 
 public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     protected ConnectionPool connectionPool;
-    protected static HibernateUtil util = HibernateUtil.getHibernateUtil();
-    protected static Session session;
+    protected  HibernateUtil util = HibernateUtil.getHibernateUtil();
+    protected  Session session;
     protected Criteria criteria;
     private Class persistentClass;
 
@@ -64,8 +64,8 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
 
     @Override
     public void delete(Integer id) throws DAOException {
-        session = util.getSession();
         try {
+            session = util.getSession();
             T pojo = getById(id);
             session.delete(pojo);
         } catch (HibernateException e) {
