@@ -54,12 +54,12 @@ public class TeacherDAOImplTest {
         Teacher teacher = dao.initTeacher(user);
         session = util.getSession();
         transaction = session.beginTransaction();
-        session.saveOrUpdate(teacher);
+        dao.create(teacher);
         Teacher teacherTest = (Teacher) session.createCriteria(Teacher.class)
                 .add(Restrictions.like("login", "tim"))
                 .uniqueResult();
         transaction.commit();
-        Assert.assertEquals("Ошибка добавления студента", "tim", teacherTest.getLogin());
+        Assert.assertEquals("Ошибка добавления преподавателя", "tim", teacherTest.getLogin());
     }
 
 

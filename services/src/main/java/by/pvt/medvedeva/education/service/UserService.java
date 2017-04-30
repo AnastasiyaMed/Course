@@ -82,13 +82,14 @@ public class UserService extends AbstractService {
     public void delete(Integer id) throws DAOException {
         try {
             session = util.getSession();
-            if (transaction == null) {
+            if (flag == false) {
                 transaction = session.beginTransaction();
-            } else if (transaction != null) {
+                flag = true;
+            } else if (flag == true ) {
                 transaction = session.getTransaction();
             }
             UserDAOImpl.getInstance().delete(id);
-            if (flag != true) {
+            if (flag == false ) {
                 transaction.commit();
             }
         } catch (HibernateException e) {

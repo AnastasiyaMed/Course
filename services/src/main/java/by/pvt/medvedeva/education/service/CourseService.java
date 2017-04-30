@@ -3,12 +3,9 @@ package by.pvt.medvedeva.education.service;
 import by.pvt.medvedeva.education.dao.CourseDAOImpl;
 import by.pvt.medvedeva.education.dao.exeption.DAOException;
 import by.pvt.medvedeva.education.entity.Course;
-import by.pvt.medvedeva.education.utils.HibernateUtil;
 import by.pvt.medvedeva.education.utils.Main;
 import lombok.extern.log4j.Log4j;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -16,12 +13,10 @@ import java.util.List;
  * @author Anastasiya Medvedeva
  */
 @Log4j
-public class CourseService {
+public class CourseService extends AbstractService {
     private CourseDAOImpl courseDAO;
     private static CourseService instance;
-    private HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private Session session = util.getSession();
-    private Transaction transaction;
+
 
     /**
      * Singleton-fabric
@@ -40,9 +35,16 @@ public class CourseService {
     public void create(Course course) throws DAOException {
         try {
             session = util.getSession();
-            transaction = session.beginTransaction();
+            if (flag == true) {
+                transaction = session.getTransaction();
+            } else {
+                transaction = session.beginTransaction();
+                flag = true;
+            }
             courseDAO.create(course);
-            transaction.commit();
+            if (flag == false) {
+                transaction.commit();
+            }
         } catch (HibernateException e) {
             log.error("Transaction failed in create course method" + e);
             transaction.rollback();
@@ -53,9 +55,16 @@ public class CourseService {
     public List <Course> getAll() throws DAOException {
         List <Course> courses;
         session = util.getSession();
-        transaction = session.beginTransaction();
+        if (flag == false) {
+            transaction = session.beginTransaction();
+            flag = true;
+        } else {
+            transaction = session.getTransaction();
+        }
         courses = courseDAO.getAll();
-        transaction.commit();
+        if (flag == false) {
+            transaction.commit();
+        }
         return courses;
     }
 }
