@@ -18,13 +18,6 @@ public class CourseServiceTest {
     public CourseServiceTest() throws DAOException {
     }
 
-//    @Before
-//    public void begin() throws Exception {
-//        User user = new User(null, "Nik", "Nikiforov", "nini", "ninini", 0);
-//        userService.create(user);
-//        Teacher teacher = teacherService.initTeacher(user);
-//        teacherService.create(teacher);
-//    }
 
     @Test
     public void CourseServiceTest() throws Exception {

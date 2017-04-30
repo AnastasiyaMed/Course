@@ -9,4 +9,21 @@ public abstract class AbstractService {
     protected Session session;
     protected Transaction transaction;
     protected static boolean flag;
+
+
+    protected Transaction getTransaction () {
+        if (flag == false) {
+            transaction = session.beginTransaction();
+            flag = true;
+        } else {
+            transaction = session.getTransaction();
+        }
+        return transaction;
+    }
+
+    protected void commitTransaction(){
+        if (flag == false) {
+            transaction.commit();
+        }
+    }
 }

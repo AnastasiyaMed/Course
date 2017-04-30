@@ -61,9 +61,9 @@ public class UserService extends AbstractService {
 
         try {
             session = util.getSession();
-            transaction = session.beginTransaction();
+            getTransaction();
             UserDAOImpl.getInstance().create(user);
-            transaction.commit();
+            commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in create user method" + e);
             transaction.rollback();
@@ -85,11 +85,11 @@ public class UserService extends AbstractService {
             if (flag == false) {
                 transaction = session.beginTransaction();
                 flag = true;
-            } else if (flag == true ) {
+            } else if (flag == true) {
                 transaction = session.getTransaction();
             }
             UserDAOImpl.getInstance().delete(id);
-            if (flag == false ) {
+            if (flag == false) {
                 transaction.commit();
             }
         } catch (HibernateException e) {
