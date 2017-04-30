@@ -44,21 +44,18 @@ public class UserService extends AbstractService {
         User user;
         try {
             session = util.getSession();
-            transaction = session.beginTransaction();
+            getTransaction();
             user = UserDAOImpl.getInstance().getByLogin(login);
-            transaction.commit();
-
+            commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in getById method" + e);
             transaction.rollback();
             throw new DAOException(Main.class, "Transaction failed in getById method", e);
         }
-
         return user;
     }
 
     public void create(User user) throws DAOException {
-
         try {
             session = util.getSession();
             getTransaction();
@@ -82,16 +79,9 @@ public class UserService extends AbstractService {
     public void delete(Integer id) throws DAOException {
         try {
             session = util.getSession();
-            if (flag == false) {
-                transaction = session.beginTransaction();
-                flag = true;
-            } else if (flag == true) {
-                transaction = session.getTransaction();
-            }
+            getTransaction();
             UserDAOImpl.getInstance().delete(id);
-            if (flag == false) {
-                transaction.commit();
-            }
+            commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in delete user method" + e);
             transaction.rollback();
