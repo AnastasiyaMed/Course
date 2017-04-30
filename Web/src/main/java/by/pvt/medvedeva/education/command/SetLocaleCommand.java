@@ -14,8 +14,8 @@ public class SetLocaleCommand implements ActionCommand {
 //        Cookie c = new Cookie("locale", locale);
 //        c.setMaxAge(60 60 24 * 30);
 //        response.addCookie(c);
- //       return request.getHeader("referer");
-        return null;
+        return request.getHeader("referer");
+//       return null;
 
     }
 }

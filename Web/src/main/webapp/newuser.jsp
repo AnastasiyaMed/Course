@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html><head><title>Login</title></head>
+<%@ include file="uselocale.jsp" %>
+<%@ include file="footer.jsp" %>
+<html><head><title><fmt:message key="hello.new"/></title></head>
 <body>
-  hello, you can log in now!
+<fmt:message key="hello.new"/>
 <form name="loginForm" method="POST" action="controller">
 <input type="hidden" name="command" value="login" />
-Login:<br/>
+    <fmt:message key="Login"/> <br/>
 <input type="text" name="login" value=""/>
-<br/>Password:<br/>
+<br/><fmt:message key="password"/><br/>
 <input type="password" name="password" value=""/>
  <br/>
 ${errorLoginPassMessage}

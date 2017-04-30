@@ -5,7 +5,6 @@ import by.pvt.medvedeva.education.command.factory.ActionFactory;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,9 +41,10 @@ public class Controller extends HttpServlet {
         page = command.execute(request);
         // метод возвращает страницу ответа
         if (page != null) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+         //   RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             // вызов страницы ответа на запрос
-            dispatcher.forward(request, response);
+         //   dispatcher.forward(request, response);
+            response.sendRedirect(page);
 
 
         } else {

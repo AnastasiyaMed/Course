@@ -1,14 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="uselocale.jsp" %>
+<%@ include file="footer.jsp" %>
 <html><head><title>Welcome student!</title></head>
 <body>
-<h3>Welcome, student!</h3>
+<h3><fmt:message key="welcome.student"/>!</h3>
 <hr/>
- ${user}, hello!
+${user}, <fmt:message key="hello"/>!
 <hr/>
 <form name="ShowCourses" method="POST" action="controller">
 <input type="hidden" name="command" value="ShowCourses" />
-<input type="submit" value="Show all courses"/>
+<input type="submit" value="<fmt:message key="course.show"/>"/>
  <c:if test="${not empty  exceptionMessage}">
   <div class="text-center">
    <h4>
@@ -19,5 +21,5 @@
 </form><hr/>
 Links for student...<br/>
 Debug info - session = ${sessionScope}
-<a href="controller?command=logout">Logout</a>
+<a href="controller?command=logout"><fmt:message key="Logout"/></a>
 </body></html>
