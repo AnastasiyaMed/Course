@@ -14,7 +14,7 @@ public class StudentServiceTest {
 
 
     @Test
-    public void create() throws Exception {
+    public void StudentServiseTest() throws Exception {
         User user = new User(null, "Gena", "Gajiev", "gega", "gegege", 0);
         userService.create(user);
         // init() Method
