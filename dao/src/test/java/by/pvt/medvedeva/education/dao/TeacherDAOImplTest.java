@@ -61,6 +61,4 @@ public class TeacherDAOImplTest {
         transaction.commit();
         Assert.assertEquals("Ошибка добавления преподавателя", "tim", teacherTest.getLogin());
     }
-
-
 }

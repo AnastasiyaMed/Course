@@ -1,20 +1,44 @@
 package by.pvt.medvedeva.education.dao.exeption;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 
+/**
+ *
+ * @Author Anastasiya Medvedeva
+ *
+ * In this class described custom Exception, that give information about some trouble with acces to database to next level
+ *
+ */
 
+@Log4j
 public class DAOException extends Exception {
-        public DAOException(String msg) {
+    /**
+     * constructor
+      * @param msg
+     *
+     */
+    public DAOException(String msg) {
             super(msg);
         }
+    /**
+     * constructor
+     * @param msg
+     * @param e
+     *
+     */
         public DAOException(String msg, Throwable e) {
             super(msg, e);
         }
+    /**
+     * constructor
+     * @param msg
+     * @param e
+     * @param clazz
+     *
+     */
         public DAOException(Class clazz, String msg, Throwable e) {
             super(msg, e);
-            Logger logger = LogManager.getLogger(clazz);
-            logger.log(Level.ERROR, msg, e);
+            log.log(Level.ERROR, msg, e);
         }
 }

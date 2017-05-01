@@ -3,7 +3,9 @@
 <%@ include file="uselocale.jsp" %>
 <%@ include file="footer.jsp" %>
 <html>
-<head><title>Welcome admin</title></head>
+<head>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Welcome admin</title></head>
 <body>
 <h3><fmt:message key="welcome.admin"/></h3>
 <hr/>
@@ -11,7 +13,9 @@ ${user}, <fmt:message key="hello"/>!
 
 <form name="goToAddCourse" method="POST" action="controller">
     <input type="hidden" name="command" value="GOTOADDCOURSE" />
-    <input type="submit" value=<fmt:message key="course.add"/>/>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary"><fmt:message key="course.add"/></button>
+    </div>
 </form><hr/>
 <c:if test="${not empty  exceptionMessage}">
     <div class="text-center">

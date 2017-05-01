@@ -56,11 +56,15 @@ public class NewCourseCommand implements ActionCommand {
                     course.setDuration(Integer.parseInt(request.getParameter(DURATION).trim()));
                     course.setAuditorium(Integer.parseInt(request.getParameter(AUDITORIUM).trim()));
                     course.setTeacher(teacher);
-                    System.out.println(course);
-                    CourseService.getInstance().create(course);
-                    // определение пути к main.jsp
-                    page = ConfigurationManager.getProperty("path.page.main");
-
+                    if (CourseService.getInstance().checkCourseIsExist(course) == false) {
+                        CourseService.getInstance().create(course);
+                        // определение пути к main.jsp
+                        request.setAttribute("courseAdded", MessageManager.getProperty("message.courseadded"));
+                        page = ConfigurationManager.getProperty("path.page.main");
+                    } else {
+                        page = ConfigurationManager.getProperty("path.page.addcourses");
+                        request.setAttribute("courseexist", MessageManager.getProperty("courseisalreadyexist"));
+                    }
                 } catch (DAOException e) {
                     request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
                     page = ConfigurationManager.getProperty("path.page.addcourses");
@@ -70,7 +74,6 @@ public class NewCourseCommand implements ActionCommand {
 
         return page;
     }
-
 
     private String validate(String duration, String auditorium, String teacherID) {
         String errMessage = null;

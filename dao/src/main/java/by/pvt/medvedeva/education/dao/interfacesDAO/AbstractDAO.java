@@ -8,7 +8,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import java.util.List;
-
+/**
+ * @author Medvedeva Anastasiya
+ *
+ * Abstract class, base class for DAO layer
+ */
 public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     protected ConnectionPool connectionPool;
     protected  HibernateUtil util = HibernateUtil.getHibernateUtil();
@@ -16,11 +20,20 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     protected Criteria criteria;
     private Class persistentClass;
 
+    /**
+     * Constructor
+     * @param persistentClass
+     */
     protected AbstractDAO(Class persistentClass) {
         this.persistentClass = persistentClass;
     }
 
-
+    /**
+     *
+     * @param id
+     * @return
+     * @throws DAOException
+     */
     @Override
     public T getById(Integer id) throws DAOException {
         session = util.getSession();
@@ -31,6 +44,11 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
         }
     }
 
+    /**
+     *
+     * @param pojo
+     * @throws DAOException
+     */
     @Override
     public void create(T pojo) throws DAOException {
         session = util.getSession();
@@ -41,6 +59,11 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
         }
     }
 
+    /**
+     *
+     * @param pojo
+     * @throws DAOException
+     */
     @Override
     public void update(T pojo) throws DAOException {
         session = util.getSession();
@@ -51,6 +74,11 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws DAOException
+     */
     @Override
     public List <T> getAll() throws DAOException {
         session = util.getSession();
@@ -62,6 +90,11 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws DAOException
+     */
     @Override
     public void delete(Integer id) throws DAOException {
         try {

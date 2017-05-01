@@ -48,9 +48,9 @@ public class TeacherService extends AbstractService {
         Teacher teacher;
         try {
             session = util.getSession();
-            getTransaction();
+     //       getTransaction();
             teacher = TeacherDAOImpl.getInstance().getById(id);
-            commitTransaction();
+    //        commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in getById method" + e);
             transaction.rollback();
@@ -64,10 +64,10 @@ public class TeacherService extends AbstractService {
         Integer id = teacher.getIdUser();
         try {
             session = util.getSession();
-            getTransaction();
+        //    getTransaction();
             UserService.getInstance().delete(id);
             TeacherDAOImpl.getInstance().create(teacher);
-            commitTransaction();
+       //     commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in create teacher method" + e);
             transaction.rollback();
@@ -79,9 +79,9 @@ public class TeacherService extends AbstractService {
     public List <Teacher> getAll() throws DAOException {
         List <Teacher> teachers;
         session = util.getSession();
-        getTransaction();
+     //   getTransaction();
         teachers = TeacherDAOImpl.getInstance().getAll();
-        commitTransaction();
+      //  commitTransaction();
         return teachers;
     }
 

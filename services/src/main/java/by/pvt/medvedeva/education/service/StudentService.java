@@ -44,17 +44,10 @@ public class StudentService extends AbstractService {
         Integer id = student.getIdUser();
         try {
             session = util.getSession();
-            if (flag == false) {
-                transaction = session.beginTransaction();
-                flag = true;
-            } else {
-                transaction = session.getTransaction();
-            }
+      //     getTransaction();
             studentDAO.create(student);
             UserService.getInstance().delete(id);
-            if (flag == false) {
-                transaction.commit();
-            }
+     //       commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in create student method" + e);
             transaction.rollback();

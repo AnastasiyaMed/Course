@@ -11,7 +11,7 @@ public abstract class AbstractService {
     protected static boolean flag;
 
 
-    protected Transaction getTransaction () {
+    public Transaction getTransaction () {
         if (flag == false) {
             transaction = session.beginTransaction();
             flag = true;
@@ -21,7 +21,7 @@ public abstract class AbstractService {
         return transaction;
     }
 
-    protected void commitTransaction(){
+    public void commitTransaction(){
         if (flag == false) {
             transaction.commit();
         }
