@@ -5,12 +5,11 @@ import java.sql.SQLException;
 
 /**
  * @author Medvedeva Anastasiya
- *
- * inerface for help to use two connection pools for different database
+ *         <p>
+ *         inerface for help to use two connection pools for different database
  */
 public interface ConnectionPool {
     /**
-     *
      * @return
      * @throws SQLException
      */

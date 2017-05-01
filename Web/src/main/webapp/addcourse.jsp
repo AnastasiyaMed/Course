@@ -5,23 +5,36 @@
 <%@ include file="uselocale.jsp" %>
 <%@ include file="footer.jsp" %>
 <html>
+<script type="text/javascript" src="js/validation.js"></script>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <script type="text/javascript" src="/js/validation.js"></script>
+        <title>New Course Page</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <title>New Course Page</title>
 </head>
 <body>
 <div class="container" style="color: black">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
 <form name="addcourse" method="POST" action="controller" class="form-horizontal">
-    <input type="hidden" name="command" value="addcourse"/><fmt:message key="course.name"/><br/>
-    <input name="name" value=""/>
-    <br/><fmt:message key="course.duration"/><br/>
-    <input name="duration" value=""/>
-    <br/><fmt:message key="course.auditorium"/><br/>
-    <input name="auditorium" value=""/>
-    <br/>
+    <input type="hidden" name="command" value="addcourse"/>
+    <div class="form-group">
+    <label for="name"><fmt:message key="course.name"/></label>
+     <input name="name" id="nameForm" value="" type="text" class="form-control"
+        placeholder="Input name" onKeyUp="check('name')" maxlength="15">
+        <b id="name" style="color: red; font-size: 10px;"><fmt:message key="check.name"/></b>                            </div>
+    <div class="form-group">
+        <label for="duration"><fmt:message key="course.duration"/></label>
+        <input type="text" id="cardForm" name="card" placeholder=
+        <fmt:message key="course.duration"/> class="form-control" onKeyUp="check('card')">
+        <b id="duration" style="color: red; font-size: 10px;"><fmt:message key="check.card"/></b>
+    </div>
+    <div class="form-group">
+        <label for="auditorium"><fmt:message key="course.auditorium"/></label>
+        <input type="text" id="cardForm" name="card" placeholder=
+        <fmt:message key="course.auditorium"/> class="form-control" onKeyUp="check('card')">
+        <b id="auditorium" style="color: red; font-size: 10px;"><fmt:message key="check.card"/></b>
+    </div>
     <br/>
     <div class="form-group">
       <%--@declare id="id"--%><label for="id"><fmt:message key="course.teachers"/></label>

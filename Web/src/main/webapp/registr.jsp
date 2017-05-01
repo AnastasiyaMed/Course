@@ -22,7 +22,8 @@
             <form action="controller" method="POST" class="form-horizontal">
                 <input type="hidden" name="command" value="registr">
                 <div class="form-group">
-                    <label for="name"><fmt:message key="name"/></label> <input name="name" id="nameForm"
+                    <label for="name"><fmt:message key="name"/></label>
+                    <input name="name" id="nameForm"
                                                                                type="text" class="form-control"
                                                                                placeholder="Input name"
                                                                                onKeyUp="check('name')" maxlength="15">

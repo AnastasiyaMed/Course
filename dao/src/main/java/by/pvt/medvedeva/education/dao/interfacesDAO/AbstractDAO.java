@@ -8,20 +8,22 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import java.util.List;
+
 /**
  * @author Medvedeva Anastasiya
- *
- * Abstract class, base class for DAO layer
+ *         <p>
+ *         Abstract class, base class for DAO layer
  */
 public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     protected ConnectionPool connectionPool;
-    protected  HibernateUtil util = HibernateUtil.getHibernateUtil();
-    protected  Session session;
+    protected HibernateUtil util = HibernateUtil.getHibernateUtil();
+    protected Session session;
     protected Criteria criteria;
     private Class persistentClass;
 
     /**
      * Constructor
+     *
      * @param persistentClass
      */
     protected AbstractDAO(Class persistentClass) {
@@ -29,7 +31,6 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     }
 
     /**
-     *
      * @param id
      * @return
      * @throws DAOException
@@ -45,7 +46,6 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     }
 
     /**
-     *
      * @param pojo
      * @throws DAOException
      */
@@ -60,7 +60,6 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     }
 
     /**
-     *
      * @param pojo
      * @throws DAOException
      */
@@ -75,7 +74,6 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     }
 
     /**
-     *
      * @return
      * @throws DAOException
      */
@@ -91,7 +89,6 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
     }
 
     /**
-     *
      * @param id
      * @throws DAOException
      */

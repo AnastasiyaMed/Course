@@ -10,7 +10,10 @@ import by.pvt.medvedeva.education.entity.User;
  */
 public interface TeacherDAO<Teacher> {
 
-
+    /**
+     * @param user
+     * @return
+     */
     Teacher initTeacher(User user);
 
 }
