@@ -34,11 +34,11 @@ public class GetCoursesListCommand implements ActionCommand {
             try {
                 list = CourseService.getInstance().getAll();
                 int listSize = list.size();
-                request.setAttribute("list", list);
-                request.setAttribute("listSize", listSize);
+                session.setAttribute("list", list);
+                session.setAttribute("listSize", listSize);
                 page = ConfigurationManager.getProperty("path.page.allcourses");
             } catch (DAOException e) {
-                request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+                session.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
                 page = ConfigurationManager.getProperty("path.page.student");
             }
         }

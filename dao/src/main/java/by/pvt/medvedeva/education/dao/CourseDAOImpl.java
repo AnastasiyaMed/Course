@@ -6,8 +6,11 @@ import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.CourseDAO;
 import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
+import org.hibernate.HibernateException;
+import org.hibernate.criterion.Order;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author Anastasiya Medvedeva
@@ -39,5 +42,31 @@ public class CourseDAOImpl extends AbstractDAO <Course> implements CourseDAO <Co
         super(Course.class);
         this.connectionPool = connectionPool;
     }
+
+
+    /**
+     *  page big query with parameters
+     * @param pageOffset   row offset
+     * @param pageCapacity row limit
+     * @return list of course
+     * @throws DAOException custom exception
+     */
+    public List<Course> getCoursesByPage(int pageOffset, int pageCapacity) throws DAOException {
+        try {
+            session = util.getSession();
+            criteria = session.createCriteria(Course.class);
+            // Pagination
+            criteria.setMaxResults(pageCapacity);
+            criteria.setFirstResult(pageOffset);
+            // Sort order
+            criteria.addOrder(Order.desc("duration"));
+            List<Course> courses = (List<Course>) criteria.list();
+            for (Course c : courses) { int i = c.getAuditorium(); }
+            return courses;
+        } catch (HibernateException e) {
+            throw new DAOException(CourseDAOImpl.class, "Fatal error in pagination method", e);
+        }
+    }
+
 
 }

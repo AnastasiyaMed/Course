@@ -49,9 +49,9 @@ public class NewCourseCommand implements ActionCommand {
                     || (request.getParameter(AUDITORIUM).isEmpty())
                     || (request.getParameter(USERID).isEmpty())) {
                 page = ConfigurationManager.getProperty("path.page.addcourses");
-                request.setAttribute("dataofcourseerror", MessageManager.getProperty("message.dataofcourseerror"));
+                session.setAttribute("dataofcourseerror", MessageManager.getProperty("message.dataofcourseerror"));
             } else if ((errMessage = validate(request.getParameter(DURATION), request.getParameter(AUDITORIUM), request.getParameter(USERID))) != null) {
-                request.setAttribute("errorFormDataMessage", validate((request.getParameter(DURATION)), request.getParameter(AUDITORIUM), request.getParameter(USERID)));
+                session.setAttribute("errorFormDataMessage", validate((request.getParameter(DURATION)), request.getParameter(AUDITORIUM), request.getParameter(USERID)));
                 page = ConfigurationManager.getProperty("path.page.addcourses");
             } else {
                 try {
@@ -63,14 +63,14 @@ public class NewCourseCommand implements ActionCommand {
                     if (CourseService.getInstance().checkCourseIsExist(course) == false) {
                         CourseService.getInstance().create(course);
                         // определение пути к main.jsp
-                        request.setAttribute("courseAdded", MessageManager.getProperty("message.courseadded"));
+                        session.setAttribute("courseAdded", MessageManager.getProperty("message.courseadded"));
                         page = ConfigurationManager.getProperty("path.page.main");
                     } else {
                         page = ConfigurationManager.getProperty("path.page.addcourses");
-                        request.setAttribute("courseexist", MessageManager.getProperty("courseisalreadyexist"));
+                        session.setAttribute("courseexist", MessageManager.getProperty("courseisalreadyexist"));
                     }
                 } catch (DAOException e) {
-                    request.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+                    session.setAttribute("exeptionMessage", MessageManager.getProperty("message.exceptionMessage"));
                     page = ConfigurationManager.getProperty("path.page.addcourses");
                 }
             }

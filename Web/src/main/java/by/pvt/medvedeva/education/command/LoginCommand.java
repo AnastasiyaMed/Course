@@ -29,6 +29,7 @@ public class LoginCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         String page = null;
         UserService userService = UserService.getInstance();
+        HttpSession session = request.getSession(true);
         // извлечение из запроса логина и пароля
         String login = request.getParameter(PARAM_NAME_LOGIN);
         String pass = request.getParameter(PARAM_NAME_PASSWORD);
@@ -37,27 +38,27 @@ public class LoginCommand implements ActionCommand {
                 // проверка логина и пароля
                 if ((ADMIN_ROLE == LoginLogic.checkUserRole(login))
                         && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
-                    HttpSession session = request.getSession(true);
+                    session = request.getSession(true);
                     session.setAttribute("user", login);
                     session.setAttribute("login", login);
                     session.setAttribute("userType", ClientType.ADMINISTRATOR);
                     // определение пути к main.jsp
                     page = ConfigurationManager.getProperty("path.page.main");
                 } else if ((LoginLogic.checkUserRole(login) == TEACHER_ROLE) && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
-                    HttpSession session = request.getSession(true);
+                    session = request.getSession(true);
                     session.setAttribute("user", login);
                     session.setAttribute("userType", ClientType.TEACHER);
                     // определение пути к teacher.jsp
                     page = ConfigurationManager.getProperty("path.page.teacher");
                 } else if ((LoginLogic.checkUserRole(login) == STUDENT_ROLE) && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
-                    HttpSession session = request.getSession(true);
+                    session = request.getSession(true);
                     session.setAttribute("user", login);
                     session.setAttribute("login", login);
                     session.setAttribute("userType", ClientType.STUDENT);
                     // определение пути к student.jsp
                     page = ConfigurationManager.getProperty("path.page.student");
                 } else if ((LoginLogic.checkUserRole(login) == DEFAULT_USER_ROLE) && (LoginLogic.GetUserPasswordForCheck(login).equals(pass))) {
-                    HttpSession session = request.getSession(true);
+
                     session.setAttribute("user", login);
                     session.setAttribute("login", login);
                     session.setAttribute("userType", ClientType.DEFAULT_USER);
@@ -65,12 +66,12 @@ public class LoginCommand implements ActionCommand {
                     page = ConfigurationManager.getProperty("path.page.defaultuser");
                 }
             } else {
-                request.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
+                session.setAttribute("errorLoginPassMessage", MessageManager.getProperty("message.loginerror"));
                 request.getSession().setAttribute("userType", ClientType.GUEST);
                 page = ConfigurationManager.getProperty("path.page.login");
             }
         } catch (DAOException e) {
-            request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+            session.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
             page = ConfigurationManager.getProperty("path.page.login");
         }
 

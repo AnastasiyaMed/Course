@@ -33,27 +33,28 @@ public class SetStudentRoleCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
+        HttpSession session = request.getSession();
         if ((request.getParameter(PARAM_NAME_LEVEL) == null) || (request.getParameter(PARAM_NAME_AVERAGE) == null) || (request.getParameter(PARAM_NAME_STUDENT_CARD_ID) == null)) {
             page = ConfigurationManager.getProperty(NEW_STUDENT_PATH);
         } else if ((errMessage = validate(request.getParameter(PARAM_NAME_LEVEL), request.getParameter(PARAM_NAME_AVERAGE), request.getParameter(PARAM_NAME_STUDENT_CARD_ID))) != null) {
-            request.setAttribute("errorFormDataMessage", validate(request.getParameter(PARAM_NAME_LEVEL), request.getParameter(PARAM_NAME_AVERAGE), request.getParameter(PARAM_NAME_STUDENT_CARD_ID)));
+            session.setAttribute("errorFormDataMessage", validate(request.getParameter(PARAM_NAME_LEVEL), request.getParameter(PARAM_NAME_AVERAGE), request.getParameter(PARAM_NAME_STUDENT_CARD_ID)));
             page = ConfigurationManager.getProperty(NEW_STUDENT_PATH);
         } else {
             int level = Integer.parseInt(request.getParameter(PARAM_NAME_LEVEL));
             double average = Double.parseDouble(request.getParameter(PARAM_NAME_AVERAGE));
             int cardId = Integer.parseInt(request.getParameter(PARAM_NAME_STUDENT_CARD_ID));
             // извлечение из сессии логина
-            HttpSession session = request.getSession();
+
             String login = (String) session.getAttribute(PARAM_NAME_LOGIN);
             StudentService studentService = StudentService.getInstance();
             UserService userService = UserService.getInstance();
             try {
                 studentService.create(studentService.initStudent(userService.getByLogin(login), level, average, cardId));
             } catch (DAOException e) {
-                request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+                session.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
                 page = ConfigurationManager.getProperty(NEW_STUDENT_PATH);
             }
-            request.setAttribute("user", login);
+            session.setAttribute("user", login);
             session.setAttribute("userType", ClientType.STUDENT);
 
             // определение пути к student.jsp

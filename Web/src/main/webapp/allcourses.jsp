@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="uselocale.jsp" %>
@@ -27,7 +26,6 @@
                     <td align="center"><fmt:message key="course.duration"/></td>
                     <td align="center"><fmt:message key="course.auditorium"/></td>
                 </tr>
-
                 <c:forEach items="${list}" varStatus="сounter">
                     <tr>
                         <td align="center">${сounter.count}</td>

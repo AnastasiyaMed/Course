@@ -95,13 +95,6 @@
     </c:if>
 </form>
 <hr/>
-<c:if test="${not empty courseAdded}">
-    <div class="text-center">
-        <h4>
-            <font color="red">${courseAdded}</font>
-        </h4>
-    </div>
-</c:if>
 <br/>
 <a href="controller?command=logout"><fmt:message key="Logout"/></a>
 <br/>

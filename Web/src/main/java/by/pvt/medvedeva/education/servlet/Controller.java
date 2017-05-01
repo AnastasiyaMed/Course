@@ -54,6 +54,7 @@ public class Controller extends HttpServlet {
             response.sendRedirect(page);
 
 
+
         } else {
             // установка страницы c cообщением об ошибке
             page = ConfigurationManager.getProperty("path.page.index");

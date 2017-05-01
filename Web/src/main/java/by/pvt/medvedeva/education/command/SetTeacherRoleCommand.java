@@ -36,10 +36,10 @@ public class SetTeacherRoleCommand implements ActionCommand {
         try {
             teacherService.create(teacherService.initTeacher(userService.getByLogin(login)));
         } catch (DAOException e) {
-            request.setAttribute(EXCEPTION, MessageManager.getProperty("message.exceptionMessage"));
+            session.setAttribute(EXCEPTION, MessageManager.getProperty("message.exceptionMessage"));
             page = ConfigurationManager.getProperty("path.page.defaultuser");
         }
-        request.setAttribute("user", login);
+        session.setAttribute("user", login);
         session.setAttribute("userType", ClientType.TEACHER);
 
 

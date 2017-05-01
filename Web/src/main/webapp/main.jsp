@@ -24,6 +24,13 @@ ${user}, <fmt:message key="hello"/>!
         </h4>
     </div>
 </c:if>
+<c:if test="${not empty courseAdded}">
+    <div class="text-center">
+        <h4>
+            <font color="red">${courseAdded}</font>
+        </h4>
+    </div>
+</c:if>
 <hr/>
 Links for admin...<br/>
 Debug info - session = ${sessionScope}

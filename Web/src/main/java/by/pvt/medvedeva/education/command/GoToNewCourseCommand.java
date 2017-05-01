@@ -24,14 +24,15 @@ public class GoToNewCourseCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         String page;
         List <Teacher> teachers;
+        HttpSession session = request.getSession(true);
         try {
             teachers = TeacherService.getInstance().getAll();
-            HttpSession session = request.getSession(true);
-            request.setAttribute(TEACHERS_LIST, teachers);
+
+            session.setAttribute(TEACHERS_LIST, teachers);
             session.setAttribute("teachersList", teachers);
             page = ConfigurationManager.getProperty("path.page.addcourses");
         } catch (DAOException e) {
-            request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+            session.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
             page = ConfigurationManager.getProperty("path.page.main");
         }
         return page;

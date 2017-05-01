@@ -35,23 +35,24 @@ public class RegistrCommand implements ActionCommand {
     public String execute(HttpServletRequest request) {
         User user = new User();
         String page = null;
+        HttpSession session = request.getSession(true);
         user.setLogin(request.getParameter(LOGIN).trim());
         user.setName(request.getParameter(NAME).trim());
         user.setSurname(request.getParameter(SURNAME).trim());
         user.setPassword(request.getParameter(PASSWORD).trim());
         user.setRole(ROLE); // по умолчанию 0
         if ((errMessage = validate(user)) != null) {
-            request.setAttribute(ERROR_MESSAGE, validate(user));
+            session.setAttribute(ERROR_MESSAGE, validate(user));
             return page = ConfigurationManager.getProperty("path.page.registr");
         }
         try {
             if (UserService.getInstance().checkLogin(user.getLogin())) {
-                request.setAttribute("errorRegistrUserMessage", MessageManager.getProperty("message.register.user.error"));
-                request.setAttribute("userType", ClientType.GUEST);
+                session.setAttribute("errorRegistrUserMessage", MessageManager.getProperty("message.register.user.error"));
+                session.setAttribute("userType", ClientType.GUEST);
                 return page = ConfigurationManager.getProperty("path.page.registr");
             } else {
                 UserService.getInstance().create(user);
-                HttpSession session = request.getSession(true);
+
                 session.setAttribute("user", request.getParameter(LOGIN));
                 session.setAttribute("login", request.getParameter(LOGIN));
                 session.setAttribute("isAuthorized", "yes");
@@ -59,7 +60,7 @@ public class RegistrCommand implements ActionCommand {
                 page = ConfigurationManager.getProperty("path.page.defaultuser");
             }
         } catch (DAOException e) {
-            request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+            session.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
             page = ConfigurationManager.getProperty("path.page.registr");
         }
 
