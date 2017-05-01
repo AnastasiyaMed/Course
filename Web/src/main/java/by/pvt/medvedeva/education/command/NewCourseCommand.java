@@ -3,7 +3,7 @@
  */
 package by.pvt.medvedeva.education.command;
 
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.filter.ClientType;
@@ -22,21 +22,25 @@ import static by.pvt.medvedeva.education.filter.FormDataValidator.*;
  * @author Anastasiya Medvedeva
  */
 public class NewCourseCommand implements ActionCommand {
-
     private final String NAME = "name";
     private final String DURATION = "duration";
     private final String AUDITORIUM = "auditorium";
     private final String USERID = "id";
+    private final String USER_TYPE = "userType";
     String errMessage = null;
 
+    /**
+     *
+     * @param request
+     * @return page
+     */
     @Override
     public String execute(HttpServletRequest request) {
         String page;
         Course course = new Course();
         Teacher teacher;
         HttpSession session = request.getSession();
-
-        ClientType type = (ClientType) session.getAttribute("userType");
+        ClientType type = (ClientType) session.getAttribute(USER_TYPE);
         if (type == GUEST) {
             page = ConfigurationManager.getProperty("path.page.login");
         } else {

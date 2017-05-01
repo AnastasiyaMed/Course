@@ -1,18 +1,24 @@
 package by.pvt.medvedeva.education.utils;
 
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+/**
+ * @author Anastasiya Medvedeva
+ */
+@Log4j
 public class HibernateUtil {
     private static HibernateUtil util;
-    private static Logger log = Logger.getLogger(HibernateUtil.class);
-    private  SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
     private final ThreadLocal sessions = new ThreadLocal();
 
+    /**
+     * no param
+     */
     private HibernateUtil() {
         try {
             Configuration configuration = new Configuration().configure();
@@ -26,7 +32,10 @@ public class HibernateUtil {
         }
     }
 
-    public Session getSession () {
+    /**
+     * @return session
+     */
+    public Session getSession() {
         Session session = (Session) sessions.get();
         if (session == null) {
             session = sessionFactory.openSession();
@@ -35,17 +44,21 @@ public class HibernateUtil {
         return session;
     }
 
-
-
-    public static synchronized HibernateUtil getHibernateUtil(){
-        if (util == null){
+    /**
+     * Singleton-fabric
+     */
+    public static synchronized HibernateUtil getHibernateUtil() {
+        if (util == null) {
             util = new HibernateUtil();
         }
         return util;
     }
 
-    public void releaseSession(Session session){
-        if(session != null){
+    /**
+     * @param session
+     */
+    public void releaseSession(Session session) {
+        if (session != null) {
             session.close();
             sessions.remove();
         }

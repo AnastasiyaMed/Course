@@ -4,7 +4,7 @@
  */
 package by.pvt.medvedeva.education.filter;
 
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.service.UserService;
 
@@ -27,12 +27,13 @@ import java.io.IOException;
 public class ConfigFilter implements Filter {
 	private static final String ROLE_ATTRIBUT = "role";
 	private static final String USER_OBJECT_ATTRIBUTE = "user";
-	private static String LOGIN = "login";
+	private static final String LOGIN = "login";
+	private static final String ENCODING = "UTF-8";
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// устанавливаем кодировку
-		request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding(ENCODING);
 		try {
 			// смотрим куки
 			initSession(((HttpServletRequest) request).getSession(), (HttpServletRequest) request);

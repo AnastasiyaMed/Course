@@ -1,6 +1,6 @@
 package by.pvt.medvedeva.education.dao;
 
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
 import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
@@ -11,13 +11,17 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-
+/**
+ * @author Medvedeva Anastasiya
+ */
 public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
     private static UserDAOImpl instance;
-    private  HibernateUtil util = HibernateUtil.getHibernateUtil();
-    protected  Session session = util.getSession();
-    ;
+    private HibernateUtil util = HibernateUtil.getHibernateUtil();
+    protected Session session = util.getSession();
 
+    /**
+     * @param connectionPool
+     */
     UserDAOImpl(ConnectionPool connectionPool) {
         super(User.class);
         this.connectionPool = connectionPool;
@@ -33,7 +37,11 @@ public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
         return instance;
     }
 
-
+    /**
+     * @param login
+     * @return
+     * @throws DAOException
+     */
     @Override
     public User getByLogin(String login) throws DAOException {
         try {
@@ -42,8 +50,7 @@ public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
                     .add(Restrictions.like("login", login))
                     .uniqueResult();
         } catch (HibernateException e) {
-            throw new DAOException(User.class, "Fatal error in get method", e);
+            throw new DAOException(User.class, "Fatal error in getByLogin method", e);
         }
     }
 }
-

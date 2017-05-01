@@ -14,16 +14,24 @@ import org.junit.Test;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * @author Medvedeva Anastasiya
+ */
 public class CourseDAOImplTest {
     private HibernateUtil util = HibernateUtil.getHibernateUtil();
     private Session session;
     private Transaction transaction;
     CourseDAOImpl dao = new CourseDAOImpl(H2ConnectionPool.getInstance());
 
+    /**
+     * @throws SQLException
+     */
     public CourseDAOImplTest() throws SQLException {
     }
 
-
+    /**
+     * @throws Exception
+     */
     @Test
     public void getAllTest() throws Exception {
         List <Course> courses;
@@ -40,9 +48,11 @@ public class CourseDAOImplTest {
         courses = dao.getAll();
         transaction.commit();
         Assert.assertEquals("don't equals", 1, courses.size());
-
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void createTest() throws Exception {
         List <Course> courses;
@@ -60,7 +70,7 @@ public class CourseDAOImplTest {
         course.setName("dd");
         dao.create(course);
         Criteria criteria = session.createCriteria(Course.class);
-        courses =  criteria.list();
+        courses = criteria.list();
         transaction.commit();
         Assert.assertNotEquals("don't equals", 0, courses.size());
     }

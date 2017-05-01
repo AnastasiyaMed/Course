@@ -12,17 +12,24 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 
-
+/**
+ * @author Medvedeva Anastasiya
+ */
 public class StudentDAOImplTest {
     private StudentDAOImpl dao = new StudentDAOImpl(H2ConnectionPool.getInstance());
     private HibernateUtil util = HibernateUtil.getHibernateUtil();
     private Session session;
     private static Transaction transaction;
-    public StudentDAOImplTest() throws SQLException {
 
+    /**
+     * @throws SQLException
+     */
+    public StudentDAOImplTest() throws SQLException {
     }
 
-
+    /**
+     * @throws Exception
+     */
     @Test
     public void initStudentTest() throws Exception {
         User user = new User();
@@ -35,6 +42,9 @@ public class StudentDAOImplTest {
         Assert.assertEquals("Ошибка инициализации студента", "vac", student.getLogin());
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void createTest() throws Exception {
         User user = new User();
@@ -51,7 +61,7 @@ public class StudentDAOImplTest {
                 .add(Restrictions.like("login", "vac"))
                 .uniqueResult();
         transaction.commit();
-       Assert.assertEquals("Ошибка добавления студента", "vac", studentTest.getLogin());
+        Assert.assertEquals("Ошибка добавления студента", "vac", studentTest.getLogin());
     }
 
 }

@@ -25,13 +25,13 @@
         <b id="name" style="color: red; font-size: 10px;"><fmt:message key="check.name"/></b>                            </div>
     <div class="form-group">
         <label for="duration"><fmt:message key="course.duration"/></label>
-        <input type="text" id="cardForm" name="card" placeholder=
+        <input type="text" id="cardForm" name="duration" placeholder=
         <fmt:message key="course.duration"/> class="form-control" onKeyUp="check('card')">
         <b id="duration" style="color: red; font-size: 10px;"><fmt:message key="check.card"/></b>
     </div>
     <div class="form-group">
         <label for="auditorium"><fmt:message key="course.auditorium"/></label>
-        <input type="text" id="cardForm" name="card" placeholder=
+        <input type="text" id="cardForm" name="auditorium" placeholder=
         <fmt:message key="course.auditorium"/> class="form-control" onKeyUp="check('card')">
         <b id="auditorium" style="color: red; font-size: 10px;"><fmt:message key="check.card"/></b>
     </div>
@@ -57,13 +57,7 @@
     <br/>
     ${nullPage}
     <br/>
-<c:if test="${not empty courseAdded}">
-    <div class="text-center">
-        <h4>
-            <font color="red">${courseAdded}</font>
-        </h4>
-    </div>
-</c:if>
+
 <c:if test="${not empty dataofcourseerror}">
         <div class="text-center">
             <h4>
@@ -101,7 +95,13 @@
     </c:if>
 </form>
 <hr/>
-
+<c:if test="${not empty courseAdded}">
+    <div class="text-center">
+        <h4>
+            <font color="red">${courseAdded}</font>
+        </h4>
+    </div>
+</c:if>
 <br/>
 <a href="controller?command=logout"><fmt:message key="Logout"/></a>
 <br/>

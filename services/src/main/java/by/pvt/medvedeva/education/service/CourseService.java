@@ -1,7 +1,7 @@
 package by.pvt.medvedeva.education.service;
 
 import by.pvt.medvedeva.education.dao.CourseDAOImpl;
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.utils.Main;
 import lombok.extern.log4j.Log4j;
@@ -28,16 +28,23 @@ public class CourseService extends AbstractService {
         return instance;
     }
 
+    /**
+     * @throws DAOException
+     */
     public CourseService() throws DAOException {
         courseDAO = CourseDAOImpl.getInstance();
     }
 
+    /**
+     * @param course
+     * @throws DAOException
+     */
     public void create(Course course) throws DAOException {
         try {
             session = util.getSession();
-      //      getTransaction();
+            //      getTransaction();
             courseDAO.create(course);
-      //      commitTransaction();
+            //      commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in create course method" + e);
             transaction.rollback();
@@ -45,15 +52,24 @@ public class CourseService extends AbstractService {
         }
     }
 
+    /**
+     * @return courses
+     * @throws DAOException
+     */
     public List <Course> getAll() throws DAOException {
         List <Course> courses;
         session = util.getSession();
-     //   getTransaction();
+        //   getTransaction();
         courses = courseDAO.getAll();
-    //    commitTransaction();
+        //    commitTransaction();
         return courses;
     }
 
+    /**
+     * @param course
+     * @return
+     * @throws DAOException
+     */
     public boolean checkCourseIsExist(Course course) throws DAOException {
         boolean checkCourse = false;
         List <Course> courses = getAll();

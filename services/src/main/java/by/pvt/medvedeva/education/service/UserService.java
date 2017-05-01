@@ -4,7 +4,7 @@
 package by.pvt.medvedeva.education.service;
 
 import by.pvt.medvedeva.education.dao.UserDAOImpl;
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.utils.Main;
@@ -20,7 +20,9 @@ public class UserService extends AbstractService {
     private static UserService instance;
     private UserDAO userDAO = UserDAOImpl.getInstance();
 
-
+    /**
+     * no param
+     */
     public UserService() {
         userDAO = UserDAOImpl.getInstance();
     }
@@ -35,18 +37,28 @@ public class UserService extends AbstractService {
         return instance;
     }
 
+    /**
+     * @param id
+     * @return user
+     * @throws DAOException
+     */
     protected User getById(Integer id) throws DAOException {
         User user = UserDAOImpl.getInstance().getById(id);
         return user;
     }
 
+    /**
+     * @param login
+     * @return user
+     * @throws DAOException
+     */
     public User getByLogin(String login) throws DAOException {
         User user;
         try {
             session = util.getSession();
-       //     getTransaction();
+            //     getTransaction();
             user = UserDAOImpl.getInstance().getByLogin(login);
-       //     commitTransaction();
+            //     commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in getById method" + e);
             transaction.rollback();
@@ -55,12 +67,16 @@ public class UserService extends AbstractService {
         return user;
     }
 
+    /**
+     * @param user
+     * @throws DAOException
+     */
     public void create(User user) throws DAOException {
         try {
             session = util.getSession();
-      //      getTransaction();
+            //      getTransaction();
             UserDAOImpl.getInstance().create(user);
-      //      commitTransaction();
+            //      commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in create user method" + e);
             transaction.rollback();
@@ -68,6 +84,11 @@ public class UserService extends AbstractService {
         }
     }
 
+    /**
+     * @param login
+     * @return result
+     * @throws DAOException
+     */
     public boolean checkLogin(String login) throws DAOException {
         boolean resultCheckLogin = true;
         if (null == getByLogin(login)) {
@@ -76,12 +97,16 @@ public class UserService extends AbstractService {
         return resultCheckLogin;
     }
 
+    /**
+     * @param id
+     * @throws DAOException
+     */
     public void delete(Integer id) throws DAOException {
         try {
             session = util.getSession();
-      //      getTransaction();
+            //      getTransaction();
             UserDAOImpl.getInstance().delete(id);
-      //      commitTransaction();
+            //      commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in delete user method" + e);
             transaction.rollback();

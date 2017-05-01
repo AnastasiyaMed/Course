@@ -3,7 +3,7 @@
  */
 package by.pvt.medvedeva.education.command;
 
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
@@ -18,8 +18,13 @@ import javax.servlet.http.HttpSession;
  */
 public class SetTeacherRoleCommand implements ActionCommand {
     private static final String PARAM_NAME_LOGIN = "login";
+    private static final String EXCEPTION = "exceptionMessage";
 
-
+    /**
+     *
+     * @param request
+     * @return page
+     */
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
@@ -31,7 +36,7 @@ public class SetTeacherRoleCommand implements ActionCommand {
         try {
             teacherService.create(teacherService.initTeacher(userService.getByLogin(login)));
         } catch (DAOException e) {
-            request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
+            request.setAttribute(EXCEPTION, MessageManager.getProperty("message.exceptionMessage"));
             page = ConfigurationManager.getProperty("path.page.defaultuser");
         }
         request.setAttribute("user", login);

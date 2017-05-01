@@ -8,7 +8,9 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
-
+/**
+ * @author Anastasiya Medvedeva
+ */
 @Data
 @NoArgsConstructor
 @Table(name = "user")
@@ -33,6 +35,15 @@ public class User extends Pojo {
     @Column(name = "role", updatable = true)
     Integer role;
 
+    /**
+     *
+     * @param idUser
+     * @param name
+     * @param surname
+     * @param login
+     * @param password
+     * @param role
+     */
     public User(Integer idUser, String name, String surname, String login, String password, Integer role) {
         this.idUser = idUser;
         this.name = name;

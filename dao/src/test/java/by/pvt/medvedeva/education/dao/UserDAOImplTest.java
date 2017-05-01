@@ -11,16 +11,24 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 
+/**
+ * @author Medvedeva Anastasiya
+ */
 public class UserDAOImplTest {
     private UserDAOImpl dao = new UserDAOImpl(H2ConnectionPool.getInstance());
     private HibernateUtil util = HibernateUtil.getHibernateUtil();
     private Session session;
     private static Transaction transaction;
 
-
+    /**
+     * @throws SQLException
+     */
     public UserDAOImplTest() throws SQLException {
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void createTest() throws Exception {
         User user = new User();
@@ -28,7 +36,6 @@ public class UserDAOImplTest {
         user.setName("John");
         user.setSurname("Sinicin");
         user.setPassword("111111");
-        // user.setRole(0);
         session = util.getSession();
         transaction = session.beginTransaction();
         dao.create(user);
@@ -39,7 +46,9 @@ public class UserDAOImplTest {
         Assert.assertEquals("Ошибка добавления студента", "tim", userTest.getLogin());
     }
 
-
+    /**
+     * @throws Exception
+     */
     @Test
     public void getByLoginTest() throws Exception {
         User user = new User(null, "w", "w", "c", "w", 0);
@@ -50,7 +59,9 @@ public class UserDAOImplTest {
         Assert.assertEquals("Ошибка чтения пользователя из базы", "c", userTest.getLogin());
     }
 
-
+    /**
+     * @throws Exception
+     */
     @Test
     public void deleteTest() throws Exception {
         User user = new User(null, "bg", "bg", "bg", "bg", 0);

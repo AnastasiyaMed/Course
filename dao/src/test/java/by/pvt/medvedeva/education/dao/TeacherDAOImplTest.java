@@ -12,16 +12,24 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 
+/**
+ * @author Medvedeva Anastasiya
+ */
 public class TeacherDAOImplTest {
     private TeacherDAOImpl dao = new TeacherDAOImpl(H2ConnectionPool.getInstance());
     private HibernateUtil util = HibernateUtil.getHibernateUtil();
     private Session session;
     private static Transaction transaction;
 
+    /**
+     * @throws SQLException
+     */
     public TeacherDAOImplTest() throws SQLException {
     }
 
-
+    /**
+     * @throws Exception
+     */
     @Test
     public void initTeacherTest() throws Exception {
         User user = new User(0, "w", "w", "return", "w", 2);
@@ -29,6 +37,9 @@ public class TeacherDAOImplTest {
         Assert.assertEquals("Ошибка инициализации преподавателя", "return", teacher.getLogin());
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void getByIdTest() throws Exception {
         Teacher teacher = new Teacher(null, "w", "w", "w", "w", 2);
@@ -43,6 +54,9 @@ public class TeacherDAOImplTest {
         Assert.assertNotNull("преподаватель не найден в базе", teacherTest);
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void createTest() throws Exception {
         User user = new User();

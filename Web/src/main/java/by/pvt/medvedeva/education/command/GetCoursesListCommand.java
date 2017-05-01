@@ -1,6 +1,6 @@
 package by.pvt.medvedeva.education.command;
 
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
@@ -12,9 +12,15 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static by.pvt.medvedeva.education.filter.ClientType.GUEST;
-
+/**
+ * @author Anastasiya Medvedeva
+ */
 public class GetCoursesListCommand implements ActionCommand {
-
+    /**
+     *
+     * @param request
+     * @return page
+     */
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
@@ -25,7 +31,6 @@ public class GetCoursesListCommand implements ActionCommand {
         if (type == GUEST) {
             page = ConfigurationManager.getProperty("path.page.login");
         } else {
-
             try {
                 list = CourseService.getInstance().getAll();
                 int listSize = list.size();

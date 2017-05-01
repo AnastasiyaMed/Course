@@ -9,18 +9,24 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-//@WebFilter(filterName = "SessionClosingFilter", servletNames = "Controller")
-@WebFilter (dispatcherTypes = {
-       DispatcherType.REQUEST,
-  //      DispatcherType.FORWARD,
+/**
+ * @author Anastasiya Medvedeva
+ */
+
+@WebFilter(dispatcherTypes = {
+        DispatcherType.REQUEST,
+        //      DispatcherType.FORWARD,
 //        DispatcherType.INCLUDE,
 }, urlPatterns = {"/controller"}, servletNames = {"Controller"})
 public class SessionClosingFilter implements Filter {
 
     @Override
-    public void init(FilterConfig config) throws ServletException {}
+    public void init(FilterConfig config) throws ServletException {
+    }
+
     @Override
-    public void destroy() {}
+    public void destroy() {
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {

@@ -8,11 +8,18 @@ import org.junit.Test;
 
 import java.util.List;
 
+/**
+ * @author Anastasiya Medvedeva
+ */
 public class StudentServiceTest {
     StudentService service = StudentService.getInstance();
     UserService userService = UserService.getInstance();
 
-
+    /**
+     * \
+     *
+     * @throws Exception
+     */
     @Test
     public void StudentServiseTest() throws Exception {
         User user = new User(null, "Gena", "Gajiev", "gega", "gegege", 0);

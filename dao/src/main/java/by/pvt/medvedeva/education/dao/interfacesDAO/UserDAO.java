@@ -1,6 +1,6 @@
 package by.pvt.medvedeva.education.dao.interfacesDAO;
 
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 
 /**
  * @author Medvedeva Anastasiya

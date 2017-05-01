@@ -5,10 +5,15 @@ import by.pvt.medvedeva.education.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * @author Anastasiya Medvedeva
+ */
 public class LoginLogicTest {
-    LoginLogic logic = LoginLogic.getInstance();
     UserService service = UserService.getInstance();
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void checkUserRole() throws Exception {
         User user = new User(null, "Nastena", "Medvedeva", "Medana", "frrehfnyj", 3);
@@ -18,6 +23,9 @@ public class LoginLogicTest {
         Assert.assertEquals("Роль не совпадает", (Integer) 3, role);
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void getUserPasswordForCheck() throws Exception {
         User user = new User(null, "John", "Doh", "jonny", "donido", 0);

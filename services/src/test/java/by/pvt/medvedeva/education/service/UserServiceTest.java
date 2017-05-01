@@ -4,20 +4,29 @@ import by.pvt.medvedeva.education.entity.User;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * @author Anastasiya Medvedeva
+ */
 public class UserServiceTest {
     UserService service = UserService.getInstance();
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void createUserTest() throws Exception {
         User user = new User(null, "Boris", "Bigun", "bobi", "nuinui", 0);
         // create() Method
         service.create(user);
         // getById() Method
-       User userTest = service.getById(user.getIdUser());
+        User userTest = service.getById(user.getIdUser());
         service.delete(user.getIdUser());
         Assert.assertEquals("Пользователь не совпадает", user, userTest);
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void deleteUserTest() throws Exception {
         User user = new User(null, "Ivan", "Ruchkin", "naruch", "htfres", 0);

@@ -13,10 +13,12 @@ import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
  * @author Medvedeva Anastasiya
  */
 public class StudentDAOImpl extends AbstractDAO <Student> implements StudentDAO <Student> {
-
     private final static int STUDENT_ROLE = 1;
     private static StudentDAOImpl instance;
 
+    /**
+     * @param connectionPool
+     */
     StudentDAOImpl(ConnectionPool connectionPool) {
         super(Student.class);
         this.connectionPool = connectionPool;
@@ -32,6 +34,13 @@ public class StudentDAOImpl extends AbstractDAO <Student> implements StudentDAO 
         return instance;
     }
 
+    /**
+     * @param user
+     * @param level
+     * @param average
+     * @param cardId
+     * @return
+     */
     @Override
     public Student initStudent(User user, int level, double average, int cardId) {
         Student student = new Student();
@@ -46,6 +55,5 @@ public class StudentDAOImpl extends AbstractDAO <Student> implements StudentDAO 
         student.setStudentIdCard(cardId);
         return student;
     }
-
 
 }

@@ -25,11 +25,21 @@ public class Teacher extends User {
     @PrimaryKeyJoinColumn
     private Course courses;
 
-
+    /**
+     * @param idUser
+     * @param name
+     * @param surname
+     * @param login
+     * @param password
+     * @param role
+     */
     public Teacher(Integer idUser, String name, String surname, String login, String password, Integer role) {
         super(idUser, name, surname, login, password, role);
     }
 
+    /**
+     * no param
+     */
     public Teacher() {
         super();
     }

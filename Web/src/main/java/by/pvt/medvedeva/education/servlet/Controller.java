@@ -12,13 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Anastasiya Medvedeva
+ */
 @WebServlet(name = "Controller", urlPatterns = "/controller")
 public class Controller extends HttpServlet {
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
@@ -41,9 +48,9 @@ public class Controller extends HttpServlet {
         page = command.execute(request);
         // метод возвращает страницу ответа
         if (page != null) {
-         //   RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            //   RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
             // вызов страницы ответа на запрос
-         //   dispatcher.forward(request, response);
+            //   dispatcher.forward(request, response);
             response.sendRedirect(page);
 
 

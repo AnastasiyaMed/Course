@@ -4,7 +4,7 @@
 package by.pvt.medvedeva.education.service;
 
 import by.pvt.medvedeva.education.dao.StudentDAOImpl;
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.entity.Student;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.utils.Main;
@@ -20,7 +20,6 @@ public class StudentService extends AbstractService {
     private StudentDAOImpl studentDAO;
     private static StudentService instance;
 
-
     /**
      * Singleton-fabric
      */
@@ -31,23 +30,36 @@ public class StudentService extends AbstractService {
         return instance;
     }
 
+    /**
+     * no param
+     */
     public StudentService() {
         studentDAO = StudentDAOImpl.getInstance();
     }
 
+    /**
+     * @param user
+     * @param level
+     * @param average
+     * @param cardId
+     * @return
+     */
     public Student initStudent(User user, int level, double average, int cardId) {
         return (Student) studentDAO.initStudent(user, level, average, cardId);
     }
 
-
+    /**
+     * @param student
+     * @throws DAOException
+     */
     public void create(Student student) throws DAOException {
         Integer id = student.getIdUser();
         try {
             session = util.getSession();
-      //     getTransaction();
+            //     getTransaction();
             studentDAO.create(student);
             UserService.getInstance().delete(id);
-     //       commitTransaction();
+            //       commitTransaction();
         } catch (HibernateException e) {
             log.error("Transaction failed in create student method" + e);
             transaction.rollback();

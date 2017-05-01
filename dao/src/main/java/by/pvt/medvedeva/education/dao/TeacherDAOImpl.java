@@ -17,6 +17,9 @@ public class TeacherDAOImpl extends AbstractDAO <Teacher> implements TeacherDAO 
     private final static int TEACHER_ROLE = 2;
     private static TeacherDAOImpl instance;
 
+    /**
+     * @param connectionPool
+     */
     TeacherDAOImpl(ConnectionPool connectionPool) {
         super(Teacher.class);
         this.connectionPool = connectionPool;
@@ -32,6 +35,10 @@ public class TeacherDAOImpl extends AbstractDAO <Teacher> implements TeacherDAO 
         return instance;
     }
 
+    /**
+     * @param user
+     * @return
+     */
     @Override
     public Teacher initTeacher(User user) {
         Teacher teacher = new Teacher();

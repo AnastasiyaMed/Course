@@ -1,4 +1,4 @@
-package by.pvt.medvedeva.education.dao.exeption;
+package by.pvt.medvedeva.education.dao.exception;
 
 import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Level;

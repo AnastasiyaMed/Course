@@ -37,11 +37,6 @@ public class Course extends Pojo {
     @JoinColumn(name = "teacher_user_id", referencedColumnName = "user_id")
      private Teacher teacher;
 
-
-
-
-
-
     @Override
     public String toString() {
         return "Course [name=" + name + ", duration=" + duration + ", auditorium=" + auditorium + ", Teacher=" + teacher + "]";

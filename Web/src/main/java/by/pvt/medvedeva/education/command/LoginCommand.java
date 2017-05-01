@@ -1,6 +1,6 @@
 package by.pvt.medvedeva.education.command;
 
-import by.pvt.medvedeva.education.dao.exeption.DAOException;
+import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.logic.LoginLogic;
@@ -10,6 +10,9 @@ import by.pvt.medvedeva.education.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Anastasiya Medvedeva
+ */
 public class LoginCommand implements ActionCommand {
     private static final String PARAM_NAME_LOGIN = "login";
     private static final String PARAM_NAME_PASSWORD = "password";
@@ -18,6 +21,10 @@ public class LoginCommand implements ActionCommand {
     private final static int STUDENT_ROLE = 1;
     private final static int DEFAULT_USER_ROLE = 0;
 
+    /**
+     * @param request
+     * @return page
+     */
     @Override
     public String execute(HttpServletRequest request) {
         String page = null;
@@ -66,7 +73,6 @@ public class LoginCommand implements ActionCommand {
             request.setAttribute("exceptionMessage", MessageManager.getProperty("message.exceptionMessage"));
             page = ConfigurationManager.getProperty("path.page.login");
         }
-
 
         return page;
     }
