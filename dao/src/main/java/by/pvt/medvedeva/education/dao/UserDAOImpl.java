@@ -1,41 +1,25 @@
 package by.pvt.medvedeva.education.dao;
 
 import by.pvt.medvedeva.education.dao.exception.DAOException;
-import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
-import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.UserDAO;
 import by.pvt.medvedeva.education.entity.User;
-import by.pvt.medvedeva.education.utils.HibernateUtil;
-import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Medvedeva Anastasiya
  */
+@Repository
 public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
-    private static UserDAOImpl instance;
-    private HibernateUtil util = HibernateUtil.getHibernateUtil();
-    protected Session session = util.getSession();
-
-    /**
-     * @param connectionPool
-     */
-    UserDAOImpl(ConnectionPool connectionPool) {
-        super(User.class);
-        this.connectionPool = connectionPool;
+    @Autowired
+    private UserDAOImpl(SessionFactory sessionFactory) {
+        super(User.class, sessionFactory);
     }
 
-    /**
-     * Singleton-fabric
-     */
-    public static UserDAOImpl getInstance() {
-        if (instance == null) {
-            instance = new UserDAOImpl(MySQLConnectionPool.getInstance());
-        }
-        return instance;
-    }
 
     /**
      * @param login
@@ -45,7 +29,7 @@ public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
     @Override
     public User getByLogin(String login) throws DAOException {
         try {
-            session = util.getSession();
+            Session session = currentSession();
             return (User) session.createCriteria(User.class)
                     .add(Restrictions.like("login", login))
                     .uniqueResult();

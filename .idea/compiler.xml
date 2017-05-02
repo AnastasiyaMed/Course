@@ -18,7 +18,7 @@
       <module name="command" target="1.5" />
       <module name="Course" target="1.5" />
       <module name="DAO" target="1.5" />
-      <module name="dao" target="1.8" />
+      <module name="dao" target="1.7" />
       <module name="services" target="1.5" />
       <module name="testWebApp" target="1.5" />
       <module name="utilites" target="1.5" />

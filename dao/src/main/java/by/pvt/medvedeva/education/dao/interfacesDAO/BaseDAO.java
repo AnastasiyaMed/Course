@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public interface BaseDAO<T extends Pojo> {
+public interface BaseDAO <T extends Pojo> {
     /**
      * @param entity
      * @throws DAOException

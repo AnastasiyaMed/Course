@@ -3,39 +3,27 @@
  */
 package by.pvt.medvedeva.education.dao;
 
-import by.pvt.medvedeva.education.dao.interfacesDAO.AbstractDAO;
-import by.pvt.medvedeva.education.dao.interfacesDAO.ConnectionPool;
 import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.entity.User;
-import by.pvt.medvedeva.education.utils.MySQLConnectionPool;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Medvedeva Anastasiya
  */
-public class TeacherDAOImpl extends AbstractDAO <Teacher> implements TeacherDAO <Teacher> {
+@Repository
+public class TeacherDAOImpl extends AbstractDAO <Teacher> implements TeacherDAO  {
+    @Autowired
     private final static int TEACHER_ROLE = 2;
-    private static TeacherDAOImpl instance;
 
-    /**
-     * @param connectionPool
-     */
-    TeacherDAOImpl(ConnectionPool connectionPool) {
-        super(Teacher.class);
-        this.connectionPool = connectionPool;
+    @Autowired
+    private TeacherDAOImpl(SessionFactory sessionFactory) {
+        super(Teacher.class, sessionFactory);
     }
 
-    /**
-     * Singleton-fabric
-     */
-    public static TeacherDAOImpl getInstance() {
-        if (instance == null) {
-            instance = new TeacherDAOImpl((MySQLConnectionPool.getInstance()));
-        }
-        return instance;
-    }
-
-    /**
+       /**
      * @param user
      * @return
      */

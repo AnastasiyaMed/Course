@@ -28,7 +28,7 @@ public class Course extends Pojo {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer courseId;
     @Column (name = "course_name")
-    private String name;
+     private String name;
     @Column (name = "duration")
     private Integer duration;
     @Column (name = "auditorium")

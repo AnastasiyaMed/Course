@@ -1,9 +1,9 @@
 package by.pvt.medvedeva.education.dao.interfacesDAO;
 
-/**
- * @param <Course>
- */
-public interface CourseDAO<Course> {
+import by.pvt.medvedeva.education.entity.Course;
+
+
+public interface CourseDAO extends BaseDAO<Course> {
 
 
 }
