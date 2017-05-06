@@ -1,5 +1,6 @@
 package by.pvt.medvedeva.education.dao;
 
+
 import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.dao.interfacesDAO.BaseDAO;
 import by.pvt.medvedeva.education.entity.Pojo;
@@ -19,9 +20,7 @@ import java.util.List;
  */
 
 @Repository
-public abstract class AbstractDAO<T extends Pojo> implements BaseDAO <T> {
-
-
+public abstract class AbstractDAO<T extends Pojo> implements BaseDAO<T> {
     @Autowired
     private SessionFactory sessionFactory;
     private Class persistentClass;

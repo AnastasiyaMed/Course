@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author Medvedeva Anastasiya
  */
 @Repository
-public class StudentDAOImpl extends AbstractDAO <Student> implements StudentDAO <Student> {
+public class StudentDAOImpl extends AbstractDAO <Student> implements StudentDAO {
     @Autowired
     private final static int STUDENT_ROLE = 1;
 

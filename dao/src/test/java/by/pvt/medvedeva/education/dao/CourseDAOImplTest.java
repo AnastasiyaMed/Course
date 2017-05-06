@@ -40,35 +40,26 @@ public class CourseDAOImplTest {
         course.setTeacher(teacher);
         course.setName("ss");
         teacherDAO.create(teacher);
+        // create test
         courseDAO.create(course);
+        // getAll test
         courses = courseDAO.getAll();
         Assert.assertEquals("don't equals", 1, courses.size());
     }
 
-//    /**
-//     * @throws Exception
-//     */
-//    @Test
-//    public void createTest() throws Exception {
-//        List <Course> courses;
-//        session = util.getSession();
-//        transaction = session.beginTransaction();
-//        Teacher teacher = new Teacher(null, "ff", "ff", "winer", "ff", 2);
-//        session.saveOrUpdate(teacher);
-//        teacher = (Teacher) session.createCriteria(Teacher.class)
-//                .add(Restrictions.like("login", "winer"))
-//                .uniqueResult();
-//        Course course = new Course();
-//        course.setTeacher(teacher);
-//        course.setAuditorium(234);
-//        course.setDuration(35);
-//        course.setName("dd");
-//        dao.create(course);
-//        Criteria criteria = session.createCriteria(Course.class);
-//        courses = criteria.list();
-//        transaction.commit();
-//        Assert.assertNotEquals("don't equals", 0, courses.size());
-//    }
+    /**
+     * @throws Exception
+     */
+    @Test
+    public void createTest() throws Exception {
+        Teacher teacher = new Teacher(null, "ff", "ff", "winer", "ff", 2);
+        teacherDAO.create(teacher);
+        Course course = new Course(null, "kukurs", 654, 564, teacher);
+        courseDAO.create(course);
+        Course courseTest = courseDAO.getById(course.getCourseId());
+        Assert.assertEquals("don't equals", course, courseTest);
+        courseDAO.delete(course.getCourseId());
+    }
 
 
 }
