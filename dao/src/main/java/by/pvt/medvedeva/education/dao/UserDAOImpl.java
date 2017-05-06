@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author Medvedeva Anastasiya
  */
 @Repository
-public class UserDAOImpl extends AbstractDAO <User> implements UserDAO <User> {
+public class UserDAOImpl extends AbstractDAO <User> implements UserDAO {
     @Autowired
     private UserDAOImpl(SessionFactory sessionFactory) {
         super(User.class, sessionFactory);
