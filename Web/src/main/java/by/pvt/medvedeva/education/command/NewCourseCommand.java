@@ -9,8 +9,8 @@ import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
-import by.pvt.medvedeva.education.service.CourseService;
-import by.pvt.medvedeva.education.service.TeacherService;
+import by.pvt.medvedeva.education.service.CourseServiceImpl;
+import by.pvt.medvedeva.education.service.TeacherServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -55,13 +55,13 @@ public class NewCourseCommand implements ActionCommand {
                 page = ConfigurationManager.getProperty("path.page.addcourses");
             } else {
                 try {
-                    teacher = TeacherService.getInstance().getById((Integer.parseInt(request.getParameter(USERID).trim())));
+                    teacher = TeacherServiceImpl.getInstance().getById((Integer.parseInt(request.getParameter(USERID).trim())));
                     course.setName(request.getParameter(NAME).trim());
                     course.setDuration(Integer.parseInt(request.getParameter(DURATION).trim()));
                     course.setAuditorium(Integer.parseInt(request.getParameter(AUDITORIUM).trim()));
                     course.setTeacher(teacher);
-                    if (CourseService.getInstance().checkCourseIsExist(course) == false) {
-                        CourseService.getInstance().create(course);
+                    if (CourseServiceImpl.getInstance().checkCourseIsExist(course) == false) {
+                        CourseServiceImpl.getInstance().create(course);
                         // определение пути к main.jsp
                         session.setAttribute("courseAdded", MessageManager.getProperty("message.courseadded"));
                         page = ConfigurationManager.getProperty("path.page.main");

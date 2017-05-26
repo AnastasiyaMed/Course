@@ -4,7 +4,7 @@ import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
-import by.pvt.medvedeva.education.service.TeacherService;
+import by.pvt.medvedeva.education.service.TeacherServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,7 +26,7 @@ public class GoToNewCourseCommand implements ActionCommand {
         List <Teacher> teachers;
         HttpSession session = request.getSession(true);
         try {
-            teachers = TeacherService.getInstance().getAll();
+            teachers = TeacherServiceImpl.getInstance().getAll();
 
             session.setAttribute(TEACHERS_LIST, teachers);
             session.setAttribute("teachersList", teachers);

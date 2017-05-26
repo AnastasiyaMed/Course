@@ -6,7 +6,7 @@ package by.pvt.medvedeva.education.filter;
 
 import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.entity.User;
-import by.pvt.medvedeva.education.service.UserService;
+import by.pvt.medvedeva.education.service.UserServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -56,7 +56,7 @@ public class ConfigFilter implements Filter {
 					// looking for user LOGIN (for authorize purpose)
 					if ((c.getName()).equals(LOGIN)) {
 						User user = null;
-						UserService.getInstance().getByLogin(c.getValue());
+						UserServiceImpl.getInstance().getByLogin(c.getValue());
 						session.setAttribute(ROLE_ATTRIBUT, user.getRole());
 						session.setAttribute(USER_OBJECT_ATTRIBUTE, user);
 

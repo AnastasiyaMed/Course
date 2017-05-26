@@ -7,8 +7,8 @@ import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
-import by.pvt.medvedeva.education.service.TeacherService;
-import by.pvt.medvedeva.education.service.UserService;
+import by.pvt.medvedeva.education.service.TeacherServiceImpl;
+import by.pvt.medvedeva.education.service.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,8 +31,8 @@ public class SetTeacherRoleCommand implements ActionCommand {
         // извлечение из сессии логина
         HttpSession session = request.getSession();
         String login = (String) session.getAttribute(PARAM_NAME_LOGIN);
-        TeacherService teacherService = TeacherService.getInstance();
-        UserService userService = UserService.getInstance();
+        TeacherServiceImpl teacherService = TeacherServiceImpl.getInstance();
+        UserServiceImpl userService = UserServiceImpl.getInstance();
         try {
             teacherService.create(teacherService.initTeacher(userService.getByLogin(login)));
         } catch (DAOException e) {

@@ -8,7 +8,7 @@ import org.junit.Test;
  * @author Anastasiya Medvedeva
  */
 public class UserServiceTest {
-    UserService service = UserService.getInstance();
+    UserServiceImpl service = UserServiceImpl.getInstance();
 
     /**
      * @throws Exception

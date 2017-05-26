@@ -5,7 +5,7 @@ import by.pvt.medvedeva.education.entity.Course;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
-import by.pvt.medvedeva.education.service.CourseService;
+import by.pvt.medvedeva.education.service.CourseServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,7 +32,7 @@ public class GetCoursesListCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("path.page.login");
         } else {
             try {
-                list = CourseService.getInstance().getAll();
+                list = CourseServiceImpl.getInstance().getAll();
                 int listSize = list.size();
                 session.setAttribute("list", list);
                 session.setAttribute("listSize", listSize);

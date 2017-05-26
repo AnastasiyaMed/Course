@@ -8,7 +8,7 @@ import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
-import by.pvt.medvedeva.education.service.UserService;
+import by.pvt.medvedeva.education.service.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,12 +46,12 @@ public class RegistrCommand implements ActionCommand {
             return page = ConfigurationManager.getProperty("path.page.registr");
         }
         try {
-            if (UserService.getInstance().checkLogin(user.getLogin())) {
+            if (UserServiceImpl.getInstance().checkLogin(user.getLogin())) {
                 session.setAttribute("errorRegistrUserMessage", MessageManager.getProperty("message.register.user.error"));
                 session.setAttribute("userType", ClientType.GUEST);
                 return page = ConfigurationManager.getProperty("path.page.registr");
             } else {
-                UserService.getInstance().create(user);
+                UserServiceImpl.getInstance().create(user);
 
                 session.setAttribute("user", request.getParameter(LOGIN));
                 session.setAttribute("login", request.getParameter(LOGIN));

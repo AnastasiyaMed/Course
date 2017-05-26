@@ -12,8 +12,8 @@ import java.util.List;
  * @author Anastasiya Medvedeva
  */
 public class StudentServiceTest {
-    StudentService service = StudentService.getInstance();
-    UserService userService = UserService.getInstance();
+    StudentServiceImpl service = StudentServiceImpl.getInstance();
+    UserServiceImpl userService = UserServiceImpl.getInstance();
 
     /**
      * \

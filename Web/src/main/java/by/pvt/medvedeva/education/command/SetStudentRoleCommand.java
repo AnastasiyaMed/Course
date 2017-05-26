@@ -7,8 +7,8 @@ import by.pvt.medvedeva.education.dao.exception.DAOException;
 import by.pvt.medvedeva.education.filter.ClientType;
 import by.pvt.medvedeva.education.filter.MessageManager;
 import by.pvt.medvedeva.education.resource.ConfigurationManager;
-import by.pvt.medvedeva.education.service.StudentService;
-import by.pvt.medvedeva.education.service.UserService;
+import by.pvt.medvedeva.education.service.StudentServiceImpl;
+import by.pvt.medvedeva.education.service.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,8 +46,8 @@ public class SetStudentRoleCommand implements ActionCommand {
             // извлечение из сессии логина
 
             String login = (String) session.getAttribute(PARAM_NAME_LOGIN);
-            StudentService studentService = StudentService.getInstance();
-            UserService userService = UserService.getInstance();
+            StudentServiceImpl studentService = StudentServiceImpl.getInstance();
+            UserServiceImpl userService = UserServiceImpl.getInstance();
             try {
                 studentService.create(studentService.initStudent(userService.getByLogin(login), level, average, cardId));
             } catch (DAOException e) {

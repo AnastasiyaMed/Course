@@ -13,7 +13,7 @@ import java.util.List;
  * @author Anastasiya Medvedeva
  */
 public class CourseServiceTest {
-    CourseService service = CourseService.getInstance();
+    CourseServiceImpl service = CourseServiceImpl.getInstance();
     Teacher teacher;
 
     /**
