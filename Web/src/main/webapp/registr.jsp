@@ -25,7 +25,7 @@
                     <label for="name"><fmt:message key="name"/></label>
                     <input name="name" id="nameForm"
                                                                                type="text" class="form-control"
-                                                                               placeholder="Input name"
+                                                                               placeholder="Input firstName"
                                                                                onKeyUp="check('name')" maxlength="15">
                     <b id="name"
                        style="color: red; font-size: 10px;"> <fmt:message key="check.name"/></b>

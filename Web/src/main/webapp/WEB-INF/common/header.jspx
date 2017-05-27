@@ -19,12 +19,15 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="${pageContext.request.contextPath}/about"><spring:message code="navbar.about"/></a></li>
-                    <!--<sec:authorize access="isAuthenticated()">-->
-                        <!--<li><a href="${pageContext.request.contextPath}/records/add"><spring:message code="navbar.newrecord"/></a></li>-->
-                    <!--</sec:authorize>-->
-                    <!--<sec:authorize access="hasRole('ROLE_ADMINISTRATOR')">-->
-                        <!--<li><a href="${pageContext.request.contextPath}/admin"><spring:message code="navbar.adminpanel"/></a></li>-->
-                    <!--</sec:authorize>-->
+                    <sec:authorize access="hasRole('ROLE_STUDENT')">
+                        <li><a href="${pageContext.request.contextPath}/student"><spring:message code="navbar.area.student"/></a></li>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_TEACHER')">
+                        <li><a href="${pageContext.request.contextPath}/teacher"><spring:message code="navbar.area.teachrer"/></a></li>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <li><a href="${pageContext.request.contextPath}/admin"><spring:message code="navbar.area.admin"/></a></li>
+                    </sec:authorize>
                 </ul>
                 <!--@elvariable id="authorisedUser" type="com.criticalgnome.blog.entities.User"-->
                 <sec:authorize access="isAnonymous()">

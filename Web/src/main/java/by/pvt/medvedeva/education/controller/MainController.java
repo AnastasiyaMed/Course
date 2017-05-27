@@ -1,10 +1,10 @@
 package by.pvt.medvedeva.education.controller;
 
 import by.pvt.medvedeva.education.dao.exception.DAOException;
+import by.pvt.medvedeva.education.entity.Role;
 import by.pvt.medvedeva.education.entity.User;
+import by.pvt.medvedeva.education.service.interfaces.RoleService;
 import by.pvt.medvedeva.education.service.interfaces.UserService;
-import javafx.scene.control.Alert;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * @author Anastasiya Medvedeva
@@ -30,10 +29,12 @@ import java.util.Locale;
 public class MainController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    public MainController(UserService userService) {
+    public MainController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping(value = "")
@@ -62,12 +63,21 @@ public class MainController {
 
     @GetMapping(value = "register")
     public ModelAndView showRegisterPage() {
-        return new ModelAndView("user", "user", new User());
+        ModelAndView modelAndView = new ModelAndView();
+        try {
+            modelAndView.setViewName("user");
+            modelAndView.addObject("user", new User());
+            List<Role> roles = roleService.getAll();
+            modelAndView.addObject("roles", roles);
+        } catch (DAOException e) {
+            return new ModelAndView("error", "message", e.getMessage());
+        }
+        return modelAndView;
     }
 
     @PostMapping(value = "register")
-    public String doRegister(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, Locale locale) {
-        String page;
+    public String doRegister(@Valid @ModelAttribute("user") User user, BindingResult result, @RequestParam(name = "role_id") Long roleId, Model model) {
+        String page = null;
         if (result.hasErrors()) {
             List<ObjectError> objectErrors = result.getAllErrors();
             model.addAttribute("loginClass", "has-success");
@@ -78,14 +88,16 @@ public class MainController {
                 String errorString = error.toString();
                 if (errorString.contains("login")) { model.addAttribute("loginClass", "has-error"); }
                 if (errorString.contains("password")) { model.addAttribute("passwordClass", "has-error"); }
-                if (errorString.contains("name")) { model.addAttribute("nameClass", "has-error"); }
-                if (errorString.contains("surname")) { model.addAttribute("surnameClass", "has-error"); }
+                if (errorString.contains("firstName")) { model.addAttribute("nameClass", "has-error"); }
+                if (errorString.contains("lastName")) { model.addAttribute("surnameClass", "has-error"); }
+                page = "user";
             }
-            page = "user";
         } else {
             try {
+                Role role = roleService.getById(roleId);
+                user.setRole(role);
                 userService.create(user);
-                page = "/";
+                page = "redirect:/";
             } catch (DAOException e) {
                 model.addAttribute("loginClass", "has-error");
                 model.addAttribute("error", "userexist");

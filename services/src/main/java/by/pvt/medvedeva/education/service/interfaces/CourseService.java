@@ -5,5 +5,4 @@ import by.pvt.medvedeva.education.entity.Course;
 
 public interface CourseService extends BaseService<Course> {
 
-    boolean checkCourseIsExist(Course course) throws DAOException;
 }

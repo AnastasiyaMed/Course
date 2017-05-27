@@ -7,37 +7,39 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author Anastasiya Medvedeva
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "student")
-@PrimaryKeyJoinColumn (name = "user_id", referencedColumnName = "id")
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true, exclude = "courses")
 @Entity
-@EqualsAndHashCode(callSuper = true)
-public class Student extends User {
+@Table(name = "students")
+public class Student extends Pojo {
     private static final long serialVersionUID = 1L;
-    @Column (name = "level")
-    private int level;
-    @Column (name = "average")
-    private double average;
-    @Column (name = "student_id_card")
-    private int studentIdCard;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-
-      @Override
-    public String toString() {
-        return "Student [level=" + level + ", average=" + average + ", studentIdCard=" + studentIdCard + ", name=" + name + ", surname=" + surname + ", login=" + login + ", password=" + password + ", role=" + role + "]";
-    }
+    @ManyToMany
+    @JoinTable(name = "student_has_courses",
+            joinColumns = {@JoinColumn(name = "student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "course_id")}
+    )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Course> courses;
 
 }

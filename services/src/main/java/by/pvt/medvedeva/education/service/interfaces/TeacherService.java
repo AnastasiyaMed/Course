@@ -5,8 +5,4 @@ import by.pvt.medvedeva.education.entity.User;
 
 public interface TeacherService extends BaseService<Teacher>{
 
-
-    Teacher initTeacher(User user);
-
-
 }

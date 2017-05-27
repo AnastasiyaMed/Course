@@ -31,7 +31,7 @@
 //        List <Student> students = StudentDAOImpl.getInstance().getAll();
 //        Student studentTest = new Student();
 //        for (Student s : students) {
-//            if (s.getName().equals(student.getName())) {
+//            if (s.getFirstName().equals(student.getFirstName())) {
 //                studentTest = s;
 //            }
 //        }

@@ -40,7 +40,7 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO<T> {
      * @throws DAOException
      */
     @Override
-    public T getById(Integer id) throws DAOException {
+    public T getById(Long id) throws DAOException {
         Session session = currentSession();
         try {
             return (T) session.get(persistentClass, id);
@@ -97,7 +97,7 @@ public abstract class AbstractDAO<T extends Pojo> implements BaseDAO<T> {
      * @throws DAOException
      */
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Long id) throws DAOException {
         try {
             Session session = currentSession();
             T pojo = getById(id);

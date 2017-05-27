@@ -1,6 +1,7 @@
 package by.pvt.medvedeva.education.security;
 
 import by.pvt.medvedeva.education.dao.exception.DAOException;
+import by.pvt.medvedeva.education.entity.Role;
 import by.pvt.medvedeva.education.entity.SecuredUser;
 import by.pvt.medvedeva.education.entity.User;
 import by.pvt.medvedeva.education.service.interfaces.UserService;
@@ -39,11 +40,11 @@ public class AuthenticationService implements UserDetailsService {
                 throw new UsernameNotFoundException("User not found");
             }
             securedUser = new SecuredUser(
-                    (long) user.getIdUser(),
-                    user.getName(),
+                    user.getId(),
+                    user.getFirstName(),
                     user.getPassword(),
                     "nickname",
-                    user.getName().concat(" ").concat(user.getSurname()),
+                    user.getFirstName().concat(" ").concat(user.getLastName()),
                     true,
                     true,
                     true,
@@ -56,13 +57,13 @@ public class AuthenticationService implements UserDetailsService {
         return securedUser;
     }
 
-    private Collection<GrantedAuthority> setAuthorities(Integer role) {
+    private Collection<GrantedAuthority> setAuthorities(Role role) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        switch (role) {
-            case 2:
+        switch (role.getName()) {
+            case "TEACHER":
                 authorities.add(new SimpleGrantedAuthority("ROLE_TEACHER"));
                 break;
-            case 3:
+            case "ADMIN":
                 authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                 break;
             default:

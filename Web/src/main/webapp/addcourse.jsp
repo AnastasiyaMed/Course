@@ -21,7 +21,7 @@
     <div class="form-group">
     <label for="name"><fmt:message key="course.name"/></label>
      <input name="name" id="nameForm" value="" type="text" class="form-control"
-        placeholder="Input name" onKeyUp="check('name')" maxlength="15">
+        placeholder="Input firstName" onKeyUp="check('name')" maxlength="15">
         <b id="name" style="color: red; font-size: 10px;"><fmt:message key="check.name"/></b>                            </div>
     <div class="form-group">
         <label for="duration"><fmt:message key="course.duration"/></label>

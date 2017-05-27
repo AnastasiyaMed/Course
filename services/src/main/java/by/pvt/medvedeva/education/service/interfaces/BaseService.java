@@ -19,13 +19,13 @@ public interface BaseService <T extends Pojo>  {
      * @return
      * @throws DAOException
      */
-    T getById(Integer id) throws DAOException;
+    T getById(Long id) throws DAOException;
 
-//    /**
-//     * @param pojo
-//     * @throws DAOException
-//     */
-//    void update(T pojo) throws DAOException;
+    /**
+     * @param pojo
+     * @throws DAOException
+     */
+    void update(T pojo) throws DAOException;
 
     /**
      * @return
@@ -38,7 +38,7 @@ public interface BaseService <T extends Pojo>  {
      * @param id
      * @throws DAOException
      */
-    void delete(Integer id) throws DAOException;
+    void delete(Long id) throws DAOException;
 
 
 }

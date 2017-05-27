@@ -1,11 +1,7 @@
-/**
- *
- */
 package by.pvt.medvedeva.education.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -16,18 +12,14 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "teachers")
-public class Teacher extends Pojo {
-    private static final long serialVersionUID = 1L;
+@Table(name = "roles")
+public class Role extends Pojo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
-
+    @Column(name = "name")
+    private String name;
 }

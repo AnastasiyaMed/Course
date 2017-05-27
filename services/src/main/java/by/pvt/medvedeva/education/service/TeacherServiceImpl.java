@@ -25,39 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = DAOException.class)
 public class TeacherServiceImpl extends AbstractService <Teacher> implements TeacherService {
 
-    private final TeacherDAO teacherDAO;
-    private final UserService userService;
-
     @Autowired
     public TeacherServiceImpl(TeacherDAO teacherDAO, UserService userService) {
         super(teacherDAO);
-        this.teacherDAO = teacherDAO;
-        this.userService = userService;
     }
-
-
-    @Override
-    public Teacher initTeacher(User user) {
-        Teacher teacher = (Teacher) teacherDAO.initTeacher(user);
-        return teacher;
-    }
-
-
-    /**
-     * @param teacher
-     * @throws DAOException
-     */
-    @Override
-    public void create(Teacher teacher) throws DAOException {
-        Integer id = teacher.getIdUser();
-        try {
-            userService.delete(id);
-            teacherDAO.create(teacher);
-        } catch (HibernateException e) {
-            log.error("Transaction failed in create teacher method" + e);
-            throw new DAOException(TeacherServiceImpl.class, "Transaction failed in create teacher method", e);
-        }
-    }
-
 
 }

@@ -50,19 +50,4 @@ public class UserServiceImpl extends AbstractService <User> implements UserServi
         return user;
     }
 
-
-    /**
-     * @param login
-     * @return result
-     * @throws DAOException
-     */
-    @Override
-    public boolean checkLogin(String login) throws DAOException {
-        boolean resultCheckLogin = true;
-        if (null == getByLogin(login)) {
-            resultCheckLogin = false;
-        }
-        return resultCheckLogin;
-    }
-
-   }
+}

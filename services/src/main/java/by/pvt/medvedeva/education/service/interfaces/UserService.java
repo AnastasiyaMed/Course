@@ -6,8 +6,4 @@ import by.pvt.medvedeva.education.entity.User;
 public interface UserService extends BaseService<User>{
 
     User getByLogin(String login) throws DAOException;
-
-    boolean checkLogin(String login) throws DAOException;
-
-
 }

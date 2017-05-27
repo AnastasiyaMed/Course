@@ -21,7 +21,7 @@
         <div class="container">
             <div class="col-md-6 col-md-offset-3">
                 <form:form action="${pageContext.request.contextPath}/register" modelAttribute="user" method="post" class="form-horizontal">
-                    <form:input path="idUser" id="idUser" name="idUser" type="hidden"/>
+                    <form:input path="id" id="id" name="id" type="hidden"/>
                     <div class="form-group ${loginClass}">
                         <form:label for="login" path="login" class="col-sm-3 control-label"><spring:message code="register.form.label.login"/></form:label>
                         <div class="col-sm-9">
@@ -37,26 +37,35 @@
                         </div>
                     </div>
                     <div class="form-group ${nameClass}">
-                        <form:label for="name" path="name" class="col-sm-3 control-label"><spring:message code="register.form.label.name"/></form:label>
+                        <form:label for="name" path="firstName" class="col-sm-3 control-label"><spring:message code="register.form.label.firstName"/></form:label>
                         <div class="col-sm-9">
-                            <form:input type="text" id="name" path="name" class="form-control"/>
-                            <span class="help-block"><form:errors path="name"/></span>
+                            <form:input type="text" id="name" path="firstName" class="form-control"/>
+                            <span class="help-block"><form:errors path="firstName"/></span>
                         </div>
                     </div>
                     <div class="form-group ${surnameClass}">
-                        <form:label for="surname" path="surname" class="col-sm-3 control-label"><spring:message code="register.form.label.surname"/></form:label>
+                        <form:label for="lastName" path="lastName" class="col-sm-3 control-label"><spring:message code="register.form.label.surname"/></form:label>
                         <div class="col-sm-9">
-                            <form:input type="text" id="surname" path="surname" class="form-control"/>
-                            <span class="help-block"><form:errors path="surname"/></span>
+                            <form:input type="text" id="lastName" path="lastName" class="form-control"/>
+                            <span class="help-block"><form:errors path="lastName"/></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <form:label for="role" class="col-sm-3 control-label" path="role"><spring:message code="register.form.label.role"/></form:label>
+                        <label for="role_id" class="col-sm-3 control-label"><spring:message code="register.form.label.role"/></label>
                         <div class="col-sm-9">
-                            <form:select id="role" name="role" class="form-control" path="role">
-                                <form:option value="1" selected="selected"><spring:message code="role.student"/></form:option>
-                                <form:option value="2"><spring:message code="role.teacher"/></form:option>
-                            </form:select>
+                            <select id="role_id" name="role_id" class="form-control">
+                                <!--@elvariable id="role" type="by.pvt.medvedeva.education.entity.Role"-->
+                                <c:forEach var="role" items="${roles}">
+                                    <c:if test="${role.name != 'ADMIN'}">
+                                        <c:if test="${user.role.id == role.id}">
+                                            <option value="${role.id}" selected="selected">${role.name}</option>
+                                        </c:if>
+                                        <c:if test="${user.role.id != role.id}">
+                                            <option value="${role.id}">${role.name}</option>
+                                        </c:if>
+                                    </c:if>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">

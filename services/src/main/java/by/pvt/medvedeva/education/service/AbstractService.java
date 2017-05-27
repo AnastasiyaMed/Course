@@ -42,6 +42,20 @@ public abstract class AbstractService<T extends Pojo> implements BaseService <T>
         }
     }
 
+    /**
+     * @param entity
+     * @throws DAOException
+     */
+    @Override
+    public void update(T entity) throws DAOException {
+        try {
+            baseDAO.update(entity);
+        } catch (HibernateException e) {
+            log.error("Transaction failed in update method" + e);
+            throw new DAOException(AbstractService.class, "Transaction failed in update method", e);
+        }
+    }
+
 
     /**
      * @param id
@@ -50,7 +64,7 @@ public abstract class AbstractService<T extends Pojo> implements BaseService <T>
      */
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public T getById(Integer id) throws DAOException {
+    public T getById(Long id) throws DAOException {
         T entity;
         try {
             entity = baseDAO.getById(id);
@@ -86,7 +100,7 @@ public abstract class AbstractService<T extends Pojo> implements BaseService <T>
      * @throws DAOException
      */
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Long id) throws DAOException {
         try {
             baseDAO.delete(id);
         } catch (HibernateException e) {

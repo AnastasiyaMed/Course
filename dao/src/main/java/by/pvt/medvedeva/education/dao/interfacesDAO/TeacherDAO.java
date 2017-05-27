@@ -11,10 +11,4 @@ import by.pvt.medvedeva.education.entity.User;
  */
 public interface TeacherDAO extends BaseDAO<Teacher> {
 
-    /**
-     * @param user
-     * @return
-     */
-    Teacher initTeacher(User user);
-
 }

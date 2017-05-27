@@ -30,4 +30,40 @@
         <put-attribute name="body" value="/WEB-INF/views/user.jspx"/>
     </definition>
 
+    <!--Student page-->
+    <definition name="student" extends="default">
+        <put-attribute name="title" value="Student page"/>
+        <put-attribute name="body" value="/WEB-INF/views/student.jspx"/>
+    </definition>
+
+    <!--User page-->
+    <definition name="teacher" extends="default">
+        <put-attribute name="title" value="Teacher page"/>
+        <put-attribute name="body" value="/WEB-INF/views/teacher.jspx"/>
+    </definition>
+
+    <!--User page-->
+    <definition name="admin" extends="default">
+        <put-attribute name="title" value="Admin page"/>
+        <put-attribute name="body" value="/WEB-INF/views/admin.jspx"/>
+    </definition>
+
+    <!--Errors page-->
+    <definition name="errors" extends="default">
+        <put-attribute name="title" value="Error"/>
+        <put-attribute name="body" value="/WEB-INF/views/errors.jspx"/>
+    </definition>
+
+    <!--Error page-->
+    <definition name="error" extends="default">
+        <put-attribute name="title" value="Error"/>
+        <put-attribute name="body" value="/WEB-INF/views/error.jspx"/>
+    </definition>
+
+    <!--Denied page-->
+    <definition name="denied" extends="default">
+        <put-attribute name="title" value="access denied"/>
+        <put-attribute name="body" value="/WEB-INF/views/denied.jspx"/>
+    </definition>
+
 </tiles-definitions>

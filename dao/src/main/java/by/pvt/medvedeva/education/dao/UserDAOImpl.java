@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserDAOImpl extends AbstractDAO <User> implements UserDAO {
+
     @Autowired
     private UserDAOImpl(SessionFactory sessionFactory) {
         super(User.class, sessionFactory);
@@ -31,7 +32,7 @@ public class UserDAOImpl extends AbstractDAO <User> implements UserDAO {
         try {
             Session session = currentSession();
             return (User) session.createCriteria(User.class)
-                    .add(Restrictions.like("login", login))
+                    .add(Restrictions.eq("login", login))
                     .uniqueResult();
         } catch (HibernateException e) {
             throw new DAOException(User.class, "Fatal error in getByLogin method", e);

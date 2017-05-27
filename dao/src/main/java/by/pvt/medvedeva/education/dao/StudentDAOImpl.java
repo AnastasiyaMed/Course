@@ -14,36 +14,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class StudentDAOImpl extends AbstractDAO <Student> implements StudentDAO {
-    @Autowired
-    private final static int STUDENT_ROLE = 1;
-
 
     @Autowired
     private StudentDAOImpl(SessionFactory sessionFactory) {
         super(Student.class, sessionFactory);
-    }
-
-
-    /**
-     * @param user
-     * @param level
-     * @param average
-     * @param cardId
-     * @return
-     */
-    @Override
-    public Student initStudent(User user, int level, double average, int cardId) {
-        Student student = new Student();
-        student.setName(user.getName());
-        student.setSurname(user.getSurname());
-        student.setLogin(user.getLogin());
-        student.setPassword(user.getPassword());
-        student.setRole(STUDENT_ROLE);
-        student.setIdUser(user.getIdUser());
-        student.setLevel(level);
-        student.setAverage(average);
-        student.setStudentIdCard(cardId);
-        return student;
     }
 
 }

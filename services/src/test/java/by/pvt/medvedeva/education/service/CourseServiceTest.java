@@ -24,30 +24,30 @@ public class CourseServiceTest {
  private  Teacher teacher;
 
 
-    /**
-     * @throws Exception
-     */
-    @Test
-    public void CourseServiceTest() throws Exception {
-        List <Course> courses;
-        Course course = new Course(null, "Psihology", 65, 414, teacher);
-       /*
-       * create() Method
-       * */
-        courseService.create(course);
-          /*
-       * getAll() Method
-       * */
-        courses = courseService.getAll();
-        Course courseTest = new Course();
-        for (Course c : courses) {
-            if (c.getName().equals(course.getName())) {
-                courseTest = c;
-            }
-        }
-        courseService.delete(course.getCourseId());
-        Assert.assertEquals("Дисциплина не совпадает", course, courseTest);
-    }
-
+//    /**
+//     * @throws Exception
+//     */
+//    @Test
+//    public void CourseServiceTest() throws Exception {
+//        List <Course> courses;
+//        Course course = new Course(null, "Psihology", 65, 414, teacher);
+//       /*
+//       * create() Method
+//       * */
+//        courseService.create(course);
+//          /*
+//       * getAll() Method
+//       * */
+//        courses = courseService.getAll();
+//        Course courseTest = new Course();
+//        for (Course c : courses) {
+//            if (c.getName().equals(course.getName())) {
+//                courseTest = c;
+//            }
+//        }
+//        courseService.delete(course.getCourseId());
+//        Assert.assertEquals("Дисциплина не совпадает", course, courseTest);
+//    }
+//
 
 }
