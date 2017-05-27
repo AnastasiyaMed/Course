@@ -17,6 +17,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler.version}</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -36,5 +37,25 @@
             <artifactId>dao</artifactId>
             <version>1.0.2</version>
              </dependency>
+
+
+        <!--CgLib-->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>${cglib.version}</version>
+        </dependency>
+
+        <!--H2 database-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.194</version>
+            <scope>test</scope>
+        </dependency>
+
+
+
+
     </dependencies>
 </project>

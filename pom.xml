@@ -71,6 +71,8 @@
         <hibernate.version>4.3.11.Final</hibernate.version>
         <cobertura.version>2.7</cobertura.version>
         <pool.version>2.1.1</pool.version>
+        <maven-compiler.version>3.1</maven-compiler.version>
+        <cglib.version>3.2.0</cglib.version>
     </properties>
     <dependencies>
         <dependency>
@@ -298,7 +300,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven-compiler.version}</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
