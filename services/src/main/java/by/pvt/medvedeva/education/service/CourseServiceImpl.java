@@ -50,20 +50,5 @@ public class CourseServiceImpl extends AbstractService<Course> implements Course
         return checkCourse;
     }
 
-//    public List <Course> getCoursesByPage(int pageNumber, int pageCapacity) throws DAOException {
-//        int pageOffset = pageCapacity * pageNumber - pageCapacity;
-//        List <Course> courses;
-//        try {
-//            session = util.getSession();
-//            courses = courseDAO.getCoursesByPage(pageOffset, pageCapacity);
-//        } catch (DAOException e) {
-//            transaction.rollback();
-//            throw new DAOException(CourseServiceImpl.class, "Transaction failed in getCoursesByPage method", e);
-//        }
-//        if (courses.size() == 0) {
-//            Course course = new Course(null, "no items", 0, 0, null);
-//            courses.add(course);
-//        }
-//        return courses;
-//    }
+
 }

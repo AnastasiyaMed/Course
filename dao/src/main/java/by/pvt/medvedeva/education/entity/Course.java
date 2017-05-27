@@ -1,9 +1,6 @@
-/**
- *
- */
+
 package by.pvt.medvedeva.education.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -18,7 +15,6 @@ import javax.persistence.*;
 @Table (name = "course")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Course extends Pojo {
@@ -42,4 +38,11 @@ public class Course extends Pojo {
         return "Course [name=" + name + ", duration=" + duration + ", auditorium=" + auditorium + ", Teacher=" + teacher + "]";
     }
 
+    public Course(Integer courseId, String name, Integer duration, Integer auditorium, Teacher teacher) {
+        this.courseId = courseId;
+        this.name = name;
+        this.duration = duration;
+        this.auditorium = auditorium;
+        this.teacher = teacher;
+    }
 }

@@ -56,4 +56,5 @@
             timeToLiveSeconds="50"
             memoryStoreEvictionPolicy="LRU"
             statistics="true"/>
+
 </ehcache>

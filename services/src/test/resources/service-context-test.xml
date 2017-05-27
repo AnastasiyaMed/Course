@@ -71,7 +71,7 @@
         <constructor-arg ref="courseDAO"/>
     </bean>
 
-    <bean id="studentServiceImpl" class="by.pvt.medvedeva.education.service.StudentServiceImpl">
+    <bean id="studentService" class="by.pvt.medvedeva.education.service.StudentServiceImpl">
         <constructor-arg ref="studentDAO"/>
     </bean>
 
