@@ -23,9 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = DAOException.class)
 public class UserServiceImpl extends AbstractService <User> implements UserService {
 
-    @Autowired
     private final UserDAO userDAO;
 
+    @Autowired
     public UserServiceImpl(UserDAO userDAO) {
         super(userDAO);
         this.userDAO = userDAO;

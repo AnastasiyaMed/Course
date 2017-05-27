@@ -1,0 +1,13 @@
+<jsp:root version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+
+    <div class="container">
+        <div class="col-md-12">
+
+
+
+        </div>
+    </div>
+
+</jsp:root>

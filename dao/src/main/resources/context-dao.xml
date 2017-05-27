@@ -17,8 +17,8 @@
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
           p:url="jdbc:mysql://localhost:3306/education?useUnicode=yes&amp;characterEncoding=UTF-8"
           p:driverClassName="com.mysql.jdbc.Driver"
-          p:username="root"
-          p:password="111111"
+          p:username="education"
+          p:password="education"
           p:initialSize="5"
           p:maxTotal="10"
     />
@@ -30,8 +30,8 @@
         <props>
             <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
             <prop key="hibernate.hbm2ddl.auto">validate</prop>
-            <prop key="hibernate.show_sql">true</prop>
-            <prop key="debug">true</prop>
+            <prop key="hibernate.show_sql">false</prop>
+            <prop key="debug">false</prop>
             <prop key="connection.isolation">2</prop>
             <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</prop>
             <prop key="hibernate.cache.use_second_level_cache">true</prop>

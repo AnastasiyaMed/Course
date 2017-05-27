@@ -33,19 +33,15 @@ public class CourseServiceImpl extends AbstractService<Course> implements Course
      * @throws DAOException
      */
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public boolean checkCourseIsExist(Course course) throws DAOException {
         boolean checkCourse = false;
         List <Course> courses = getAll();
         for (Course c : courses) {
-            if ((course.getName().equals(c.getName()))
-                    && (course.getAuditorium() == c.getAuditorium())
-                    && (course.getDuration() == c.getDuration())
-                    && (course.getTeacher().equals(c.getTeacher()))) {
-                checkCourse = true;
-                return checkCourse;
-            } else {
-                checkCourse = false;
-            }
+            checkCourse = (course.getName().equals(c.getName()))
+                    && (course.getAuditorium().equals(c.getAuditorium()))
+                    && (course.getDuration().equals(c.getDuration()))
+                    && (course.getTeacher().equals(c.getTeacher()));
         }
         return checkCourse;
     }

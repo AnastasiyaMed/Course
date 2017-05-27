@@ -33,7 +33,6 @@ public abstract class AbstractService<T extends Pojo> implements BaseService <T>
      * @throws DAOException
      */
     @Override
-    @Transactional
     public void create(T entity) throws DAOException {
         try {
             baseDAO.create(entity);
@@ -87,7 +86,6 @@ public abstract class AbstractService<T extends Pojo> implements BaseService <T>
      * @throws DAOException
      */
     @Override
-    @Transactional
     public void delete(Integer id) throws DAOException {
         try {
             baseDAO.delete(id);

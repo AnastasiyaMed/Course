@@ -48,7 +48,6 @@ public class TeacherServiceImpl extends AbstractService <Teacher> implements Tea
      * @throws DAOException
      */
     @Override
-    @Transactional
     public void create(Teacher teacher) throws DAOException {
         Integer id = teacher.getIdUser();
         try {

@@ -52,7 +52,6 @@ public class StudentServiceImpl extends AbstractService <Student> implements Stu
      * @throws DAOException
      */
     @Override
-    @Transactional
     public void create(Student student) throws DAOException {
         Integer id = student.getIdUser();
         try {
