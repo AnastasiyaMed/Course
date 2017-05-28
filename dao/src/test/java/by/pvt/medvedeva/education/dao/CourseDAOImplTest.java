@@ -1,18 +1,11 @@
 package by.pvt.medvedeva.education.dao;
 
 import by.pvt.medvedeva.education.dao.interfacesDAO.CourseDAO;
-import by.pvt.medvedeva.education.dao.interfacesDAO.TeacherDAO;
-import by.pvt.medvedeva.education.entity.Course;
-import by.pvt.medvedeva.education.entity.Teacher;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author Medvedeva Anastasiya
@@ -23,8 +16,6 @@ import java.util.List;
 public class CourseDAOImplTest {
     @Autowired
     private CourseDAO courseDAO;
-    @Autowired
-    private TeacherDAO teacherDAO;
 
 
 //    /**

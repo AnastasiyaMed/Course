@@ -1,16 +1,10 @@
 package by.pvt.medvedeva.education.service;
 
-import by.pvt.medvedeva.education.entity.Course;
-import by.pvt.medvedeva.education.entity.Teacher;
 import by.pvt.medvedeva.education.service.interfaces.CourseService;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
 
 /**
  * @author Anastasiya Medvedeva
