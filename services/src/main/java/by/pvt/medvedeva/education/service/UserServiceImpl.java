@@ -1,6 +1,3 @@
-/**
- *
- */
 package by.pvt.medvedeva.education.service;
 
 import by.pvt.medvedeva.education.dao.exception.DAOException;

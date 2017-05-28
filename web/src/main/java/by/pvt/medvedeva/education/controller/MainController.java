@@ -90,6 +90,14 @@ public class MainController {
                 if (errorString.contains("password")) { model.addAttribute("passwordClass", "has-error"); }
                 if (errorString.contains("firstName")) { model.addAttribute("nameClass", "has-error"); }
                 if (errorString.contains("lastName")) { model.addAttribute("surnameClass", "has-error"); }
+                List<Role> roles;
+                try {
+                    roles = roleService.getAll();
+                } catch (DAOException e) {
+                    model.addAttribute("message", e.getMessage());
+                    return "error";
+                }
+                model.addAttribute("roles", roles);
                 page = "user";
             }
         } else {
