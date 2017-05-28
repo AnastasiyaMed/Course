@@ -30,7 +30,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-
     <dependencies>
 
         <dependency>
@@ -80,19 +79,14 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>${cglib.version}</version>
         </dependency>
 
         <!--H2 database-->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.194</version>
             <scope>test</scope>
         </dependency>
-
-
-
 
     </dependencies>
 </project>

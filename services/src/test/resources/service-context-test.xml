@@ -18,9 +18,9 @@
     <aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="false"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
-          p:url="jdbc:h2:mem:education;DB_CLOSE_DELAY=-1"
+          p:url="jdbc:h2:mem:test"
           p:driverClassName="org.h2.Driver"
-          p:username="as"
+          p:username="sa"
           p:password=""
           p:initialSize="5"
           p:maxTotal="10"
@@ -59,15 +59,11 @@
         <constructor-arg ref="sessionFactory"/>
     </bean>
 
-    <bean id="studentDAO" class="by.pvt.medvedeva.education.dao.StudentDAOImpl">
-        <constructor-arg ref="sessionFactory"/>
-    </bean>
-
-    <bean id="teacherDAO" class="by.pvt.medvedeva.education.dao.TeacherDAOImpl">
-        <constructor-arg ref="sessionFactory"/>
-    </bean>
-
     <bean id="userDAO" class="by.pvt.medvedeva.education.dao.UserDAOImpl">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
+    <bean id="roleDAO" class="by.pvt.medvedeva.education.dao.RoleDAOImpl">
         <constructor-arg ref="sessionFactory"/>
     </bean>
 
@@ -76,17 +72,12 @@
         <constructor-arg ref="courseDAO"/>
     </bean>
 
-    <bean id="studentService" class="by.pvt.medvedeva.education.service.StudentServiceImpl">
-        <constructor-arg ref="studentDAO"/>
-    </bean>
-
-    <bean id="teacherService" class="by.pvt.medvedeva.education.service.TeacherServiceImpl">
-        <constructor-arg ref="teacherDAO"/>
-    </bean>
-
     <bean id="userService" class="by.pvt.medvedeva.education.service.UserServiceImpl">
         <constructor-arg ref="userDAO"/>
     </bean>
 
+    <bean id="roleService" class="by.pvt.medvedeva.education.service.RoleServiceImpl">
+        <constructor-arg ref="roleDAO"/>
+    </bean>
 
 </beans>

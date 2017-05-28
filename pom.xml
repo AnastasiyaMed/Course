@@ -73,7 +73,6 @@
         <cobertura.version>2.7</cobertura.version>
         <pool.version>2.1.1</pool.version>
         <maven-compiler.version>3.1</maven-compiler.version>
-        <cglib.version>3.2.0</cglib.version>
         <tiles.version>3.0.7</tiles.version>
     </properties>
 
@@ -166,6 +165,13 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>${aspectj.version}</version>
+        </dependency>
+
+        <!--CgLib-->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.5</version>
         </dependency>
 
         <!--Hibernate Framework-->
@@ -286,7 +292,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.16</version>
-            <scope>provided</scope>
         </dependency>
 
         <!--Cobertura-->
@@ -324,7 +329,7 @@
 
     <build>
         <plugins>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
