@@ -13,6 +13,7 @@
                     <th><spring:message key="student.table.header.duration" /></th>
                     <th colspan="2"><spring:message key="student.table.header.teacher.name" /></th>
                 </tr>
+                <c:if test="${not empty courses}">
                 <c:forEach var="course" items="${courses}">
                     <tr>
                         <td>${course.name}</td>
@@ -35,6 +36,7 @@
                         </td>
                     </tr>
                 </c:forEach>
+                </c:if>
             </table>
         </div>
     </div>

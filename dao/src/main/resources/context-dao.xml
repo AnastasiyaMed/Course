@@ -17,8 +17,8 @@
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
           p:url="jdbc:mysql://localhost:3306/education?useUnicode=yes&amp;characterEncoding=UTF-8"
           p:driverClassName="com.mysql.jdbc.Driver"
-          p:username="education"
-          p:password="education"
+          p:username="root"
+          p:password="111111"
           p:initialSize="5"
           p:maxTotal="10"
     />

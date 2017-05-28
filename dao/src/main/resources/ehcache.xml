@@ -5,7 +5,7 @@
 
     <defaultCache
             eternal="false"
-            maxElementsInMemory="1000"
+            maxElementsInMemory="100"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="300"
@@ -16,7 +16,7 @@
     <cache
             name="by.pvt.medvedeva.education.entity.Course"
             eternal="true"
-            maxElementsInMemory="2"
+            maxElementsInMemory="10"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="50"
@@ -27,7 +27,7 @@
     <cache
             name="by.pvt.medvedeva.education.entity.User"
             eternal="true"
-            maxElementsInMemory="2"
+            maxElementsInMemory="10"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="50"
@@ -38,7 +38,7 @@
     <cache
             name="by.pvt.medvedeva.education.entity.Role"
             eternal="true"
-            maxElementsInMemory="3"
+            maxElementsInMemory="4"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="50"
@@ -46,26 +46,6 @@
             memoryStoreEvictionPolicy="LRU"
             statistics="true"/>
 
-    <cache
-            name="by.pvt.medvedeva.education.entity.Teacher"
-            eternal="true"
-            maxElementsInMemory="2"
-            overflowToDisk="false"
-            diskPersistent="false"
-            timeToIdleSeconds="50"
-            timeToLiveSeconds="50"
-            memoryStoreEvictionPolicy="LRU"
-            statistics="true"/>
 
-    <cache
-            name="by.pvt.medvedeva.education.entity.Student"
-            eternal="true"
-            maxElementsInMemory="2"
-            overflowToDisk="false"
-            diskPersistent="false"
-            timeToIdleSeconds="50"
-            timeToLiveSeconds="50"
-            memoryStoreEvictionPolicy="LRU"
-            statistics="true"/>
 
 </ehcache>
