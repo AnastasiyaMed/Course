@@ -20,9 +20,9 @@
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
-          p:url="jdbc:h2:mem:education;DB_CLOSE_DELAY=-1"
+          p:url="jdbc:h2:mem:education"
           p:driverClassName="org.h2.Driver"
-          p:username="as"
+          p:username="sa"
           p:password=""
           p:initialSize="5"
           p:maxTotal="10"
@@ -56,15 +56,11 @@
         <constructor-arg ref="sessionFactory"/>
     </bean>
 
-    <bean id="studentDAO" class="by.pvt.medvedeva.education.dao.StudentDAOImpl">
-        <constructor-arg ref="sessionFactory"/>
-    </bean>
-
-    <bean id="teacherDAO" class="by.pvt.medvedeva.education.dao.TeacherDAOImpl">
-        <constructor-arg ref="sessionFactory"/>
-    </bean>
-
     <bean id="userDAO" class="by.pvt.medvedeva.education.dao.UserDAOImpl">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+
+    <bean id="roleDAO" class="by.pvt.medvedeva.education.dao.RoleDAOImpl">
         <constructor-arg ref="sessionFactory"/>
     </bean>
 
