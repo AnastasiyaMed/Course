@@ -26,9 +26,11 @@
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <li><a href="${pageContext.request.contextPath}/admin"><spring:message code="navbar.area.admin"/></a></li>
+                        <li><a href="${pageContext.request.contextPath}/admin/addCourse" ><spring:message code="navbar.add.course"/></a></li>
+
                     </sec:authorize>
                 </ul>
-                <!--@elvariable id="authorisedUser" type="com.criticalgnome.blog.entities.User"-->
+
                 <sec:authorize access="isAnonymous()">
                     <form action="${pageContext.request.contextPath}/login" class="navbar-form navbar-right">
                         <button type="submit" class="btn btn-default"><spring:message code="navbar.signin"/></button>

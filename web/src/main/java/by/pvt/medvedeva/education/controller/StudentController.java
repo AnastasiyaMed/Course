@@ -69,10 +69,10 @@ public class StudentController {
             Course course = courseService.getById(id);
             SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userService.getById(securedUser.getId());
-            List<Course> courses = user.getCourses();
+
             List<Course> newList = new ArrayList<>();
             for (Course c : user.getCourses()) {
-                if (c.getId() != course.getId()){
+                if (!(c.getId().equals(course.getId()))){
                     newList.add(c);
                 }
             }

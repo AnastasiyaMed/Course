@@ -36,16 +36,22 @@
         <put-attribute name="body" value="/WEB-INF/views/student.jspx"/>
     </definition>
 
-    <!--User page-->
+    <!--Teacher page-->
     <definition name="teacher" extends="default">
         <put-attribute name="title" value="Teacher page"/>
         <put-attribute name="body" value="/WEB-INF/views/teacher.jspx"/>
     </definition>
 
-    <!--User page-->
+    <!--Admin page-->
     <definition name="admin" extends="default">
         <put-attribute name="title" value="Admin page"/>
         <put-attribute name="body" value="/WEB-INF/views/admin.jspx"/>
+    </definition>
+
+    <!--Course page-->
+    <definition name="course" extends="default">
+        <put-attribute name="title" value="Course page"/>
+        <put-attribute name="body" value="/WEB-INF/views/course.jspx"/>
     </definition>
 
     <!--Errors page-->
