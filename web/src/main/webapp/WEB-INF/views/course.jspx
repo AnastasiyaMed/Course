@@ -20,7 +20,7 @@
     <div class="row">
         <div class="container">
             <div class="col-md-6 col-md-offset-3">
-                <form:form action="${pageContext.request.contextPath}/addCourse" modelAttribute="course" method="post" class="form-horizontal">
+                <form:form action="${pageContext.request.contextPath}/admin/addCourse" modelAttribute="course" method="post" class="form-horizontal">
                     <form:input path="id" id="id" name="id" type="hidden"/>
                     <div class="form-group ${nameClass}">
                         <form:label for="name" path="name" class="col-sm-3 control-label"><spring:message code="addCourse.form.label.name"/></form:label>

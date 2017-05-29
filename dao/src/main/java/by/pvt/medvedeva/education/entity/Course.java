@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -34,15 +35,17 @@ public class Course extends Pojo {
     @Column (name = "name")
      private String name;
 
-    @NotBlank(message = "{course.duration.notblank}")
-    @Size(min = 1, max = 6, message = "{course.duration.size}")
-    @Pattern(regexp = "^[0-9]+$", message = "{course.duration.pattern}")
+  //  @NotBlank(message = "{course.duration.notblank}")
+  //  @Size(min = 1, max = 6, message = "{course.duration.size}")
+   // @Pattern(regexp = "^[0-9]+$", message = "{course.duration.pattern}")
+    @Digits(integer = 10, fraction = 0)
     @Column (name = "duration")
     private Integer duration;
 
-    @NotBlank(message = "{course.auditorium.notblank}")
-    @Size(min = 1, max = 6, message = "{course.auditorium.size}")
-    @Pattern(regexp = "^[0-9]+$", message = "{course.auditorium.pattern}")
+  //  @NotBlank(message = "{course.auditorium.notblank}")
+    @Digits(integer = 10, fraction = 0)
+ //   @Size(min = 1, max = 6, message = "{course.auditorium.size}")
+  //  @Pattern(regexp = "^[0-9]+$", message = "{course.auditorium.pattern}")
     @Column (name = "auditorium")
     private Integer auditorium;
 
