@@ -8,10 +8,10 @@
 
             <table class="table table-hover table-condenced">
                 <tr>
-                    <th><spring:message key="student.table.header.course.name" /></th>
-                    <th><spring:message key="student.table.header.auditorium" /></th>
-                    <th><spring:message key="student.table.header.duration" /></th>
-                    <th colspan="2"><spring:message key="student.table.header.teacher.name" /></th>
+                    <th><spring:message key="table.header.course.name" /></th>
+                    <th><spring:message key="table.header.auditorium" /></th>
+                    <th><spring:message key="table.header.duration" /></th>
+                    <th colspan="2"><spring:message key="table.header.teacher.name" /></th>
                 </tr>
                 <c:if test="${not empty courses}">
                 <c:forEach var="course" items="${courses}">
