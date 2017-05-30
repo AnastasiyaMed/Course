@@ -1,79 +1,50 @@
 package by.pvt.medvedeva.education.dao;
 
+import by.pvt.medvedeva.education.dao.interfacesDAO.CourseDAO;
 import by.pvt.medvedeva.education.entity.Course;
-import by.pvt.medvedeva.education.entity.Teacher;
-import by.pvt.medvedeva.education.utils.H2ConnectionPool;
-import by.pvt.medvedeva.education.utils.HibernateUtil;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
-import java.util.List;
-
-/**
- * @author Medvedeva Anastasiya
- */
+@ContextConfiguration("/context-dao-test.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@Transactional(transactionManager = "transactionManager")
 public class CourseDAOImplTest {
-    private HibernateUtil util = HibernateUtil.getHibernateUtil();
-    private Session session;
-    private Transaction transaction;
-    CourseDAOImpl dao = new CourseDAOImpl(H2ConnectionPool.getInstance());
+    @Autowired
+    private CourseDAO courseDAO;
 
-    /**
-     * @throws SQLException
-     */
-    public CourseDAOImplTest() throws SQLException {
-    }
-
-    /**
-     * @throws Exception
-     */
     @Test
-    public void getAllTest() throws Exception {
-        List <Course> courses;
-        Course course = new Course();
-        Teacher teacher = new Teacher(null, "ff", "ff", "ff", "ff", 2);
-        course.setAuditorium(5);
-        course.setDuration(214);
-        course.setTeacher(teacher);
-        course.setName("ss");
-        session = util.getSession();
-        transaction = session.beginTransaction();
-        session.saveOrUpdate(teacher);
-        session.saveOrUpdate(course);
-        courses = dao.getAll();
-        transaction.commit();
-        Assert.assertEquals("don't equals", 1, courses.size());
-    }
+    public void getCourseByPage() throws Exception {
+        Course c1 = new Course(null, "asd", 12, 23, null);
+        Course c2 = new Course(null, "fde", 13, 43, null);
+        Course c3 = new Course(null, "dwc", 14, 13, null);
+        Course c4 = new Course(null, "fwa", 15, 33, null);
+        courseDAO.create(c1);
+        courseDAO.create(c2);
+        courseDAO.create(c3);
+        courseDAO.create(c4);
 
-    /**
-     * @throws Exception
-     */
+            int expected = 3;
+            int actual = courseDAO.getCourseByPage(0, 3).size();
+            Assert.assertTrue("Not equals", actual <= expected);
+        }
+
+
+
     @Test
-    public void createTest() throws Exception {
-        List <Course> courses;
-        session = util.getSession();
-        transaction = session.beginTransaction();
-        Teacher teacher = new Teacher(null, "ff", "ff", "winer", "ff", 2);
-        session.saveOrUpdate(teacher);
-        teacher = (Teacher) session.createCriteria(Teacher.class)
-                .add(Restrictions.like("login", "winer"))
-                .uniqueResult();
-        Course course = new Course();
-        course.setTeacher(teacher);
-        course.setAuditorium(234);
-        course.setDuration(35);
-        course.setName("dd");
-        dao.create(course);
-        Criteria criteria = session.createCriteria(Course.class);
-        courses = criteria.list();
-        transaction.commit();
-        Assert.assertNotEquals("don't equals", 0, courses.size());
+    public void getCoursesCount() throws Exception {
+        Course c1 = new Course(null, "egs", 41, 13, null);
+        Course c2 = new Course(null, "jht5", 25, 451, null);
+        Course c3 = new Course(null, "hw", 14, 63, null);
+        courseDAO.create(c1);
+        courseDAO.create(c2);
+        courseDAO.create(c3);
+        int actual = courseDAO.getCoursesCount();
+        Assert.assertEquals("Not equal", 3, actual);
     }
-
 
 }

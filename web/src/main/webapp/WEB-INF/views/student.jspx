@@ -1,0 +1,60 @@
+<jsp:root version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:spring="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <div class="container">
+        <div class="col-md-12">
+
+            <table class="table table-hover table-condenced">
+                <tr>
+                    <th><spring:message key="table.header.course.name" /></th>
+                    <th><spring:message key="table.header.auditorium" /></th>
+                    <th><spring:message key="table.header.duration" /></th>
+                    <th colspan="2"><spring:message key="table.header.teacher.name" /></th>
+                </tr>
+                <c:if test="${not empty courses}">
+                <c:forEach var="course" items="${courses}">
+                    <tr>
+                        <td>${course.name}</td>
+                        <td>${course.auditorium}</td>
+                        <td>${course.duration}</td>
+                        <td>${course.user.firstName} ${course.user.lastName}</td>
+                        <td>
+                            <c:set var="flag" value="false"/>
+                            <c:forEach var="userCourse" items="${userCourses}">
+                                <c:if test="${course.id == userCourse.id}">
+                                    <c:set var="flag" value="true"/>
+                                </c:if>
+                            </c:forEach>
+                            <c:if test="${flag == 'true'}">
+                                <a href="${pageContext.request.contextPath}/student/course/remove/${course.id}" style="text-decoration: none"><span class="label label-danger"><spring:message key="student.course.remove" /></span></a>
+                            </c:if>
+                            <c:if test="${flag != 'true'}">
+                                <a href="${pageContext.request.contextPath}/student/course/add/${course.id}" style="text-decoration: none"><span class="label label-success"><spring:message key="student.course.add" /></span></a>
+                            </c:if>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </c:if>
+            </table>
+        </div>
+
+
+    <!--Pagination section-->
+    <div class="row">
+        <nav aria-label="...">
+            <ul class="pager">
+                <c:if test="${not empty pageNumber and pageNumber ne 1}">
+                    <li class="previous"><a href="${pageContext.request.contextPath}/student/page/${pageNumber - 1}"><span aria-hidden="true">&amp;larr;</span>&amp;nbsp;<spring:message key="main.pagination.newer"/></a></li>
+                </c:if>
+                <c:if test="${pageNumber * pageCapacity lt courseCount}">
+                    <li class="next"><a href="${pageContext.request.contextPath}/student/page/${pageNumber + 1}"><spring:message key="main.pagination.older"/>&amp;nbsp;<span aria-hidden="true">&amp;rarr;</span></a></li>
+                </c:if>
+            </ul>
+        </nav>
+    </div>
+    </div>
+
+</jsp:root>

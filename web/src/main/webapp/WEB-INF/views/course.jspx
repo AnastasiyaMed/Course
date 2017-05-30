@@ -1,0 +1,76 @@
+<jsp:root version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <c:if test="${not empty error}">
+        <div class="container">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="alert alert-dismissible alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&amp;times;</span>
+                    </button>
+                    <spring:message code="alert.newCourse.courseExist"/>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
+    <div class="row">
+        <div class="container">
+            <div class="col-md-6 col-md-offset-3">
+                <form:form action="${pageContext.request.contextPath}/admin/addCourse" modelAttribute="course" method="post" class="form-horizontal">
+                    <form:input path="id" id="id" name="id" type="hidden"/>
+                    <div class="form-group ${nameClass}">
+                        <form:label for="name" path="name" class="col-sm-3 control-label"><spring:message code="addCourse.form.label.name"/></form:label>
+                        <div class="col-sm-9">
+                            <form:input type="text" id="name" path="name" class="form-control"/>
+                            <span class="help-block"><form:errors path="name"/></span>
+                        </div>
+                    </div>
+                    <div class="form-group ${durationClass}">
+                        <form:label for="duration" path="duration" class="col-sm-3 control-label"><spring:message code="addCourse.form.label.duration"/></form:label>
+                        <div class="col-sm-9">
+                            <form:input type="duration" id="duration" path="duration" class="form-control"/>
+                            <span class="help-block"><form:errors path="duration"/></span>
+                        </div>
+                    </div>
+                    <div class="form-group ${auditoriumClass}">
+                        <form:label for="auditorium" path="auditorium" class="col-sm-3 control-label"><spring:message code="addCourse.form.label.auditorium"/></form:label>
+                        <div class="col-sm-9">
+                            <form:input type="text" id="auditorium" path="auditorium" class="form-control"/>
+                            <span class="help-block"><form:errors path="auditorium"/></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <!--@elvariable id="user_id" type="by.pvt.medvedeva.education.entity.User"-->
+                        <label for="user_id" class="col-sm-3 control-label"><spring:message code="addCourse.form.label.teacher"/></label>
+                        <div class="col-sm-9">
+                            <select id="user_id" name="user_id" class="form-control">
+                                <!--@elvariable id="user" type="by.pvt.medvedeva.education.entity.User"-->
+                                <c:forEach var="teacher" items="${teachers}">
+
+                                        <c:if test="${course.user.id == teacher.id}">
+                                            <option value="${teacher.id}" selected="selected">${teacher.firstName} ${teacher.lastName} </option>
+                                        </c:if>
+                                        <c:if test="${course.user.id != teacher.id}">
+                                            <option value="${teacher.id}">${teacher.firstName} ${teacher.lastName}</option>
+                                        </c:if>
+
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-primary"><spring:message code="addCourse.form.button.Add"/></button>
+                        </div>
+                    </div>
+                </form:form>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>

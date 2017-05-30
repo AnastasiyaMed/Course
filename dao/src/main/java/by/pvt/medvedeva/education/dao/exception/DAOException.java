@@ -5,7 +5,7 @@ import org.apache.log4j.Level;
 
 /**
  *
- * @Author Anastasiya Medvedeva
+ * @author Anastasiya Medvedeva
  *
  * In this class described custom Exception, that give information about some trouble with acces to database to next level
  *

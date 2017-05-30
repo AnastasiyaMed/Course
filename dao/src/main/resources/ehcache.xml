@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <defaultCache
+            eternal="false"
+            maxElementsInMemory="100"
+            overflowToDisk="false"
+            diskPersistent="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="300"
+            memoryStoreEvictionPolicy="LRU"
+            statistics="true"/>
+
+    <cache
+            name="by.pvt.medvedeva.education.entity.Course"
+            eternal="true"
+            maxElementsInMemory="10"
+            overflowToDisk="false"
+            diskPersistent="false"
+            timeToIdleSeconds="50"
+            timeToLiveSeconds="50"
+            memoryStoreEvictionPolicy="LRU"
+            statistics="true"/>
+
+    <cache
+            name="by.pvt.medvedeva.education.entity.User"
+            eternal="true"
+            maxElementsInMemory="10"
+            overflowToDisk="false"
+            diskPersistent="false"
+            timeToIdleSeconds="50"
+            timeToLiveSeconds="50"
+            memoryStoreEvictionPolicy="LRU"
+            statistics="true"/>
+
+    <cache
+            name="by.pvt.medvedeva.education.entity.Role"
+            eternal="true"
+            maxElementsInMemory="4"
+            overflowToDisk="false"
+            diskPersistent="false"
+            timeToIdleSeconds="50"
+            timeToLiveSeconds="50"
+            memoryStoreEvictionPolicy="LRU"
+            statistics="true"/>
+
+
+
+</ehcache>
