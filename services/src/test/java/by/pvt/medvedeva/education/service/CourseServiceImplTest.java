@@ -26,8 +26,8 @@ public class CourseServiceImplTest {
         courseService.create(c3);
         courseService.create(c4);
 
-        int expected = 3;
-        int actual = courseService.getCoursesByPage(0, 3).size();
+        int expected = 1;
+        int actual = courseService.getCoursesByPage(2, 1).size();
         Assert.assertTrue("Not equals", actual <= expected);
     }
 

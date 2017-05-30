@@ -23,7 +23,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/student")
 public class StudentController {
-
+private final static int DEFAULT_PAGE = 1;
+    private final static int COUNT_PAGE = 1;
     private final CourseService courseService;
     private final UserService userService;
 
@@ -33,15 +34,26 @@ public class StudentController {
         this.userService = userService;
     }
 
-    @GetMapping("")
-    public ModelAndView showStudentPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            modelAndView.setViewName("student");
-            List<Course> courses = courseService.getAll();
+    @GetMapping(value = {"", "page/{page}"})
+    public ModelAndView showStudentPage(ModelAndView modelAndView, /*HttpSession session, */ @PathVariable(required = false)  Integer page) {
+          try {
+            int pageNumber;
+            if (page != null) {
+                pageNumber = page;
+            } else {
+                pageNumber = DEFAULT_PAGE;
+            }
+            int pageCapacity = COUNT_PAGE;
+            List<Course> courses = courseService.getCoursesByPage(pageNumber, pageCapacity);
+            int courseCount = courseService.getCoursesCount();
+                    modelAndView.setViewName("student");
             modelAndView.addObject("courses", courses);
+            modelAndView.addObject("pageNumber", pageNumber);
+            modelAndView.addObject("pageCapacity", pageCapacity);
+            modelAndView.addObject("courseCount", courseCount);
             SecuredUser securedUser = (SecuredUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             List<Course> userCourses = userService.getById(securedUser.getId()).getCourses();
+
             modelAndView.addObject("userCourses", userCourses);
         } catch (DAOException e) {
             return new ModelAndView("error", "message", e.getMessage());
@@ -72,7 +84,7 @@ public class StudentController {
 
             List<Course> newList = new ArrayList<>();
             for (Course c : user.getCourses()) {
-                if (!(c.getId().equals(course.getId()))){
+                if (!(c.getId().equals(course.getId()))) {
                     newList.add(c);
                 }
             }
