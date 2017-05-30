@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
 private final static int DEFAULT_PAGE = 1;
-    private final static int COUNT_PAGE = 1;
+    private final static int COUNT_PAGE = 2;
     private final CourseService courseService;
     private final UserService userService;
 

@@ -1,18 +1,18 @@
 <jsp:root version="2.0"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:jsp="http://java.sun.com/JSP/Page"
->
+          xmlns:spring="http://java.sun.com/jsp/jstl/fmt" >
+
+
 
     <div class="container">
         <div class="col-md-12">
 
-            <h1>About page</h1>
+                     <p><spring:message key="about"/></p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur commodi corporis, culpa cumque esse
-                excepturi explicabo facilis fugiat illum laboriosam modi mollitia natus nisi quas rerum totam unde velit
-                veniam.</p>
 
         </div>
     </div>
+
 
 </jsp:root>
